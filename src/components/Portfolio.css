@@ -5,8 +5,26 @@
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 clamp(14px, 4vw, 40px);
+  transition: opacity var(--transition-theme);
 }
 
+/* "Gears only": the content goes invisible and untouchable but keeps its layout
+   box, so the document stays as tall as it was and scroll still turns the field. */
+.page--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Every section uses the same vertical rhythm; the first and last add their own
+   lead-in and tail on top of it. */
 .section {
-  padding: 20px 0;
+  padding: var(--space-5) 0;
+}
+
+.section--first {
+  padding-top: clamp(var(--space-7), 6vw, 72px);
+}
+
+.section--last {
+  padding-bottom: 96px;
 }

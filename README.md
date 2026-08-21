@@ -21,7 +21,8 @@ npm run format     # prettier
 | Add or change a job                   | `src/data/roles.ts`                                                                        |
 | Add a project card                    | `src/data/projects.ts`                                                                     |
 | Change name, copy, links, résumé path | `src/data/site.ts`                                                                         |
-| Change a color, radius, or font       | `src/styles/tokens.css`                                                                    |
+| Change a color, size, space, or font  | `src/styles/tokens.css`                                                                    |
+| Change how a button or card looks     | `src/styles/recipes.css`                                                                   |
 | Swap the résumé or a photo            | drop the file in `public/`                                                                 |
 | Add a theme                           | a block in `tokens.css` + an entry in `src/data/themes.ts` and `src/backdrops/registry.ts` |
 
@@ -32,12 +33,28 @@ the timeline's first track, and the track labels derive their year ranges from t
 
 - `src/pages/index.astro` — document head, metadata, and a small inline script that
   applies the stored theme before first paint so there's no flash of the default palette.
-- `src/components/Portfolio.tsx` — the island root: theme state, and the section list.
+- `src/components/Portfolio.tsx` — the island root: theme state, the "gears only" flag, and
+  the section list. "Gears only" empties the page down to the backdrop; it fades `.page` out
+  and marks it `inert` rather than unmounting it, because the gears turn off scroll position
+  and the document has to keep its height or the field would freeze.
 - `src/components/SkillHighlight.tsx` — the page-wide set of highlighted skills, so
   clicking "Kotlin" in the hero also lights it up on the Canopy role. Names are matched
   after stripping trailing version numbers, which is how "Java 25" matches "Java".
-- Styling is plain CSS with custom properties. Every theme is one `[data-theme]` block in
-  `src/styles/tokens.css`; nothing else hardcodes a color.
+- Styling is plain CSS with custom properties, in two layers. `src/styles/tokens.css` holds
+  the palette plus the type, space, radius, and motion scales — nothing else hardcodes a
+  color, size, or duration, and every theme is one `[data-theme]` block. `src/styles/recipes.css`
+  holds the shared vocabulary built on those tokens; a new section should be buildable out
+  of it without inventing a variant:
+
+  | Family   | Classes                                                                            |
+  | -------- | ---------------------------------------------------------------------------------- |
+  | Surfaces | `.card`, `.card--wide`, `.panel`                                                   |
+  | Buttons  | `.btn` + `--primary` / `--secondary` / `--mono`, `.btn-ghost`, `.chip` + `--small` |
+  | Text     | `.section-label`, `.label` + `--accent`, `.meta` + `--strong`                      |
+
+  Section headings use `--font-display`, so a theme that swaps the display face (arcade)
+  reaches them; every smaller label uses `--font-mono`. Interactive chrome hovers to
+  `--accent`; only links inside body copy warm to `--accent-2`.
 
 ### Backdrops
 

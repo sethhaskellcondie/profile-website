@@ -12,7 +12,13 @@ import './Backdrop.css';
  * so only the one in use is downloaded — and none of them are server-rendered,
  * since the layer is purely decorative.
  */
-export function Backdrop({ theme }: { theme: ThemeId }) {
+interface Props {
+  theme: ThemeId;
+  /** "Gears only" is on: the field is the page, so it comes up to full strength. */
+  revealed?: boolean;
+}
+
+export function Backdrop({ theme, revealed = false }: Props) {
   const [mounted, setMounted] = useState(false);
   const narrow = useNarrow();
   const reducedMotion = usePrefersReducedMotion();
@@ -23,7 +29,11 @@ export function Backdrop({ theme }: { theme: ThemeId }) {
   const Component = backdrops[theme];
 
   return (
-    <div className="backdrop" aria-hidden="true" style={{ opacity: backdropConfig.opacity }}>
+    <div
+      className="backdrop"
+      aria-hidden="true"
+      style={{ opacity: revealed ? backdropConfig.revealedOpacity : backdropConfig.opacity }}
+    >
       {mounted && (
         <Suspense fallback={null}>
           <Component

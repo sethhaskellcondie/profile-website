@@ -16,16 +16,23 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   transition:
-    background 260ms ease,
-    color 260ms ease;
+    background var(--transition-theme),
+    color var(--transition-theme);
 }
 
 a {
   color: var(--accent);
   text-decoration: none;
+  transition: color var(--transition);
 }
 
-a:hover {
+/* Only links inside body copy warm to --accent-2 on hover. Interactive chrome —
+   nav, buttons, chips, cards — hovers to --accent through its own recipe, so
+   there is no global a:hover for those to fight. */
+.about__lead a:hover,
+.about__secondary a:hover,
+.timeline__blurb a:hover,
+.project__blurb a:hover {
   color: var(--accent-2);
 }
 

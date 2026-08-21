@@ -1,5 +1,11 @@
 /* Shared recipes used by more than one section. Single-use styles live next to
-   their component instead. */
+   their component instead.
+
+   The families here are the whole vocabulary: surfaces (.card, .panel), buttons
+   (.btn, .btn-ghost, .chip), and small text (.section-label, .label, .meta).
+   A new section should be buildable out of these without inventing a variant. */
+
+/* ---- Surfaces ---------------------------------------------------------- */
 
 .card {
   padding: clamp(22px, 3.4vw, 46px);
@@ -11,70 +17,151 @@
 
 /* Sections whose content runs edge to edge get slightly tighter side padding. */
 .card--wide {
-  padding: clamp(22px, 3.4vw, 46px) clamp(18px, 3.4vw, 46px) 26px;
+  padding: clamp(22px, 3.4vw, 46px) clamp(18px, 3.4vw, 46px) var(--space-6);
 }
 
+/* An inset surface sitting inside a .card — project tiles, the theme picker. */
+.panel {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* ---- Small text -------------------------------------------------------- */
+
+/* Section heading. Display face, so the arcade theme's pixel font reaches the
+   headings; every other micro-label is mono (.label / .meta). */
 .section-label {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
   letter-spacing: var(--display-spacing);
-  font-size: 13px;
+  font-size: var(--fs-xs);
   text-transform: uppercase;
   color: var(--muted);
 }
 
-.btn-primary,
-.btn-secondary {
-  font-size: 14px;
-  padding: 14px 22px;
+/* Uppercase mono micro-label: track labels, date rails, field labels. */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.label--accent {
+  color: var(--accent);
+}
+
+/* Mono detail text that reads as data rather than as a label — periods,
+   locations, contact lines, footnotes. Sentence case, untracked. */
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+
+.meta--strong {
+  color: var(--text);
+}
+
+/* ---- Buttons ----------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  padding: 14px var(--space-6);
+  border: 1px solid transparent;
   border-radius: var(--radius);
   cursor: pointer;
-  display: inline-block;
+  transition:
+    background var(--transition),
+    color var(--transition),
+    border-color var(--transition);
 }
 
-.btn-primary {
+.btn--primary {
   background: var(--accent);
+  border-color: var(--accent);
   color: var(--on-accent);
   font-weight: 600;
-  border: 1px solid var(--accent);
 }
 
-.btn-primary:hover {
+.btn--secondary {
+  background: var(--surface-2);
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.btn--secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Typography modifier: a secondary button that reads as a control rather than a
+   call to action (the timeline's More / Back toggle). */
+.btn--mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+}
+
+/* Borderless mono control — "Clear highlights", the theme picker's segments. */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+.btn-ghost:hover {
+  color: var(--accent);
+}
+
+.btn-ghost.is-active {
+  background: var(--accent);
   color: var(--on-accent);
 }
 
-.btn-secondary {
-  border: 1px solid var(--line);
-  background: var(--surface-2);
-  color: var(--text);
-}
-
-.btn-secondary:hover {
-  color: var(--text);
-  border-color: var(--accent);
+.btn-ghost.is-active:hover {
+  color: var(--on-accent);
 }
 
 /* Skill chip. Active state is driven by the page-wide highlight set, so the same
    skill lights up in the hero, the timeline, and the project tags at once. */
 .chip {
   font-family: var(--font-mono);
-  font-size: 12px;
-  padding: 6px 11px;
-  border-radius: 4px;
+  font-size: var(--fs-xs);
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   background: var(--surface-2);
   border: 1px solid var(--line);
   color: var(--text);
   transition:
-    background 160ms ease,
-    color 160ms ease,
-    border-color 160ms ease;
+    background var(--transition),
+    color var(--transition),
+    border-color var(--transition);
 }
 
 .chip--small {
-  font-size: 11px;
-  padding: 5px 9px;
+  font-size: var(--fs-2xs);
+  padding: var(--space-1) var(--space-2);
   background: var(--surface);
   color: var(--muted);
 }
@@ -89,29 +176,22 @@
   color: var(--on-accent);
 }
 
-.text-button {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: transparent;
-  border: 0;
-  padding: 12px 0;
-  cursor: pointer;
-  align-self: flex-start;
-}
-
-.text-button:hover {
-  color: var(--accent);
-}
-
-/* Touch targets on phones. */
+/* Touch targets on phones. Every tappable control clears --tap, not just chips. */
 @media (max-width: 760px) {
   .chip,
   .chip--small {
     font-size: 13px;
-    padding: 12px 14px;
-    min-height: 44px;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .chip,
+  .chip--small,
+  .btn,
+  .btn-ghost {
+    min-height: var(--tap);
+  }
+
+  .btn-ghost {
+    padding: var(--space-3) var(--space-4);
   }
 }

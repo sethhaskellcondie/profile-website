@@ -3,24 +3,25 @@ import './Contact.css';
 
 export function Contact() {
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="section section--last">
       <div className="card contact">
         <div className="contact__body">
-          <h2 className="contact__heading">{site.contact.heading}</h2>
+          <h2 className="section-label">Contact</h2>
+          <p className="contact__lead">{site.contact.heading}</p>
           <p className="contact__sub">{site.contact.sub}</p>
-          <div className="contact__details">
+          <div className="meta contact__details">
             {site.email} · {site.phone}
           </div>
         </div>
 
         <div className="contact__actions">
-          <a className="btn-primary" href={`mailto:${site.email}`}>
+          <a className="btn btn--primary" href={`mailto:${site.email}`}>
             Email me
           </a>
-          <a className="btn-secondary" href={site.github} target="_blank" rel="noopener">
+          <a className="btn btn--secondary" href={site.github} target="_blank" rel="noopener">
             GitHub
           </a>
-          <a className="btn-secondary" href={site.linkedin} target="_blank" rel="noopener">
+          <a className="btn btn--secondary" href={site.linkedin} target="_blank" rel="noopener">
             LinkedIn
           </a>
         </div>

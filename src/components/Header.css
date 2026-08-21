@@ -7,34 +7,28 @@
   justify-content: space-between;
   /* Never wraps: if the identity would sit above the nav, the links go instead. */
   flex-wrap: nowrap;
-  gap: 12px 24px;
-  padding: 12px clamp(16px, 4vw, 40px);
+  gap: var(--space-3) var(--space-6);
+  padding: var(--space-3) clamp(16px, 4vw, 40px);
   background: var(--bg);
   border-bottom: 1px solid var(--line);
-  transition: background 260ms ease;
+  transition:
+    background var(--transition-theme),
+    border-color var(--transition-theme);
 }
 
 .header__identity {
   display: flex;
   align-items: baseline;
-  gap: 14px;
+  gap: var(--space-4);
 }
 
 .header__name {
   font-family: var(--font-display);
   font-weight: var(--display-weight);
-  font-size: 25px;
+  font-size: var(--fs-xl);
   letter-spacing: var(--display-spacing);
   /* The header never wraps, so the name must not break across lines either. */
   white-space: nowrap;
-}
-
-.header__title {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
 .header__nav {
@@ -42,57 +36,93 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 10px 20px;
+  gap: var(--space-2) var(--space-5);
 }
 
 .header__links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .header__link {
-  font-size: 14px;
+  font-size: var(--fs-sm);
   color: var(--muted);
-  padding: 13px 0;
+  padding: var(--space-3) 0;
 }
 
 .header__link:hover {
   color: var(--accent);
 }
 
-.theme-picker {
-  display: flex;
-  gap: 4px;
-  padding: 4px;
+/* Checkbox that empties the page down to the backdrop. Inherits .label for type. */
+.gears-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.gears-toggle:hover {
+  color: var(--accent);
+}
+
+.gears-toggle__input {
+  appearance: none;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  margin: 0;
   background: var(--surface-2);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-.theme-picker__button {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 8px 14px;
-  border-radius: calc(var(--radius) - 3px);
-  border: 0;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  background: transparent;
-  color: var(--muted);
   transition:
-    background 180ms ease,
-    color 180ms ease;
+    background var(--transition),
+    border-color var(--transition);
 }
 
-.theme-picker__button:hover {
-  opacity: 0.75;
+.gears-toggle:hover .gears-toggle__input {
+  border-color: var(--accent);
 }
 
-.theme-picker__button.is-active {
+.gears-toggle__input::after {
+  content: '';
+  width: 3px;
+  height: 7px;
+  /* Optical centring: a check reads low when its box is centred geometrically. */
+  margin-top: -2px;
+  border: solid var(--on-accent);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.gears-toggle__input:checked {
   background: var(--accent);
-  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+.gears-toggle__input:checked::after {
+  opacity: 1;
+}
+
+/* With the page gone, the header stops being a lid on the gear field. */
+.header--bare {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+.theme-picker {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
 }
 
 /* Below 1000px the links are the first thing to go, so the identity keeps its line. */
@@ -107,21 +137,29 @@
     display: none;
   }
 
-  .theme-picker__button {
-    padding: 14px 16px;
-    min-height: 44px;
+  .gears-toggle {
+    min-height: var(--tap);
+  }
+
+  .gears-toggle__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 
 /* On phones the name and the three-button picker are fighting for one line.
-   Tighten both rather than let either wrap; the 44px touch target survives. */
+   Tighten both rather than let either wrap; the --tap target survives. */
 @media (max-width: 480px) {
   .header__name {
-    font-size: 21px;
+    font-size: var(--fs-lg);
   }
 
-  .theme-picker__button {
-    padding: 14px 10px;
+  .theme-picker .btn-ghost {
+    padding: var(--space-3) var(--space-2);
     letter-spacing: 0.06em;
   }
 }

@@ -18,6 +18,9 @@ import { SkillHighlightProvider } from './SkillHighlight';
  */
 export default function Portfolio() {
   const [theme, setTheme] = useState<ThemeId>(DEFAULT_THEME);
+  // Deliberately not persisted: this is a peek at the backdrop, and a returning
+  // visitor should land on the page, not on an empty gear field.
+  const [gearsOnly, setGearsOnly] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
 
   // The inline script in index.astro has already put the stored theme on <html> to
@@ -39,9 +42,11 @@ export default function Portfolio() {
 
   return (
     <SkillHighlightProvider>
-      <Backdrop theme={theme} />
-      <Header theme={theme} onPick={pick} />
-      <main className="page">
+      <Backdrop theme={theme} revealed={gearsOnly} />
+      <Header theme={theme} onPick={pick} gearsOnly={gearsOnly} onToggleGearsOnly={setGearsOnly} />
+      {/* Hidden, not unmounted: the gears spin off scroll position, so the page
+          has to keep its height or the field would freeze with nothing to scroll. */}
+      <main className={`page${gearsOnly ? ' page--hidden' : ''}`} inert={gearsOnly}>
         <Hero theme={theme} reducedMotion={reducedMotion} />
         <About />
         <Experience reducedMotion={reducedMotion} />

@@ -9,7 +9,7 @@ export function About() {
         <div className="about__body">
           <p className="about__lead">{site.about.lead}</p>
           <p className="about__secondary">{site.about.secondary}</p>
-          <div className="about__footnote">{site.about.footnote}</div>
+          <div className="meta about__footnote">{site.about.footnote}</div>
         </div>
       </div>
     </section>

@@ -14,10 +14,10 @@ export function Hero({ theme, reducedMotion }: Props) {
   const { hasActive, clear } = useSkillHighlight();
 
   return (
-    <section className="hero">
+    <section className="section section--first">
       <div className="card hero__card">
         <div className="hero__body">
-          <div className="hero__eyebrow">{site.eyebrow}</div>
+          <div className="section-label">{site.eyebrow}</div>
 
           <h1 className="hero__headline">
             <RotatingWord words={site.heroWords} paused={reducedMotion} />
@@ -26,7 +26,7 @@ export function Hero({ theme, reducedMotion }: Props) {
           <div className="hero__skills">
             {skillGroups.map((group) => (
               <div key={group.label} className="hero__skill-row">
-                <div className="hero__skill-label">{group.label}</div>
+                <div className="label hero__skill-label">{group.label}</div>
                 <div className="hero__skill-chips">
                   {group.items.map((skill) => (
                     <SkillChip key={skill} name={skill} />
@@ -35,17 +35,17 @@ export function Hero({ theme, reducedMotion }: Props) {
               </div>
             ))}
             {hasActive && (
-              <button type="button" className="text-button" onClick={clear}>
+              <button type="button" className="btn-ghost" onClick={clear}>
                 Clear highlights
               </button>
             )}
           </div>
 
           <div className="hero__cta">
-            <a className="btn-primary" href={site.resume} target="_blank" rel="noopener">
+            <a className="btn btn--primary" href={site.resume} target="_blank" rel="noopener">
               Download résumé
             </a>
-            <a className="btn-secondary" href="#projects">
+            <a className="btn btn--secondary" href="#projects">
               See my projects
             </a>
           </div>

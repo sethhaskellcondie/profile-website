@@ -41,7 +41,7 @@ export default function GearField({ onFrame, density, paused }: BackdropProps) {
       style={{ display: 'block' }}
     >
       {visible.map((gear, i) => {
-        const stroke = i % ACCENT_EVERY === 0 ? 'var(--gear-accent)' : 'var(--gear-stroke)';
+        const stroke = i % ACCENT_EVERY === 0 ? 'var(--accent)' : 'var(--gear-stroke)';
         return (
           <g key={i} transform={`translate(${gear.cx.toFixed(1)} ${gear.cy.toFixed(1)})`}>
             <g

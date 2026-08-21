@@ -1,7 +1,11 @@
 /*
  * Design tokens. Every theme is one block of custom properties on [data-theme];
- * nothing else in the codebase should hardcode a color, radius, or font stack.
- * Adding a theme means adding a block here and an entry in src/data/themes.ts.
+ * nothing else in the codebase should hardcode a color, radius, font stack, or
+ * type size. Adding a theme means adding a block here and an entry in
+ * src/data/themes.ts.
+ *
+ * The scales below the palette are theme-independent: a theme may re-tune them
+ * (arcade tightens --radius), but components only ever reference the token.
  */
 
 [data-theme] {
@@ -14,18 +18,54 @@
   --accent: #1e90ff;
   --accent-2: #ffb347;
   --on-accent: #061018;
-  --radius: 10px;
   --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.75);
 
+  /* The backdrop's gears sit behind the page, so they get their own two shades
+     rather than borrowing --surface/--line at page contrast. */
   --gear-fill: #121822;
   --gear-stroke: #2a3140;
-  --gear-accent: #1e90ff;
 
   --font-display: 'Space Grotesk Variable', 'Space Grotesk', sans-serif;
   --font-body: 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
   --display-spacing: -0.02em;
   --display-weight: 700;
+
+  /* Type scale. --fs-hero is the only clamp; everything else is fixed so the
+     rhythm between steps holds at every width. */
+  --fs-hero: clamp(30px, 5.6vw, 52px);
+  --fs-xl: 24px;
+  --fs-lg: 20px;
+  --fs-md: 16px;
+  --fs-base: 15px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+  --fs-2xs: 11px;
+
+  /* Space scale, 4px grid. Section and card padding stay on clamps below. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+
+  --radius: 10px;
+  /* Small controls — chips, ghost buttons — keep a tighter corner than cards. */
+  --radius-sm: 4px;
+
+  /* One tracking value for every uppercase micro-label on the page. */
+  --track: 0.12em;
+
+  --transition: 180ms ease;
+  /* Theme swaps cross the whole page, so they get a longer, calmer curve. */
+  --transition-theme: 260ms ease;
+
+  --leading-body: 1.65;
+  /* Minimum touch target on phones. */
+  --tap: 44px;
 }
 
 [data-theme='light'] {
@@ -42,7 +82,6 @@
 
   --gear-fill: #ffffff;
   --gear-stroke: #d3dae4;
-  --gear-accent: #2f6fed;
 }
 
 [data-theme='arcade'] {
@@ -55,13 +94,13 @@
   --accent: #37e6c0;
   --accent-2: #e0457b;
   --on-accent: #0c1a18;
-  --radius: 4px;
   --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.8);
 
   --gear-fill: #191630;
   --gear-stroke: #322a54;
-  --gear-accent: #37e6c0;
 
   --font-display: 'Pixelify Sans Variable', 'Pixelify Sans', 'Space Grotesk Variable', sans-serif;
   --display-spacing: 0.01em;
+  /* The pixel face wants square corners; chips and cards flatten together. */
+  --radius: 4px;
 }

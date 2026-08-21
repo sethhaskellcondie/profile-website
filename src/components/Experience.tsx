@@ -47,7 +47,7 @@ export function Experience({ reducedMotion }: Props) {
       <div className="card card--wide experience">
         <div className="experience__head">
           <h2 className="section-label">Experience</h2>
-          <div className="experience__track-label">{trackLabel(track)}</div>
+          <div className="label experience__track-label">{trackLabel(track)}</div>
         </div>
 
         <div className="experience__viewport" id="experience-timeline" ref={viewport}>
@@ -60,7 +60,7 @@ export function Experience({ reducedMotion }: Props) {
         <div className="experience__footer">
           <button
             type="button"
-            className="experience__toggle"
+            className="btn btn--secondary btn--mono experience__toggle"
             onClick={toggle}
             aria-expanded={track === 1}
             aria-controls="experience-timeline"
@@ -86,7 +86,7 @@ function TimelineGroup({ label, roles, muted = false, ref }: GroupProps) {
   return (
     <div className={`timeline__group${muted ? ' timeline__group--earlier' : ''}`} ref={ref}>
       <div className="timeline__row timeline__row--head">
-        <div className="timeline__group-label">{label}</div>
+        <div className="label label--accent timeline__group-label">{label}</div>
         <div className="timeline__spine timeline__spine--stub">
           <span className="timeline__stub" />
         </div>
@@ -95,8 +95,8 @@ function TimelineGroup({ label, roles, muted = false, ref }: GroupProps) {
       {roles.map((role) => (
         <div className="timeline__row" key={`${role.company}-${role.period}`}>
           <div className="timeline__date">
-            <div className="timeline__period">{role.period}</div>
-            <div className="timeline__place">{role.place}</div>
+            <div className="meta meta--strong timeline__period">{role.period}</div>
+            <div className="meta timeline__place">{role.place}</div>
           </div>
 
           <div className="timeline__spine">

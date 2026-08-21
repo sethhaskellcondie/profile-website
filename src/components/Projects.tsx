@@ -10,10 +10,10 @@ export function Projects() {
 
         <div className="projects__grid">
           {projects.map((project) => (
-            <article className="project" key={project.name}>
+            <article className="panel project" key={project.name}>
               <div className="project__head">
                 <h3 className="project__name">{project.name}</h3>
-                <div className="project__kind">{project.kind}</div>
+                <div className="meta project__kind">{project.kind}</div>
               </div>
 
               <p className="project__blurb">{project.blurb}</p>
@@ -24,7 +24,7 @@ export function Projects() {
                 ))}
               </div>
 
-              <div className="project__links">
+              <div className="meta project__links">
                 {project.links.map((link) => (
                   <a key={link.href} href={link.href} target="_blank" rel="noopener">
                     {link.label}
