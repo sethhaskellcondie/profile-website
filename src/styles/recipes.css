@@ -154,6 +154,10 @@
 /* Skill chip. Active state is driven by the page-wide highlight set, so the same
    skill lights up in the hero, the timeline, and the project tags at once. */
 .chip {
+  /* How far the lit state throws light. Small chips sit in dense rows, so they
+     get a tighter throw rather than a second box-shadow of their own. */
+  --glow-near: 10px;
+  --glow-far: 26px;
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
   padding: 6px var(--space-3);
@@ -165,10 +169,13 @@
   transition:
     background var(--transition),
     color var(--transition),
-    border-color var(--transition);
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
 .chip--small {
+  --glow-near: 7px;
+  --glow-far: 18px;
   font-size: var(--fs-2xs);
   padding: var(--space-1) var(--space-2);
   background: var(--surface);
@@ -179,10 +186,47 @@
   border-color: var(--accent);
 }
 
+/* Lit. A selected chip stops behaving like a control and behaves like a lamp:
+   the fill washes toward a hot core at the top, the inner edge catches that
+   light, and the halo spills onto the surface behind it. Colour comes from
+   --select so the highlight set never reads as ordinary accent chrome. */
 .chip.is-active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
+  background:
+    radial-gradient(130% 180% at 50% -60%, var(--select-core), transparent 68%), var(--select);
+  border-color: var(--select-core);
+  color: var(--on-select);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    0 0 0 1px var(--select-halo),
+    0 0 var(--glow-near) -1px var(--select-glow),
+    0 0 var(--glow-far) -4px var(--select-halo);
+  animation: chip-ignite 420ms ease-out;
+}
+
+/* Hovering a lit chip pushes the filament, it doesn't repaint it. */
+.chip.is-active:hover {
+  border-color: var(--select-core);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.6),
+    0 0 0 1px var(--select-glow),
+    0 0 calc(var(--glow-near) + 4px) -1px var(--select-glow),
+    0 0 calc(var(--glow-far) + 8px) -4px var(--select-halo);
+}
+
+/* The moment of switching on. Reduced-motion strips this globally. */
+@keyframes chip-ignite {
+  0% {
+    transform: scale(0.94);
+    filter: brightness(1.5);
+  }
+  55% {
+    transform: scale(1.03);
+    filter: brightness(1.12);
+  }
+  100% {
+    transform: none;
+    filter: none;
+  }
 }
 
 /* Touch targets on phones. Every tappable control clears --tap, not just chips. */

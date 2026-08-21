@@ -4,8 +4,6 @@ import { normalizeSkill } from '../lib/skills';
 interface SkillHighlightValue {
   isActive: (name: string) => boolean;
   toggle: (name: string) => void;
-  clear: () => void;
-  hasActive: boolean;
 }
 
 const SkillHighlightContext = createContext<SkillHighlightValue | null>(null);
@@ -25,8 +23,6 @@ export function SkillHighlightProvider({ children }: { children: ReactNode }) {
           const key = normalizeSkill(name);
           return current.includes(key) ? current.filter((k) => k !== key) : [...current, key];
         }),
-      clear: () => setActive([]),
-      hasActive: active.length > 0,
     }),
     [active],
   );

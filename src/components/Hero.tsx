@@ -1,11 +1,11 @@
+import { useState } from 'react';
 import { projects } from '../data/projects';
 import { roles } from '../data/roles';
 import { site } from '../data/site';
 import { photoFor, type ThemeId } from '../data/themes';
-import { topSkillCategories } from '../lib/skills';
+import { skillCategories } from '../lib/skills';
 import { RotatingWord } from './RotatingWord';
 import { SkillChip } from './SkillChip';
-import { useSkillHighlight } from './SkillHighlight';
 import './Hero.css';
 
 interface Props {
@@ -14,11 +14,11 @@ interface Props {
 }
 
 export function Hero({ theme, reducedMotion }: Props) {
-  const { hasActive, clear } = useSkillHighlight();
-  const categories = topSkillCategories([
-    ...roles.map((role) => role.skills),
-    ...projects.map((project) => project.tags),
-  ]);
+  const [showAll, setShowAll] = useState(false);
+  const categories = skillCategories(
+    [...roles.map((role) => role.skills), ...projects.map((project) => project.tags)],
+    showAll,
+  );
 
   return (
     <section className="section section--first">
@@ -31,21 +31,30 @@ export function Hero({ theme, reducedMotion }: Props) {
           </h1>
 
           <div className="hero__skills">
-            {categories.map((category) => (
-              <div key={category.label} className="hero__skill-row">
-                <div className="label hero__skill-label">{category.label}</div>
-                <div className="hero__skill-chips">
-                  {category.items.map((skill) => (
-                    <SkillChip key={skill.text} skill={skill} />
-                  ))}
+            <div id="hero-skills" className="hero__skill-groups">
+              {categories.map((category) => (
+                <div key={category.label} className="hero__skill-row">
+                  <div className="label hero__skill-label">{category.label}</div>
+                  <div className="hero__skill-chips">
+                    {category.items.map((skill) => (
+                      <SkillChip key={skill.text} skill={skill} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-            {hasActive && (
-              <button type="button" className="btn-ghost" onClick={clear}>
-                Clear highlights
-              </button>
-            )}
+              ))}
+            </div>
+            {/* The card leads with the shortlist; this opens it up to everything
+                the roles and projects claim, for the reader who wants the full
+                stack rather than the headline. */}
+            <button
+              type="button"
+              className="btn-ghost hero__skill-toggle"
+              aria-expanded={showAll}
+              aria-controls="hero-skills"
+              onClick={() => setShowAll((current) => !current)}
+            >
+              {showAll ? 'Show top skills' : 'Show all skills'}
+            </button>
           </div>
 
           <div className="hero__cta">

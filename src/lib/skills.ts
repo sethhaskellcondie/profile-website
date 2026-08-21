@@ -35,10 +35,18 @@ export function normalizeSkill(name: string): string {
  * can never drift from the work it came from. A skill claimed by two jobs is
  * deduped by normalized name, keeping the lowest-ordered spelling — which is why
  * "Java" wins over the project's "Java 25".
+ *
+ * `includeAll` is the hero's expanded view: the same grouping and ordering, but
+ * over every skill on the page rather than the `top` shortlist. Nothing else
+ * changes, so a skill sits in the same category and the same position whether
+ * the card is showing the shortlist or the whole set.
  */
-export function topSkillCategories(sources: readonly (readonly Skill[])[]): SkillCategory[] {
+export function skillCategories(
+  sources: readonly (readonly Skill[])[],
+  includeAll = false,
+): SkillCategory[] {
   const unique = new Map<string, Skill>();
-  for (const skill of sources.flat().filter((s) => s.top)) {
+  for (const skill of sources.flat().filter((s) => includeAll || s.top)) {
     const key = normalizeSkill(skill.text);
     const claimed = unique.get(key);
     if (!claimed || skill.order < claimed.order) unique.set(key, skill);

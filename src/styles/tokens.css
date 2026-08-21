@@ -28,6 +28,14 @@
   --accent: #d9a441;
   --accent-2: #6ba4e8;
   --on-accent: #1a1305;
+
+  /* The lit skill chip. The highlight set is the loudest thing on the page, so it
+     gets its own colour instead of borrowing --accent: a selected chip should read
+     as a filament switching on, not as one more accent-filled control. Warm dark
+     runs hotter than its gold accent, so the lit chip is ember rather than metal.
+     A theme only states --select and the ink on it; the halo shades derive. */
+  --select: #ff8a34;
+  --on-select: #2a1000;
   /* Warm-black shadow — a neutral black shadow greys out the warm surfaces it falls on. */
   --card-shadow: 0 26px 64px -30px rgb(12 7 0 / 0.75);
 
@@ -97,6 +105,13 @@
   /* Hover fill for accent-filled controls. Derived, so a new theme only ever
      states --accent. */
   --accent-hover: color-mix(in srgb, var(--accent) 88%, var(--text));
+
+  /* The three shades a lit chip is built from: the bright core the fill washes
+     toward, the near glow hugging the edge, and the wide halo that spills onto
+     the surface behind it. */
+  --select-core: color-mix(in srgb, var(--select) 42%, white);
+  --select-glow: color-mix(in srgb, var(--select) 55%, transparent);
+  --select-halo: color-mix(in srgb, var(--select) 28%, transparent);
 }
 
 [data-theme='light'] {
@@ -109,6 +124,10 @@
   --accent: #2f6fed;
   --accent-2: #c2410c;
   --on-accent: #ffffff;
+  /* Amber on a cool page: the one warm thing in the light theme, and the colour
+     a person reaches for when they highlight a line on paper. */
+  --select: #ffb020;
+  --on-select: #2e1a00;
   --card-shadow: 0 26px 60px -34px rgb(22 32 46 / 0.35);
 
   --gear-stroke: #d3dae4;
@@ -131,6 +150,10 @@
   --accent: #37e6c0;
   --accent-2: #e0457b;
   --on-accent: #0c1a18;
+  /* Neon yellow sits between the mint accent and the pink accent-2 without
+     touching either, and it is the one hue on a CRT that reads as pure light. */
+  --select: #ffe14d;
+  --on-select: #241d00;
   --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.8);
 
   --gear-stroke: #322a54;

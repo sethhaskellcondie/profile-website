@@ -32,7 +32,21 @@
 .hero__skills {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-3);
+}
+
+.hero__skill-groups {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Sits under the chip rows rather than in line with them, so expanding the card
+   never shifts the rows sideways. */
+.hero__skill-toggle {
+  margin-top: var(--space-1);
 }
 
 .hero__skill-row {
