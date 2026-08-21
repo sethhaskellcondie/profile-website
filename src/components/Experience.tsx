@@ -115,7 +115,7 @@ function TimelineGroup({ label, roles, muted = false, ref }: GroupProps) {
             <p className="timeline__blurb">{role.blurb}</p>
             <div className="timeline__chips">
               {role.skills.map((skill) => (
-                <SkillChip key={skill} name={skill} small />
+                <SkillChip key={skill.text} skill={skill} small />
               ))}
             </div>
           </div>

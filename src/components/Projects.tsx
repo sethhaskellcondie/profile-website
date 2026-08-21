@@ -20,7 +20,7 @@ export function Projects() {
 
               <div className="project__tags">
                 {project.tags.map((tag) => (
-                  <SkillChip key={tag} name={tag} small />
+                  <SkillChip key={tag.text} skill={tag} small />
                 ))}
               </div>
 

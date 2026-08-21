@@ -1,10 +1,12 @@
+import type { Skill } from '../lib/skills';
+
 export interface Role {
   period: string;
   place: string;
   title: string;
   company: string;
   blurb: string;
-  skills: string[];
+  skills: Skill[];
 }
 
 /**
@@ -24,7 +26,12 @@ export const roles: Role[] = [
       'Co-implemented AI features — generated questionnaires, auto-filled client forms — that ' +
       'added $150k ARR in the first 30 days after release. Also brought AI tooling (Claude, ' +
       'Copilot) into my daily workflow.',
-    skills: ['Kotlin', 'Python', 'Microservices', 'AI'],
+    skills: [
+      { text: 'Kotlin', order: 2, top: true, category: 'Languages' },
+      { text: 'Python', order: 3, top: true, category: 'Languages' },
+      { text: 'Microservices', order: 30, top: false },
+      { text: 'AI', order: 31, top: false },
+    ],
   },
   {
     period: 'Sept 2023 — Mar 2025',
@@ -34,7 +41,10 @@ export const roles: Role[] = [
     blurb:
       'Weighed the language and technology trade-offs from a blank page, then built the initial ' +
       'models, system, and database design and engineered the first implementation of the API.',
-    skills: ['API Design', 'Database Design'],
+    skills: [
+      { text: 'API Design', order: 32, top: false },
+      { text: 'Database Design', order: 33, top: false },
+    ],
   },
   {
     period: 'May 2023 — Jul 2024',
@@ -46,7 +56,12 @@ export const roles: Role[] = [
       'customer churn and opened new insurance sales revenue. Rewrote onboarding and developer ' +
       'docs, mentored junior engineers, and led the move from waterfall to agile, doubling ' +
       'release cadence.',
-    skills: ['Java', 'Angular', 'PostgreSQL', 'Mentoring'],
+    skills: [
+      { text: 'Java', order: 1, top: true, category: 'Languages' },
+      { text: 'Angular', order: 12, top: true, category: 'Frameworks' },
+      { text: 'PostgreSQL', order: 20, top: true },
+      { text: 'Mentoring', order: 34, top: false },
+    ],
   },
   {
     period: 'Jan 2019 — Mar 2023',
@@ -58,7 +73,12 @@ export const roles: Role[] = [
       'integration between SecurityTrax and any number of consumer financing systems, opening ' +
       'new revenue streams. Ran technical interviews and rebuilt the engineer onboarding ' +
       'program — 50% more productivity for new hires in their first six months.',
-    skills: ['PHP', 'MySQL', 'API Design', 'Onboarding'],
+    skills: [
+      { text: 'PHP', order: 6, top: true, category: 'Languages' },
+      { text: 'MySQL', order: 21, top: false },
+      { text: 'API Design', order: 32, top: false },
+      { text: 'Onboarding', order: 35, top: false },
+    ],
   },
   {
     period: 'May 2017 — Nov 2018',
@@ -68,7 +88,12 @@ export const roles: Role[] = [
     blurb:
       'Chosen to help spearhead a new team remaking the Powerstandings product in Go, React, and ' +
       'Redux, with integrations into Salesforce and Playbooks.',
-    skills: ['Go', 'React', 'Redux', 'Salesforce'],
+    skills: [
+      { text: 'Go', order: 5, top: true, category: 'Languages' },
+      { text: 'React', order: 11, top: true, category: 'Frameworks' },
+      { text: 'Redux', order: 13, top: false },
+      { text: 'Salesforce', order: 36, top: false },
+    ],
   },
   {
     period: 'Apr 2016 — May 2017',
@@ -78,7 +103,11 @@ export const roles: Role[] = [
     blurb:
       'Maintained and extended the Fishbowl Commerce system in Java Spring and Angular, ' +
       'including integrations with Shopify, eBay, and others.',
-    skills: ['Java', 'Spring Boot', 'Angular'],
+    skills: [
+      { text: 'Java', order: 1, top: true, category: 'Languages' },
+      { text: 'Spring Boot', order: 10, top: true, category: 'Frameworks' },
+      { text: 'Angular', order: 12, top: true, category: 'Frameworks' },
+    ],
   },
 ];
 

@@ -36,10 +36,3 @@ export const site = {
     { label: 'Contact', href: '#contact' },
   ],
 } as const;
-
-/** Hero skill chips, grouped. Chip names match role and project tags via normalizeSkill(). */
-export const skillGroups = [
-  { label: 'Languages', items: ['Java', 'Kotlin', 'Go', 'PHP', 'Python', 'TypeScript'] },
-  { label: 'Frameworks', items: ['Spring Boot', 'React', 'Angular'] },
-  { label: 'Other', items: ['PostgreSQL', 'AWS'] },
-] as const;

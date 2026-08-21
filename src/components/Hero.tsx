@@ -1,5 +1,8 @@
-import { site, skillGroups } from '../data/site';
+import { projects } from '../data/projects';
+import { roles } from '../data/roles';
+import { site } from '../data/site';
 import { photoFor, type ThemeId } from '../data/themes';
+import { topSkillCategories } from '../lib/skills';
 import { RotatingWord } from './RotatingWord';
 import { SkillChip } from './SkillChip';
 import { useSkillHighlight } from './SkillHighlight';
@@ -12,6 +15,10 @@ interface Props {
 
 export function Hero({ theme, reducedMotion }: Props) {
   const { hasActive, clear } = useSkillHighlight();
+  const categories = topSkillCategories([
+    ...roles.map((role) => role.skills),
+    ...projects.map((project) => project.tags),
+  ]);
 
   return (
     <section className="section section--first">
@@ -24,12 +31,12 @@ export function Hero({ theme, reducedMotion }: Props) {
           </h1>
 
           <div className="hero__skills">
-            {skillGroups.map((group) => (
-              <div key={group.label} className="hero__skill-row">
-                <div className="label hero__skill-label">{group.label}</div>
+            {categories.map((category) => (
+              <div key={category.label} className="hero__skill-row">
+                <div className="label hero__skill-label">{category.label}</div>
                 <div className="hero__skill-chips">
-                  {group.items.map((skill) => (
-                    <SkillChip key={skill} name={skill} />
+                  {category.items.map((skill) => (
+                    <SkillChip key={skill.text} skill={skill} />
                   ))}
                 </div>
               </div>

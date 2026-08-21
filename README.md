@@ -24,10 +24,44 @@ npm run format     # prettier
 | Change a color, size, space, or font  | `src/styles/tokens.css`                                                                    |
 | Change how a button or card looks     | `src/styles/recipes.css`                                                                   |
 | Swap the résumé or a photo            | drop the file in `public/`                                                                 |
+| Change which skills the hero shows    | flip `top` on a skill in `roles.ts` or `projects.ts`                                       |
 | Add a theme                           | a block in `tokens.css` + an entry in `src/data/themes.ts` and `src/backdrops/registry.ts` |
 
 Roles are ordered newest first; `RECENT_COUNT` in `roles.ts` decides how many land in
 the timeline's first track, and the track labels derive their year ranges from the data.
+
+## Skill chips
+
+Every chip on the page — hero, timeline, project tags — is a `Skill` object
+(`src/lib/skills.ts`), declared on the role or project it belongs to. There is no separate
+list of hero skills to keep in sync:
+
+```ts
+{ text: 'Kotlin', order: 2, top: true, category: 'Languages' }
+{ text: 'Microservices', order: 30, top: false }   // category is optional
+```
+
+| Field      | Does what                                                                           |
+| ---------- | ----------------------------------------------------------------------------------- |
+| `text`     | The label, and the key everything matches on                                        |
+| `order`    | Sort position in the hero; equal orders sit next to each other                      |
+| `top`      | `true` lifts the skill into the hero card                                           |
+| `category` | Hero grouping — `Languages`, `Frameworks`, …; omit it and the skill lands in `More` |
+
+The hero calls `topSkillCategories()` over every role and project, which filters to `top`,
+dedupes by name, sorts by `order`, and groups by `category`. Categories follow their
+lowest-ordered skill, except `More`, which always trails. So updating a job's skills updates
+the hero automatically — a skill only reaches the hero if some job or project claims it.
+A skill used by two jobs is declared on both; the copy with the lower `order` wins the
+dedupe, so keep them consistent.
+
+Inside a role or project, chips render in the order you list them — `order` only drives
+the hero.
+
+Names match after normalizing (lowercased, trailing version numbers stripped), so the
+project tag `Java 25` and the hero chip `Java` are the same skill for highlighting and
+for deduping. That's also why the versioned spellings are `top: false`: the hero shows
+the canonical `Java`, the project card keeps `Java 25`.
 
 ## How it fits together
 
@@ -38,8 +72,8 @@ the timeline's first track, and the track labels derive their year ranges from t
   and marks it `inert` rather than unmounting it, because the gears turn off scroll position
   and the document has to keep its height or the field would freeze.
 - `src/components/SkillHighlight.tsx` — the page-wide set of highlighted skills, so
-  clicking "Kotlin" in the hero also lights it up on the Canopy role. Names are matched
-  after stripping trailing version numbers, which is how "Java 25" matches "Java".
+  clicking "Kotlin" in the hero also lights it up on the Canopy role. See
+  [Skill chips](#skill-chips) for how a chip is declared and matched.
 - Styling is plain CSS with custom properties, in two layers. `src/styles/tokens.css` holds
   the palette plus the type, space, radius, and motion scales — nothing else hardcodes a
   color, size, or duration, and every theme is one `[data-theme]` block. `src/styles/recipes.css`
