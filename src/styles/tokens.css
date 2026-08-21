@@ -8,27 +8,43 @@
  * (arcade tightens --radius), but components only ever reference the token.
  */
 
+/* Dark is a warm theme: every neutral is hue-rotated off blue onto amber (~30deg)
+   at the lightness it already had, so contrast is unchanged but the page reads as
+   warm graphite rather than blue-black. Saturation is deliberately low on the page
+   chrome — the neutrals should look like unlit metal, never tan or sepia. Only
+   --accent and the gear ramp are allowed real chroma.
+
+   The hero portrait is what sets the temperature: warm grey wall, copper hair and
+   beard, warm skin. The one cool thing in it is the navy suit and blue tie, and
+   --accent-2 is tuned to that blue so the photo's cool note has a partner on the
+   page instead of being the lone outlier. */
 [data-theme] {
-  --bg: #0b0e14;
-  --surface: #141a24;
-  --surface-2: #1b2331;
-  --line: #2a3140;
-  --text: #f2f5fa;
-  --muted: #8d99ac;
-  --accent: #1e90ff;
-  --accent-2: #ffb347;
-  --on-accent: #061018;
-  --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.75);
+  --bg: #100d09;
+  --surface: #191510;
+  --surface-2: #221d16;
+  --line: #332c23;
+  --text: #f7f4ee;
+  --muted: #a1988b;
+  --accent: #d9a441;
+  --accent-2: #6ba4e8;
+  --on-accent: #1a1305;
+  /* Warm-black shadow — a neutral black shadow greys out the warm surfaces it falls on. */
+  --card-shadow: 0 26px 64px -30px rgb(12 7 0 / 0.75);
 
   /* The backdrop's gears sit behind the page, so they get their own shades rather
      than borrowing --surface/--line at page contrast. -lit, -mid and -dim are the
      three-tone ramp the metal is shaded across, and --gear-rim is the lit edge
-     catching the light just inside the teeth. */
-  --gear-stroke: #2a3140;
-  --gear-lit: #33405a;
-  --gear-mid: #121822;
-  --gear-dim: #0a0e16;
-  --gear-rim: #46587a;
+     catching the light just inside the teeth.
+
+     These carry more chroma than the page chrome: the field reads as bronze/pewter,
+     which is what puts the accent gears in the same alloy family as everything else.
+     They stay well below --accent in both lightness and saturation, so an accent
+     gear still separates on value the moment it comes into frame. */
+  --gear-stroke: #332c23;
+  --gear-lit: #4d4432;
+  --gear-mid: #17130d;
+  --gear-dim: #0e0b07;
+  --gear-rim: #6b5c42;
 
   /* Accent gears take the same ramp, mixed off --accent so a theme only has to
      state its accent once. */
