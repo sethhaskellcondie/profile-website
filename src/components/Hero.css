@@ -13,6 +13,13 @@
   gap: clamp(var(--space-4), 2vw, 22px);
 }
 
+/* Larger and more widely tracked than a stock .label, so the eyebrow reads as
+   a line across the top of the card rather than a micro-label. */
+.hero__eyebrow {
+  font-size: var(--fs-sm);
+  letter-spacing: 0.22em;
+}
+
 .hero__headline {
   margin: 0;
   font-family: var(--font-display);
@@ -64,5 +71,5 @@
   object-fit: cover;
   object-position: 50% 20%;
   border-radius: var(--radius);
-  border: 1px solid var(--line);
+  border: 1px solid var(--accent);
 }

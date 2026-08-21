@@ -17,7 +17,7 @@ export function Hero({ theme, reducedMotion }: Props) {
     <section className="section section--first">
       <div className="card hero__card">
         <div className="hero__body">
-          <div className="section-label">{site.eyebrow}</div>
+          <div className="label label--accent hero__eyebrow">{site.eyebrow}</div>
 
           <h1 className="hero__headline">
             <RotatingWord words={site.heroWords} paused={reducedMotion} />
@@ -42,11 +42,11 @@ export function Hero({ theme, reducedMotion }: Props) {
           </div>
 
           <div className="hero__cta">
-            <a className="btn btn--primary" href={site.resume} target="_blank" rel="noopener">
-              Download résumé
+            <a className="btn btn--primary" href="#projects">
+              See the proof
             </a>
-            <a className="btn btn--secondary" href="#projects">
-              See my projects
+            <a className="btn btn--secondary" href="#contact">
+              Contact me
             </a>
           </div>
         </div>

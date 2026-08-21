@@ -11,7 +11,7 @@ export const site = {
   description:
     'Senior software engineer with 10+ years across startups and established products — ' +
     'Kotlin and Python microservices, API and database design, and AI features that moved revenue.',
-  /** Words the hero headline cycles through: "I build ___ software". */
+  /** Words the hero headline cycles through: "I build ___ software systems". */
   heroWords: ['maintainable', 'reliable', 'scalable'],
   about: {
     lead:

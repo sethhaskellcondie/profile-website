@@ -65,7 +65,7 @@ export function Experience({ reducedMotion }: Props) {
             aria-expanded={track === 1}
             aria-controls="experience-timeline"
           >
-            <GearGlyph ref={glyph} size="16px" strokeWidth={16} boreRadius={28} />
+            <GearGlyph ref={glyph} size="16px" boreRadius={28} />
             {track === 1 ? 'Back' : 'More'}
           </button>
         </div>

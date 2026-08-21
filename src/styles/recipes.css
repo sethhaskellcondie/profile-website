@@ -10,7 +10,7 @@
 .card {
   padding: clamp(22px, 3.4vw, 46px);
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid var(--accent);
   border-radius: var(--radius);
   box-shadow: var(--card-shadow);
 }
@@ -90,6 +90,14 @@
   font-weight: 600;
 }
 
+/* An accent-filled button has no border or text colour left to shift, so hover
+   moves the fill 12% toward the theme's foreground — darker in the light theme,
+   lighter in the dark ones, so it gains contrast against the surface either way. */
+.btn--primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
 .btn--secondary {
   background: var(--surface-2);
   border-color: var(--line);
@@ -139,6 +147,7 @@
 }
 
 .btn-ghost.is-active:hover {
+  background: var(--accent-hover);
   color: var(--on-accent);
 }
 

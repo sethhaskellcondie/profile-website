@@ -93,6 +93,10 @@
   --leading-body: 1.65;
   /* Minimum touch target on phones. */
   --tap: 44px;
+
+  /* Hover fill for accent-filled controls. Derived, so a new theme only ever
+     states --accent. */
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, var(--text));
 }
 
 [data-theme='light'] {

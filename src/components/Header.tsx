@@ -49,7 +49,7 @@ export function Header({ theme, onPick, gearsOnly, onToggleGearsOnly }: Props) {
             checked={gearsOnly}
             onChange={(event) => onToggleGearsOnly(event.target.checked)}
           />
-          <GearGlyph size="14px" strokeWidth={16} boreRadius={28} />
+          <GearGlyph size="14px" boreRadius={28} />
           {/* Clipped rather than removed on narrow screens, so the checkbox keeps
               its accessible name once the gear glyph is all that's visible. */}
           <span className="gears-toggle__text">Gears only</span>

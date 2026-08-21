@@ -76,8 +76,9 @@ export function RotatingWord({ words, paused }: Props) {
         <span ref={wordRef} className="rotating-word__word">
           {words[0]}
         </span>
-      </span>{' '}
-      software
+      </span>
+      <br />
+      software systems
     </>
   );
 }
