@@ -1,0 +1,12 @@
+.page {
+  position: relative;
+  /* Above the backdrop layer, below the sticky header. */
+  z-index: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 clamp(14px, 4vw, 40px);
+}
+
+.section {
+  padding: 20px 0;
+}

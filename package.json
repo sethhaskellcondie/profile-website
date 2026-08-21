@@ -1,0 +1,40 @@
+{
+  "name": "profile-website",
+  "version": "0.1.0",
+  "description": "Personal profile site for Seth Condie",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://sethhaskellcondie@github.com/sethhaskellcondie/profile-website.git"
+  },
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sethhaskellcondie/profile-website/issues"
+  },
+  "homepage": "https://github.com/sethhaskellcondie/profile-website#readme",
+  "dependencies": {
+    "@astrojs/react": "^6.0.4",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/pixelify-sans": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "astro": "^7.2.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^6.0.3"
+  },
+  "private": true
+}

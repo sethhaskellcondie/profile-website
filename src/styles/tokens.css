@@ -1,0 +1,67 @@
+/*
+ * Design tokens. Every theme is one block of custom properties on [data-theme];
+ * nothing else in the codebase should hardcode a color, radius, or font stack.
+ * Adding a theme means adding a block here and an entry in src/data/themes.ts.
+ */
+
+[data-theme] {
+  --bg: #0b0e14;
+  --surface: #141a24;
+  --surface-2: #1b2331;
+  --line: #2a3140;
+  --text: #f2f5fa;
+  --muted: #8d99ac;
+  --accent: #1e90ff;
+  --accent-2: #ffb347;
+  --on-accent: #061018;
+  --radius: 10px;
+  --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.75);
+
+  --gear-fill: #121822;
+  --gear-stroke: #2a3140;
+  --gear-accent: #1e90ff;
+
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', monospace;
+  --display-spacing: -0.02em;
+  --display-weight: 700;
+}
+
+[data-theme='light'] {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #eef1f5;
+  --line: #dde2e9;
+  --text: #16202e;
+  --muted: #55606f;
+  --accent: #2f6fed;
+  --accent-2: #c2410c;
+  --on-accent: #ffffff;
+  --card-shadow: 0 26px 60px -34px rgb(22 32 46 / 0.35);
+
+  --gear-fill: #ffffff;
+  --gear-stroke: #d3dae4;
+  --gear-accent: #2f6fed;
+}
+
+[data-theme='arcade'] {
+  --bg: #100e1b;
+  --surface: #171526;
+  --surface-2: #221e38;
+  --line: #2a2540;
+  --text: #f4f1ff;
+  --muted: #a69fc4;
+  --accent: #37e6c0;
+  --accent-2: #e0457b;
+  --on-accent: #0c1a18;
+  --radius: 4px;
+  --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.8);
+
+  --gear-fill: #191630;
+  --gear-stroke: #322a54;
+  --gear-accent: #37e6c0;
+
+  --font-display: 'Pixelify Sans Variable', 'Pixelify Sans', 'Space Grotesk Variable', sans-serif;
+  --display-spacing: 0.01em;
+}

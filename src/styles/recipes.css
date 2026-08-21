@@ -1,0 +1,117 @@
+/* Shared recipes used by more than one section. Single-use styles live next to
+   their component instead. */
+
+.card {
+  padding: clamp(22px, 3.4vw, 46px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+}
+
+/* Sections whose content runs edge to edge get slightly tighter side padding. */
+.card--wide {
+  padding: clamp(22px, 3.4vw, 46px) clamp(18px, 3.4vw, 46px) 26px;
+}
+
+.section-label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-spacing);
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.btn-primary,
+.btn-secondary {
+  font-size: 14px;
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  color: var(--on-accent);
+}
+
+.btn-secondary {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* Skill chip. Active state is driven by the page-wide highlight set, so the same
+   skill lights up in the hero, the timeline, and the project tags at once. */
+.chip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.chip--small {
+  font-size: 11px;
+  padding: 5px 9px;
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.chip:hover {
+  border-color: var(--accent);
+}
+
+.chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.text-button {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  padding: 12px 0;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.text-button:hover {
+  color: var(--accent);
+}
+
+/* Touch targets on phones. */
+@media (max-width: 760px) {
+  .chip,
+  .chip--small {
+    font-size: 13px;
+    padding: 12px 14px;
+    min-height: 44px;
+  }
+}

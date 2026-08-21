@@ -1,0 +1,201 @@
+.experience {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.experience__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.experience__track-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+/* Fixed-height window scrolled programmatically by the More / Back button. */
+.experience__viewport {
+  height: 620px;
+  overflow: hidden;
+  position: relative;
+}
+
+.experience__footer {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.experience__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 22px;
+  cursor: pointer;
+}
+
+.experience__toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.experience__toggle svg {
+  color: var(--accent);
+}
+
+.timeline,
+.timeline__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline__group--earlier {
+  padding-top: 14px;
+}
+
+.timeline__row {
+  display: grid;
+  grid-template-columns: 170px 34px minmax(0, 1fr);
+  grid-template-areas: 'date spine body';
+  gap: 0 20px;
+}
+
+.timeline__row--head {
+  align-items: center;
+}
+
+.timeline__group-label {
+  grid-area: date;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.timeline__spine {
+  grid-area: spine;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline__stub {
+  width: 1px;
+  height: 22px;
+  background: var(--line);
+}
+
+/* The continuous rule behind the gear nodes; each node is filled so it masks it. */
+.timeline__rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.timeline__node {
+  position: relative;
+  margin-top: 6px;
+}
+
+.timeline__date {
+  grid-area: date;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 7px;
+  text-align: right;
+}
+
+.timeline__period {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text);
+}
+
+.timeline__place {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+.timeline__body {
+  grid-area: body;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 4px 0 26px;
+}
+
+.timeline__title {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-spacing);
+  font-size: 20px;
+}
+
+.timeline__company {
+  font-size: 14px;
+  color: var(--accent);
+}
+
+.timeline__blurb {
+  margin: 3px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 70ch;
+  text-wrap: pretty;
+}
+
+.timeline__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding-top: 4px;
+}
+
+/* Narrow: the spine moves to the left edge and the date stacks above the body. */
+@media (max-width: 760px) {
+  .experience__viewport {
+    height: 540px;
+  }
+
+  .timeline__row {
+    grid-template-columns: 28px minmax(0, 1fr);
+    grid-template-areas:
+      'spine date'
+      'spine body';
+    gap: 0 14px;
+  }
+
+  .timeline__date {
+    flex-flow: row wrap;
+    align-items: baseline;
+    gap: 2px 10px;
+    text-align: left;
+  }
+
+  .timeline__body {
+    padding-bottom: 22px;
+  }
+}

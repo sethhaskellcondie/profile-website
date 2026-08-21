@@ -1,0 +1,43 @@
+---
+import Portfolio from '../components/Portfolio';
+import { site } from '../data/site';
+import { DEFAULT_THEME, THEME_STORAGE_KEY } from '../data/themes';
+import '../styles/global.css';
+
+const title = `${site.name} — ${site.title}`;
+---
+
+<!doctype html>
+<html lang="en" data-theme={DEFAULT_THEME}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <meta name="description" content={site.description} />
+    <link rel="canonical" href={Astro.site} />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={site.description} />
+    <meta property="og:image" content={new URL('/profile-professional.jpg', Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {
+      /* Applies the stored theme before first paint, so there is no flash of the
+        default palette for visitors who picked another one. */
+    }
+    <script is:inline define:vars={{ key: THEME_STORAGE_KEY, fallback: DEFAULT_THEME }}>
+      try {
+        const saved = localStorage.getItem(key);
+        document.documentElement.dataset.theme =
+          saved === 'light' || saved === 'dark' || saved === 'arcade' ? saved : fallback;
+      } catch {
+        document.documentElement.dataset.theme = fallback;
+      }
+    </script>
+  </head>
+  <body>
+    <Portfolio client:load />
+  </body>
+</html>

@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Environment
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.log*
