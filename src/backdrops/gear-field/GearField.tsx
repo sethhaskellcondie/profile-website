@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react';
+import { backdropConfig } from '../config';
 import type { BackdropProps } from '../types';
+import { bodyFill, GearDefs } from './finishes';
 import { buildGears, VIEWBOX } from './gears';
-
-/** Every fifth gear is stroked in the accent color to break up the field. */
-const ACCENT_EVERY = 5;
 
 export default function GearField({ onFrame, density, paused }: BackdropProps) {
   const gears = useMemo(() => buildGears(), []);
@@ -13,7 +12,10 @@ export default function GearField({ onFrame, density, paused }: BackdropProps) {
     [gears, density],
   );
 
-  const nodes = useRef<(SVGGElement | null)[]>([]);
+  // Two spinning groups per gear — body and hub — with the fixed sheen sandwiched
+  // between them, so the highlight sits on the metal but never turns with it.
+  const bodies = useRef<(SVGGElement | null)[]>([]);
+  const hubs = useRef<(SVGGElement | null)[]>([]);
 
   useEffect(() => {
     if (paused) return;
@@ -21,13 +23,9 @@ export default function GearField({ onFrame, density, paused }: BackdropProps) {
     // every frame would drop frames.
     return onFrame((phase) => {
       for (let i = 0; i < visible.length; i++) {
-        const node = nodes.current[i];
-        if (node) {
-          node.setAttribute(
-            'transform',
-            `rotate(${(visible[i].offset + phase * visible[i].speed).toFixed(3)})`,
-          );
-        }
+        const spin = `rotate(${(visible[i].offset + phase * visible[i].speed).toFixed(3)})`;
+        bodies.current[i]?.setAttribute('transform', spin);
+        hubs.current[i]?.setAttribute('transform', spin);
       }
     });
   }, [onFrame, visible, paused]);
@@ -40,24 +38,54 @@ export default function GearField({ onFrame, density, paused }: BackdropProps) {
       height="100%"
       style={{ display: 'block' }}
     >
+      <GearDefs />
       {visible.map((gear, i) => {
-        const stroke = i % ACCENT_EVERY === 0 ? 'var(--accent)' : 'var(--gear-stroke)';
+        const accent = i % backdropConfig.accentEvery === 0;
+        const stroke = accent ? 'var(--accent)' : 'var(--gear-stroke)';
+        const spin = `rotate(${gear.offset.toFixed(3)})`;
+
         return (
           <g key={i} transform={`translate(${gear.cx.toFixed(1)} ${gear.cy.toFixed(1)})`}>
             <g
               ref={(el) => {
-                nodes.current[i] = el;
+                bodies.current[i] = el;
               }}
-              transform={`rotate(${gear.offset.toFixed(3)})`}
+              transform={spin}
             >
               <path
                 d={gear.d}
-                fill="var(--gear-fill)"
+                fill={bodyFill(accent)}
                 stroke={stroke}
                 strokeWidth={2.5}
                 strokeLinejoin="round"
-                style={{ transition: 'fill 260ms ease, stroke 260ms ease' }}
+                style={{ transition: 'stroke 260ms ease' }}
               />
+              {/* Lit inner edge, just inside the tooth roots — the bright line a
+                  turned face catches where the web steps down. */}
+              <circle
+                r={gear.rp * 0.845}
+                fill="none"
+                stroke={accent ? 'var(--gear-accent-lit)' : 'var(--gear-rim)'}
+                strokeWidth={1.25}
+                opacity={0.5}
+              />
+            </g>
+
+            {backdropConfig.sheen > 0 && (
+              <circle
+                r={gear.rp * 0.86}
+                fill="url(#gf-sheen)"
+                opacity={backdropConfig.sheen}
+                style={{ mixBlendMode: 'soft-light' }}
+              />
+            )}
+
+            <g
+              ref={(el) => {
+                hubs.current[i] = el;
+              }}
+              transform={spin}
+            >
               <circle r={gear.rp * 0.26} fill="var(--bg)" stroke={stroke} strokeWidth={2.5} />
               {gear.holes.map((hole, k) => (
                 <circle

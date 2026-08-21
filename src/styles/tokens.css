@@ -20,10 +20,21 @@
   --on-accent: #061018;
   --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.75);
 
-  /* The backdrop's gears sit behind the page, so they get their own two shades
-     rather than borrowing --surface/--line at page contrast. */
-  --gear-fill: #121822;
+  /* The backdrop's gears sit behind the page, so they get their own shades rather
+     than borrowing --surface/--line at page contrast. -lit, -mid and -dim are the
+     three-tone ramp the metal is shaded across, and --gear-rim is the lit edge
+     catching the light just inside the teeth. */
   --gear-stroke: #2a3140;
+  --gear-lit: #33405a;
+  --gear-mid: #121822;
+  --gear-dim: #0a0e16;
+  --gear-rim: #46587a;
+
+  /* Accent gears take the same ramp, mixed off --accent so a theme only has to
+     state its accent once. */
+  --gear-accent-lit: color-mix(in srgb, var(--accent) 72%, white);
+  --gear-accent-mid: var(--accent);
+  --gear-accent-dim: color-mix(in srgb, var(--accent) 62%, black);
 
   --font-display: 'Space Grotesk Variable', 'Space Grotesk', sans-serif;
   --font-body: 'IBM Plex Sans', system-ui, sans-serif;
@@ -80,8 +91,14 @@
   --on-accent: #ffffff;
   --card-shadow: 0 26px 60px -34px rgb(22 32 46 / 0.35);
 
-  --gear-fill: #ffffff;
   --gear-stroke: #d3dae4;
+  /* Light theme reads as polished steel, so the whole ramp sits above the page bg
+     and the gears never turn into dark blobs — the highlight is the only pure
+     white, and -mid drops off it so the shading has somewhere to start. */
+  --gear-lit: #ffffff;
+  --gear-mid: #e9edf3;
+  --gear-dim: #b9c4d3;
+  --gear-rim: #ffffff;
 }
 
 [data-theme='arcade'] {
@@ -96,8 +113,11 @@
   --on-accent: #0c1a18;
   --card-shadow: 0 26px 64px -30px rgb(0 0 0 / 0.8);
 
-  --gear-fill: #191630;
   --gear-stroke: #322a54;
+  --gear-lit: #3b3268;
+  --gear-mid: #191630;
+  --gear-dim: #100e1e;
+  --gear-rim: #574a8f;
 
   --font-display: 'Pixelify Sans Variable', 'Pixelify Sans', 'Space Grotesk Variable', sans-serif;
   --display-spacing: 0.01em;
