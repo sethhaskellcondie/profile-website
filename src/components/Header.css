@@ -125,18 +125,25 @@
   padding: var(--space-1);
 }
 
-/* Below 1000px the links are the first thing to go, so the identity keeps its line. */
-@media (max-width: 999px) {
+/* Below 1120px the links are the first thing to go. The identity title and the
+   gears toggle need ~1080px of header to share one line with everything else,
+   so the links have to leave before either of them is forced to wrap. */
+@media (max-width: 1119px) {
   .header__links {
     display: none;
   }
 }
 
-@media (max-width: 760px) {
+/* Next to go is the title: with the links gone the name, the picker and the
+   gears toggle still need ~780px to share a line, so the title has to leave
+   before it wraps to a second one. */
+@media (max-width: 819px) {
   .header__title {
     display: none;
   }
+}
 
+@media (max-width: 760px) {
   .gears-toggle {
     min-height: var(--tap);
   }
