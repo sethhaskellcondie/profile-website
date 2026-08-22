@@ -3,6 +3,9 @@
   flex-wrap: wrap;
   gap: clamp(22px, 3vw, 44px);
   align-items: center;
+  /* Queried below. What matters for the hero's layout is how wide the card is,
+     not how wide the window is, so the breakpoint is measured off the card. */
+  container: hero / inline-size;
 }
 
 .hero__body {
@@ -14,10 +17,29 @@
 }
 
 /* Larger and more widely tracked than a stock .label, so the eyebrow reads as
-   a line across the top of the card rather than a micro-label. */
+   a line across the top of the card rather than a micro-label. Flex rather than
+   plain inline text: the points are the wrapping unit, so a narrow card drops a
+   whole point to the next line instead of breaking one across two. */
 .hero__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.6em;
+  row-gap: var(--space-1);
   font-size: var(--fs-sm);
   letter-spacing: 0.22em;
+}
+
+.hero__eyebrow-point {
+  white-space: nowrap;
+}
+
+/* The separator rides on the front of the point it precedes, so a wrapped line
+   opens with "· 10+ years" rather than stranding a lone dot at a line end. It
+   sits back from the text it separates, whatever colour the eyebrow is. */
+.hero__eyebrow-point + .hero__eyebrow-point::before {
+  content: '·';
+  margin-right: 0.6em;
+  color: color-mix(in srgb, currentcolor 55%, transparent);
 }
 
 .hero__headline {
@@ -80,10 +102,42 @@
   flex: 1 1 220px;
   min-width: 180px;
   max-width: 340px;
+  /* Once the card wraps, the photo is alone on its line and max-width stops it
+     filling that line, so the auto margins centre it. Beside the body they take
+     nothing: .hero__body grows into the free space first, leaving none to split. */
+  margin-inline: auto;
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 20%;
   border-radius: var(--radius);
   border: 1px solid var(--accent);
+}
+
+/* The card has wrapped: the photo has dropped below the body and is centred by
+   its own auto margins, so the copy and the buttons centre over it rather than
+   sitting in a left-aligned column under a centred picture.
+
+   572px is where the wrap happens — .hero__body's 330px basis plus .hero__photo's
+   220px plus the 22px the card's gap has clamped to by then. Change either basis
+   and this number moves with it. */
+@container hero (max-width: 572px) {
+  .hero__body {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Flex rows don't answer to text-align. */
+  .hero__eyebrow,
+  .hero__cta {
+    justify-content: center;
+  }
+
+  /* The skills are the exception: their label column only reads as a column
+     while it stays hard against the left edge, so the block keeps the card's
+     full width and its own alignment. */
+  .hero__skills {
+    align-self: stretch;
+    text-align: left;
+  }
 }

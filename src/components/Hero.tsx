@@ -24,7 +24,13 @@ export function Hero({ theme, reducedMotion }: Props) {
     <section className="section section--first">
       <div className="card hero__card">
         <div className="hero__body">
-          <div className="label label--accent hero__eyebrow">{site.eyebrow}</div>
+          <div className="label label--accent hero__eyebrow">
+            {site.eyebrow.map((point) => (
+              <span key={point} className="hero__eyebrow-point">
+                {point}
+              </span>
+            ))}
+          </div>
 
           <h1 className="hero__headline">
             <RotatingWord words={site.heroWords} paused={reducedMotion} />

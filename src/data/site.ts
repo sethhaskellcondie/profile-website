@@ -2,7 +2,9 @@
 export const site = {
   name: 'Seth Condie',
   title: 'Senior Software Engineer',
-  eyebrow: 'Senior Software Engineer · 10+ years · Payson, UT',
+  /** Hero eyebrow, one entry per point. The separator between them is drawn by
+      the component; a narrow card wraps a whole point at a time. */
+  eyebrow: ['Senior Software Engineer', '10+ years', 'Payson, UT'],
   email: 'sethhaskellcondie@gmail.com',
   phone: '801-592-6499',
   github: 'https://github.com/sethhaskellcondie',
