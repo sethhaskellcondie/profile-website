@@ -1,10 +1,11 @@
 import { projects, type Project } from '../data/projects';
-import { GearGlyph } from './GearGlyph';
+import type { ThemeId } from '../data/themes';
 import { SkillChip } from './SkillChip';
 import { useSkillHighlight } from './SkillHighlight';
+import { ThemeGlyph } from './ThemeGlyph';
 import './Projects.css';
 
-export function Projects() {
+export function Projects({ theme }: { theme: ThemeId }) {
   return (
     <section id="projects" className="section">
       <div className="card card--wide projects">
@@ -12,7 +13,7 @@ export function Projects() {
 
         <div className="projects__grid">
           {projects.map((project) => (
-            <ProjectCard project={project} key={project.name} />
+            <ProjectCard project={project} theme={theme} key={project.name} />
           ))}
         </div>
       </div>
@@ -20,7 +21,7 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, theme }: { project: Project; theme: ThemeId }) {
   const { isActive } = useSkillHighlight();
   // One lit chip is enough to light the project it belongs to.
   const lit = project.tags.some((tag) => isActive(tag.text));
@@ -34,9 +35,9 @@ function ProjectCard({ project }: { project: Project }) {
       <div className="project__head">
         <div className="project__title">
           {/* The mount carries the placement and the idle halo; an SVG can't own a
-              pseudo-element, and the gear itself needs its transform left free. */}
+              pseudo-element, and the glyph itself needs its transform left free. */}
           <span className="project__gear-mount">
-            <GearGlyph size="20px" filled className="project__gear" />
+            <ThemeGlyph theme={theme} size="20px" filled className="project__gear" />
           </span>
           <h3 className="project__name">{project.name}</h3>
         </div>

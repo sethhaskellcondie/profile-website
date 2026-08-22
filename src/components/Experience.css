@@ -73,7 +73,7 @@
   justify-content: center;
 }
 
-/* The continuous rule behind the gear nodes; each node is filled so it masks it. */
+/* The continuous rule behind the glyph nodes; each node is filled so it masks it. */
 .timeline__rule {
   position: absolute;
   top: 0;
@@ -91,7 +91,7 @@
     filter var(--transition);
 }
 
-.timeline__node circle {
+.timeline__node .glyph-plate {
   transition: fill var(--transition);
 }
 
@@ -138,6 +138,17 @@
   border-color: var(--accent);
 }
 
+/* The sprite is half again as wide as it is tall, so a circle round it would
+   either crop the arms or float clear of the top and bottom. The arcade theme
+   squares off every other corner on the page (see --radius); the node ring joins
+   them, and the box tracks the sprite instead of a disc that is no longer there. */
+[data-theme='arcade'] .timeline__node-btn::after {
+  top: 2px;
+  width: 32px;
+  height: 26px;
+  border-radius: var(--radius);
+}
+
 .timeline__date {
   grid-area: date;
   display: flex;
@@ -181,13 +192,13 @@
   filter: drop-shadow(0 0 5px var(--select-glow)) drop-shadow(0 0 12px var(--select-halo));
 }
 
-/* GearGlyph's backing disc, normally a --surface mask hiding the spine rule
+/* The glyph's backing plate, normally a --surface mask hiding the spine rule
    behind the node. Lighting it is what lets the node invert the way a chip does
    — --select behind, --on-select ink on top — which is the only version that
    survives every theme: --select alone is a pale amber on the light theme's
-   white card, and the node would come out fainter lit than unlit. The disc
-   (r96) is wider than the gear (r80), so the teeth stay legible against it. */
-.timeline__row.is-lit .timeline__node circle {
+   white card, and the node would come out fainter lit than unlit. The plate
+   overhangs the glyph either way, so teeth and pixels stay legible against it. */
+.timeline__row.is-lit .timeline__node .glyph-plate {
   fill: var(--select);
 }
 

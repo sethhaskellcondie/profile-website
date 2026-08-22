@@ -49,8 +49,8 @@ export default function Portfolio() {
       <main className={`page${gearsOnly ? ' page--hidden' : ''}`} inert={gearsOnly}>
         <Hero theme={theme} reducedMotion={reducedMotion} />
         <About />
-        <Experience reducedMotion={reducedMotion} />
-        <Projects />
+        <Experience theme={theme} reducedMotion={reducedMotion} />
+        <Projects theme={theme} />
         <Contact />
       </main>
     </SkillHighlightProvider>

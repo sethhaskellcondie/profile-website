@@ -5,8 +5,7 @@ import { gearPath } from '../backdrops/gear-field/gears';
 const GLYPH_PATH = gearPath(9, 74);
 
 /** Bore as a second subpath, so an evenodd fill punches it out as a real hole. */
-const bore = (r: number) =>
-  `M${r} 0A${r} ${r} 0 1 0 ${-r} 0A${r} ${r} 0 1 0 ${r} 0Z`;
+const bore = (r: number) => `M${r} 0A${r} ${r} 0 1 0 ${-r} 0A${r} ${r} 0 1 0 ${r} 0Z`;
 
 interface Props {
   size: string;
@@ -30,7 +29,7 @@ export const GearGlyph = forwardRef<SVGSVGElement, Props>(function GearGlyph(
       style={{ width: size, height: size, overflow: 'visible', ...style }}
     >
       {/* Sits under the bore hole too, which is what keeps the spine hidden. */}
-      {filled && <circle r={96} fill="var(--surface)" />}
+      {filled && <circle className="glyph-plate" r={96} fill="var(--surface)" />}
       <path
         d={`${GLYPH_PATH}${bore(boreRadius)}`}
         fill="currentColor"

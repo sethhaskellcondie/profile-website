@@ -1,0 +1,16 @@
+.invader-glyph {
+  overflow: visible;
+}
+
+/* Only the frame named by [data-frame] shows. Opacity rather than display, so a
+   card wanting its own idle beat (see .project--featured) can drive the swap from
+   a keyframe instead — a hard cut either way, never a crossfade. */
+.invader-glyph__frame {
+  opacity: 0;
+  fill: currentColor;
+}
+
+.invader-glyph[data-frame='0'] .invader-glyph__frame[data-index='0'],
+.invader-glyph[data-frame='1'] .invader-glyph__frame[data-index='1'] {
+  opacity: 1;
+}

@@ -65,9 +65,9 @@
     filter var(--transition);
 }
 
-/* No spine to mask here, so the backing disc is dressed as the panel it sits on
+/* No spine to mask here, so the backing plate is dressed as the panel it sits on
    — invisible until the lit rule below turns it into the glyph's --select field. */
-.project__gear circle {
+.project__gear .glyph-plate {
   fill: var(--surface-2);
   transition: fill var(--transition);
 }
@@ -86,7 +86,7 @@
   filter: drop-shadow(0 0 5px var(--select-glow)) drop-shadow(0 0 12px var(--select-halo));
 }
 
-.project.is-lit .project__gear circle {
+.project.is-lit .project__gear .glyph-plate {
   fill: var(--select);
 }
 
@@ -229,6 +229,62 @@
   }
   100% {
     transform: rotate(40deg) scale(1);
+  }
+}
+
+/* The same beat, sprite-side. A gear ticks over by standing still in a new place;
+   an invader does it by changing pose, so the arcade theme keeps the timing and
+   swaps the motion: a hop out to the stepping frame and back down onto the
+   resting one. Only the name is overridden, so the 3s loop stays shared. */
+[data-theme='arcade'] .project--featured .project__gear {
+  animation-name: project-invader-hop;
+}
+
+/* The pose change rides the same 3s clock. Both frames are in the DOM; these two
+   trade their opacity at one instant rather than crossfading, because a two-frame
+   sprite has nothing in between the poses to show. */
+[data-theme='arcade'] .project--featured .project__gear .invader-glyph__frame[data-index='1'] {
+  animation: project-invader-stride 3s infinite;
+}
+
+[data-theme='arcade'] .project--featured .project__gear .invader-glyph__frame[data-index='0'] {
+  animation: project-invader-rest 3s infinite;
+}
+
+@keyframes project-invader-hop {
+  0% {
+    transform: translateY(0) scale(1);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  9% {
+    transform: translateY(-3px) scale(1.12);
+    animation-timing-function: ease-in;
+  }
+  18%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes project-invader-stride {
+  0%,
+  17.9% {
+    opacity: 1;
+  }
+  18%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes project-invader-rest {
+  0%,
+  17.9% {
+    opacity: 0;
+  }
+  18%,
+  100% {
+    opacity: 1;
   }
 }
 

@@ -1,17 +1,22 @@
 import { useRef, useState } from 'react';
 import { positionLabel, roles, type Role } from '../data/roles';
-import { GearGlyph } from './GearGlyph';
+import type { ThemeId } from '../data/themes';
+import { marchLikeGear } from './InvaderGlyph';
 import { SkillChip } from './SkillChip';
+import { ThemeGlyph } from './ThemeGlyph';
 import { useSkillHighlight } from './SkillHighlight';
 import './Experience.css';
 
-/** Degrees the footer glyphs turn per step. */
+/** Degrees the footer glyphs turn per step, and how long they take over it. The
+    sprites march over the same window instead — see marchLikeGear. */
 const GLYPH_TURN = 120;
+const GLYPH_DURATION = 700;
 /** Breathing room above the anchor the track scrolls to. */
 const SCROLL_OFFSET = 8;
 const LAST = roles.length - 1;
 
 interface Props {
+  theme: ThemeId;
   reducedMotion: boolean;
 }
 
@@ -22,7 +27,7 @@ interface Props {
  * past the card, and every stop is measured off the real row at click time
  * rather than assumed, so no role becomes unreachable however tall it wraps.
  */
-export function Experience({ reducedMotion }: Props) {
+export function Experience({ theme, reducedMotion }: Props) {
   const [index, setIndex] = useState(0);
   const viewport = useRef<HTMLDivElement>(null);
   /** One scroll anchor per role, indexed to match `roles`. */
@@ -30,12 +35,14 @@ export function Experience({ reducedMotion }: Props) {
   const backGlyph = useRef<SVGSVGElement>(null);
   const nextGlyph = useRef<SVGSVGElement>(null);
   const turn = useRef(0);
+  const stopMarch = useRef<(() => void) | null>(null);
+  const arcade = theme === 'arcade';
 
   const goTo = (target: number) => {
     const next = Math.max(0, Math.min(LAST, target));
     if (next === index) return;
     setIndex(next);
-    spin(next > index ? 1 : -1);
+    advance(next > index ? 1 : -1);
 
     const box = viewport.current;
     const anchor = anchors.current[next];
@@ -50,8 +57,20 @@ export function Experience({ reducedMotion }: Props) {
     });
   };
 
-  const spin = (direction: number) => {
+  const advance = (direction: number) => {
     if (reducedMotion) return;
+
+    if (arcade) {
+      // A sprite has no direction to counter-rotate in, so the pair simply steps
+      // together — which is how a row of invaders moves anyway.
+      stopMarch.current?.();
+      const stops = [backGlyph.current, nextGlyph.current]
+        .filter((glyph): glyph is SVGSVGElement => glyph !== null)
+        .map((glyph) => marchLikeGear(glyph, GLYPH_TURN, GLYPH_DURATION));
+      stopMarch.current = () => stops.forEach((stop) => stop());
+      return;
+    }
+
     const from = turn.current;
     turn.current += direction * GLYPH_TURN;
     // The two glyphs read as a meshed pair, so they counter-rotate.
@@ -80,7 +99,7 @@ export function Experience({ reducedMotion }: Props) {
               disabled={index === 0}
               aria-controls="experience-timeline"
             >
-              <GearGlyph ref={backGlyph} size="16px" boreRadius={28} />
+              <ThemeGlyph ref={backGlyph} theme={theme} size="16px" boreRadius={28} />
               Back
             </button>
 
@@ -92,7 +111,7 @@ export function Experience({ reducedMotion }: Props) {
               aria-controls="experience-timeline"
             >
               Next
-              <GearGlyph ref={nextGlyph} size="16px" boreRadius={28} />
+              <ThemeGlyph ref={nextGlyph} theme={theme} size="16px" boreRadius={28} />
             </button>
           </div>
         </div>
@@ -104,6 +123,7 @@ export function Experience({ reducedMotion }: Props) {
                 key={`${role.company}-${role.period}`}
                 role={role}
                 index={i}
+                theme={theme}
                 here={i === index}
                 onSelect={goTo}
                 register={register}
@@ -118,7 +138,7 @@ export function Experience({ reducedMotion }: Props) {
 
 function rotate(glyph: SVGSVGElement | null, from: number, to: number) {
   glyph?.animate([{ transform: `rotate(${from}deg)` }, { transform: `rotate(${to}deg)` }], {
-    duration: 700,
+    duration: GLYPH_DURATION,
     easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
     fill: 'forwards',
   });
@@ -127,13 +147,14 @@ function rotate(glyph: SVGSVGElement | null, from: number, to: number) {
 interface RowProps {
   role: Role;
   index: number;
+  theme: ThemeId;
   /** The role the window is parked on — the one wearing the node ring. */
   here: boolean;
   onSelect: (index: number) => void;
   register: (index: number, el: HTMLDivElement | null) => void;
 }
 
-function TimelineRow({ role, index, here, onSelect, register }: RowProps) {
+function TimelineRow({ role, index, theme, here, onSelect, register }: RowProps) {
   const { isActive } = useSkillHighlight();
   // One lit chip is enough to light the role it belongs to.
   const lit = role.skills.some((skill) => isActive(skill.text));
@@ -155,7 +176,7 @@ function TimelineRow({ role, index, here, onSelect, register }: RowProps) {
           aria-current={here ? 'true' : undefined}
           aria-label={`${role.title}, ${role.company}, ${role.period}`}
         >
-          <GearGlyph size="20px" filled className="timeline__node" />
+          <ThemeGlyph theme={theme} size="20px" filled className="timeline__node" />
         </button>
       </div>
 

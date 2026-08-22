@@ -33,7 +33,7 @@ export function Hero({ theme, reducedMotion }: Props) {
           </div>
 
           <h1 className="hero__headline">
-            <RotatingWord words={site.heroWords} paused={reducedMotion} />
+            <RotatingWord words={site.heroWords} theme={theme} paused={reducedMotion} />
           </h1>
 
           <div className="hero__skills">
