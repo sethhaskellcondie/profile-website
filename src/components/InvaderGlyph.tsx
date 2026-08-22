@@ -1,40 +1,19 @@
 import { forwardRef } from 'react';
+import { crab, spriteRuns } from '../lib/invaders';
 import './InvaderGlyph.css';
 
 /**
- * The arcade theme's answer to GearGlyph: the classic 11x8 invader, in the two
- * poses the original alternates between — arms down at rest, arms up mid-step.
+ * The arcade theme's answer to GearGlyph: the classic invader, in the two poses the
+ * original alternates between — arms down at rest, arms up mid-step. The pixels come
+ * from lib/invaders, the same source the backdrop's fleet is cut from.
  *
  * Both frames are drawn into the same <svg>; which one shows is chosen by the
  * `data-frame` attribute on the root, so a caller animating the sprite writes one
  * attribute per step instead of re-rendering. There is nothing in between the two
  * poses, and that hard cut is the whole look — never tween it.
  */
-const FRAMES = [
-  [
-    '00100000100',
-    '00010001000',
-    '00111111100',
-    '01101110110',
-    '11111111111',
-    '10111111101',
-    '10100000101',
-    '00011011000',
-  ],
-  [
-    '00100000100',
-    '10010001001',
-    '10111111101',
-    '11101110111',
-    '11111111111',
-    '01111111110',
-    '00100000100',
-    '01000000010',
-  ],
-] as const;
-
-const COLUMNS = FRAMES[0][0].length;
-const ROWS = FRAMES[0].length;
+const COLUMNS = crab.width;
+const ROWS = crab.height;
 
 /** Width of a sprite as a multiple of its height, from the pixel grid. */
 export const INVADER_ASPECT = COLUMNS / ROWS;
@@ -42,28 +21,7 @@ export const INVADER_ASPECT = COLUMNS / ROWS;
 /** Teeth on the gear outline a sprite stands in for — see GearGlyph. */
 const GLYPH_TEETH = 9;
 
-interface Run {
-  x: number;
-  y: number;
-  w: number;
-}
-
-/** Collapse each row's lit pixels into horizontal runs, so a frame is ~20 rects, not 60. */
-function runs(rows: readonly string[]): Run[] {
-  const out: Run[] = [];
-  rows.forEach((row, y) => {
-    for (let x = 0; x < row.length; x++) {
-      if (row[x] !== '1') continue;
-      let w = 1;
-      while (row[x + w] === '1') w++;
-      out.push({ x, y, w });
-      x += w - 1;
-    }
-  });
-  return out;
-}
-
-const FRAME_RUNS = FRAMES.map(runs);
+const FRAME_RUNS = crab.frames.map(spriteRuns);
 
 /** The resting pose, and the one a sprite is left on when it stops moving. */
 export const IDLE_FRAME = '0';

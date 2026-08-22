@@ -12,5 +12,5 @@ import type { BackdropComponent } from './types';
 export const backdrops: Record<ThemeId, BackdropComponent> = {
   light: lazy(() => import('./gear-field/GearField')),
   dark: lazy(() => import('./gear-field/GearField')),
-  arcade: lazy(() => import('./gear-field/GearField')),
+  arcade: lazy(() => import('./invader-field/InvaderField')),
 };

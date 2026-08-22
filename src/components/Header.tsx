@@ -1,6 +1,6 @@
 import { site } from '../data/site';
 import { themes, type ThemeId } from '../data/themes';
-import { GearGlyph } from './GearGlyph';
+import { ThemeGlyph } from './ThemeGlyph';
 import './Header.css';
 
 interface Props {
@@ -49,10 +49,13 @@ export function Header({ theme, onPick, gearsOnly, onToggleGearsOnly }: Props) {
             checked={gearsOnly}
             onChange={(event) => onToggleGearsOnly(event.target.checked)}
           />
-          <GearGlyph size="14px" boreRadius={28} />
+          <ThemeGlyph theme={theme} size="14px" boreRadius={28} />
           {/* Clipped rather than removed on narrow screens, so the checkbox keeps
-              its accessible name once the gear glyph is all that's visible. */}
-          <span className="gears-toggle__text">Gears only</span>
+              its accessible name once the glyph is all that's visible. The copy
+              names whatever the theme is actually about to reveal. */}
+          <span className="gears-toggle__text">
+            {theme === 'arcade' ? 'Invaders only' : 'Gears only'}
+          </span>
         </label>
       </nav>
     </header>

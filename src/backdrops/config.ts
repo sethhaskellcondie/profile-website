@@ -13,6 +13,14 @@ export const backdropConfig = {
   accentEvery: 5,
 
   /**
+   * One invader in every N is drawn in the accent instead of the fleet's own tones.
+   * Tuned separately from the gears rather than sharing a number with them: a gear's
+   * accent is a tint through metal, where a sprite's is flat colour on flat colour,
+   * so the same ratio does not read as the same amount of accent.
+   */
+  invaderAccentEvery: 4,
+
+  /**
    * Strength of the fixed directional highlight laid over each gear, 0–1. It does
    * NOT rotate with the gear, so the light stays put while the metal turns under
    * it — that stationary specular is most of what sells the surface as metal.

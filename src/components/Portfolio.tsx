@@ -44,7 +44,7 @@ export default function Portfolio() {
     <SkillHighlightProvider>
       <Backdrop theme={theme} revealed={gearsOnly} />
       <Header theme={theme} onPick={pick} gearsOnly={gearsOnly} onToggleGearsOnly={setGearsOnly} />
-      {/* Hidden, not unmounted: the gears spin off scroll position, so the page
+      {/* Hidden, not unmounted: the backdrop runs off scroll position, so the page
           has to keep its height or the field would freeze with nothing to scroll. */}
       <main className={`page${gearsOnly ? ' page--hidden' : ''}`} inert={gearsOnly}>
         <Hero theme={theme} reducedMotion={reducedMotion} />
