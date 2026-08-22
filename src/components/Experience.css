@@ -4,39 +4,59 @@
   gap: var(--space-5);
 }
 
+/* One row at every width: the heading and its position readout on the left, the
+   step controls hard right, on the rule above the window. Narrowing only drops
+   the readout (see the bottom of this file) — nothing moves. */
 .experience__head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--space-5);
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: var(--space-4);
 }
 
-/* Fixed-height window scrolled programmatically by the More / Back button. */
+/* Baseline-aligned so the readout sits on the heading's line rather than being
+   centred against it — the pair has to read as one continuous label. */
+.experience__title {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
+
+/* Carries its own separator, so hiding the readout when narrow takes the dash
+   with it and leaves the heading clean. */
+.experience__position::before {
+  content: '—';
+  margin: 0 var(--space-3);
+}
+
+.experience__steps {
+  display: flex;
+  flex: none;
+  gap: var(--space-3);
+}
+
+/* Fixed-height window, moved only by the step buttons and the spine's nodes.
+   Deliberately `hidden` rather than `auto`: with no scroller of its own, a wheel
+   or a drag over the card always scrolls the page past it. */
 .experience__viewport {
   height: 620px;
   overflow: hidden;
   position: relative;
 }
 
-.experience__footer {
-  display: flex;
-  justify-content: center;
-  border-top: 1px solid var(--line);
-  padding-top: var(--space-5);
-}
-
-.experience__toggle svg {
+.experience__step svg {
   color: var(--accent);
 }
 
-.timeline,
-.timeline__group {
-  display: flex;
-  flex-direction: column;
+.experience__step:disabled svg {
+  color: var(--muted);
 }
 
-.timeline__group--earlier {
-  padding-top: var(--space-4);
+.timeline {
+  display: flex;
+  flex-direction: column;
 }
 
 .timeline__row {
@@ -46,25 +66,11 @@
   gap: 0 var(--space-5);
 }
 
-.timeline__row--head {
-  align-items: center;
-}
-
-.timeline__group-label {
-  grid-area: date;
-}
-
 .timeline__spine {
   grid-area: spine;
   position: relative;
   display: flex;
   justify-content: center;
-}
-
-.timeline__stub {
-  width: 1px;
-  height: 22px;
-  background: var(--line);
 }
 
 /* The continuous rule behind the gear nodes; each node is filled so it masks it. */
@@ -79,6 +85,57 @@
 .timeline__node {
   position: relative;
   margin-top: 6px;
+  color: var(--accent);
+  transition:
+    color var(--transition),
+    filter var(--transition);
+}
+
+.timeline__node circle {
+  transition: fill var(--transition);
+}
+
+/* The nodes double as the timeline's nav rail — each one moves the window to its
+   own role. Absolute, so a full --tap target can overhang the narrow spine column
+   into the gutter beside it without widening the grid or covering the body text. */
+.timeline__node-btn {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* The "you are here" ring. Sized and offset to sit concentric with the 20px
+   glyph, and drawn around the node rather than recolouring it, so every node
+   keeps the same accent and only the ring marks the position. */
+.timeline__node-btn::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  transition: border-color var(--transition);
+}
+
+.timeline__node-btn:hover::after {
+  border-color: var(--line);
+}
+
+.timeline__node-btn.is-here::after {
+  border-color: var(--accent);
 }
 
 .timeline__date {
@@ -103,6 +160,35 @@
   font-weight: var(--display-weight);
   letter-spacing: var(--display-spacing);
   font-size: var(--fs-lg);
+  transition: text-shadow var(--transition);
+}
+
+/* A role with a lit chip catches the same light the chip does, so the highlight
+   set reads at a glance down the spine instead of only in the chip rows.
+
+   The chip can afford to invert — it has a --select fill to put --on-select ink
+   on. A heading and a glyph sit bare on the card, so here the glow does the
+   work: the title keeps its readable ink (--select as text would fail contrast
+   on the light theme's white surface) and only the gear takes the colour. */
+.timeline__row.is-lit .timeline__title {
+  text-shadow:
+    0 0 10px var(--select-glow),
+    0 0 24px var(--select-halo);
+}
+
+.timeline__row.is-lit .timeline__node {
+  color: var(--on-select);
+  filter: drop-shadow(0 0 5px var(--select-glow)) drop-shadow(0 0 12px var(--select-halo));
+}
+
+/* GearGlyph's backing disc, normally a --surface mask hiding the spine rule
+   behind the node. Lighting it is what lets the node invert the way a chip does
+   — --select behind, --on-select ink on top — which is the only version that
+   survives every theme: --select alone is a pale amber on the light theme's
+   white card, and the node would come out fainter lit than unlit. The disc
+   (r96) is wider than the gear (r80), so the teeth stay legible against it. */
+.timeline__row.is-lit .timeline__node circle {
+  fill: var(--select);
 }
 
 .timeline__company {
@@ -130,6 +216,23 @@
 @media (max-width: 760px) {
   .experience__viewport {
     height: 540px;
+  }
+
+  /* The readout is the first thing to go — the ringed node and the Back / Next
+     end states still say where in the list you are, and the row needs every
+     pixel for the controls. */
+  .experience__position {
+    display: none;
+  }
+
+  .experience__steps {
+    gap: var(--space-2);
+  }
+
+  /* Tighter than a standing .btn: two of these plus the heading have to clear
+     the card on a 320px phone. --tap is held by min-height, not by padding. */
+  .experience__step {
+    padding-inline: var(--space-3);
   }
 
   .timeline__row {

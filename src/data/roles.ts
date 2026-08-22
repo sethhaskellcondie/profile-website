@@ -10,10 +10,10 @@ export interface Role {
 }
 
 /**
- * Work history, newest first. The Experience timeline splits this list into two
- * tracks at RECENT_COUNT — the first N are "Recent", the rest are "Earlier".
- * Adding a job is one object at the top of this array; the timeline, the track
- * labels, and the skill chips all follow automatically.
+ * Work history, newest first. The Experience timeline renders this as one
+ * unbroken run of roles and steps through it a role at a time. Adding a job is
+ * one object at the top of this array; the timeline, the position readout, the
+ * spine's nav rail, and the skill chips all follow automatically.
  */
 export const roles: Role[] = [
   {
@@ -111,14 +111,16 @@ export const roles: Role[] = [
   },
 ];
 
-/** How many of the roles above appear in the "Recent" track. */
-export const RECENT_COUNT = 3;
+const pad = (n: number) => String(n).padStart(2, '0');
 
-/** Track labels, derived from the role list so they never drift out of date. */
-export function trackLabel(track: 0 | 1): string {
-  const group = track === 0 ? roles.slice(0, RECENT_COUNT) : roles.slice(RECENT_COUNT);
-  const years = group.flatMap((r) => r.period.match(/\d{4}/g) ?? []);
-  const from = Math.min(...years.map(Number));
-  const to = Math.max(...years.map(Number));
-  return `${track === 0 ? '01' : '02'} — ${from} to ${to}`;
+/**
+ * The timeline's position readout — "03 / 06 — 2019 to 2023". Derived from the
+ * role list, so it never drifts out of date as jobs are added or edited.
+ */
+export function positionLabel(index: number): string {
+  const years = (roles[index].period.match(/\d{4}/g) ?? []).map(Number);
+  const from = Math.min(...years);
+  const to = Math.max(...years);
+  const span = from === to ? `${from}` : `${from} to ${to}`;
+  return `${pad(index + 1)} / ${pad(roles.length)} — ${span}`;
 }

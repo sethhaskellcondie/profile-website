@@ -41,7 +41,7 @@
   color: var(--muted);
 }
 
-/* Uppercase mono micro-label: track labels, date rails, field labels. */
+/* Uppercase mono micro-label: the timeline position readout, field labels. */
 .label {
   font-family: var(--font-mono);
   font-size: var(--fs-2xs);
@@ -83,6 +83,17 @@
     border-color var(--transition);
 }
 
+/* A step control that has run out of range — still legible, visibly inert. */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn--secondary:disabled:hover {
+  border-color: var(--line);
+  color: var(--text);
+}
+
 .btn--primary {
   background: var(--accent);
   border-color: var(--accent);
@@ -110,7 +121,7 @@
 }
 
 /* Typography modifier: a secondary button that reads as a control rather than a
-   call to action (the timeline's More / Back toggle). */
+   call to action (the timeline's Back / Next step buttons). */
 .btn--mono {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
