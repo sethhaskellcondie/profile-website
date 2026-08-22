@@ -114,7 +114,7 @@ export const roles: Role[] = [
 const pad = (n: number) => String(n).padStart(2, '0');
 
 /**
- * The timeline's position readout — "03 / 06 — 2019 to 2023". Derived from the
+ * The timeline's position readout — "03 / 06 · 2019 to 2023". Derived from the
  * role list, so it never drifts out of date as jobs are added or edited.
  */
 export function positionLabel(index: number): string {
@@ -122,5 +122,5 @@ export function positionLabel(index: number): string {
   const from = Math.min(...years);
   const to = Math.max(...years);
   const span = from === to ? `${from}` : `${from} to ${to}`;
-  return `${pad(index + 1)} / ${pad(roles.length)} — ${span}`;
+  return `${pad(index + 1)} / ${pad(roles.length)} · ${span}`;
 }

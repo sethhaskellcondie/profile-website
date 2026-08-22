@@ -24,10 +24,10 @@
   min-width: 0;
 }
 
-/* Carries its own separator, so hiding the readout when narrow takes the dash
+/* Carries its own separator, so hiding the readout when narrow takes the dot
    with it and leaves the heading clean. */
 .experience__position::before {
-  content: '—';
+  content: '·';
   margin: 0 var(--space-3);
 }
 
@@ -235,8 +235,18 @@
     padding-inline: var(--space-3);
   }
 
+  /* The spine leads the row here, so — unlike the wide layout, where it sits in
+     column two — the node's --tap target and its ring have no date column on
+     their left to overhang into: they spill past the viewport's left edge and
+     its `hidden` crops them. Inset the grid by half the overhang so the ring
+     draws whole and the full tap target stays hittable. */
+  .timeline {
+    --spine: 28px;
+    padding-left: calc((var(--tap) - var(--spine)) / 2);
+  }
+
   .timeline__row {
-    grid-template-columns: 28px minmax(0, 1fr);
+    grid-template-columns: var(--spine) minmax(0, 1fr);
     grid-template-areas:
       'spine date'
       'spine body';
