@@ -1,6 +1,5 @@
 .about {
   display: flex;
-  flex-wrap: wrap;
   gap: var(--space-4) var(--space-7);
 }
 
@@ -32,4 +31,12 @@
 
 .about__footnote {
   padding-top: var(--space-1);
+}
+
+/* Narrow: the label stacks above the prose, matching where the timeline collapses. */
+@media (max-width: 760px) {
+  .about {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
 }

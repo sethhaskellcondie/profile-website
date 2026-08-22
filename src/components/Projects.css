@@ -62,3 +62,10 @@
   gap: var(--space-4);
   padding-top: var(--space-1);
 }
+
+/* Narrow: one project per row, at the same point the timeline collapses. */
+@media (max-width: 760px) {
+  .projects__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
