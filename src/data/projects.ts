@@ -11,6 +11,8 @@ export interface Project {
   blurb: string;
   tags: Skill[];
   links: ProjectLink[];
+  /** The one project the card leads with — it gets the sheen and the idle gear. */
+  featured?: boolean;
 }
 
 /** Side projects. Add one object here and a card appears in the Projects grid. */
@@ -18,6 +20,7 @@ export const projects: Project[] = [
   {
     name: 'The Game Pensieve',
     kind: 'Long-running side project',
+    featured: true,
     blurb:
       'A pensieve for a video game collection — a Spring Boot API for cataloging games, ' +
       'consoles, and the custom details a collector actually cares about. Java 25 and ' +
@@ -32,8 +35,8 @@ export const projects: Project[] = [
       { text: 'MCP', order: 42, top: false },
     ],
     links: [
-      { label: 'Source →', href: 'https://github.com/sethhaskellcondie/the-game-pensieve-api' },
-      { label: 'Walkthrough video →', href: 'https://youtu.be/7wByiXr5nDI' },
+      { label: 'Source', href: 'https://github.com/sethhaskellcondie/the-game-pensieve-api' },
+      { label: 'Walkthrough video', href: 'https://youtu.be/7wByiXr5nDI' },
     ],
   },
   {
@@ -48,8 +51,8 @@ export const projects: Project[] = [
       { text: 'Vercel', order: 43, top: false },
     ],
     links: [
-      { label: 'Source →', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' },
-      { label: 'Live app →', href: 'https://clocktower-town-square.vercel.app' },
+      { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' },
+      { label: 'Live app', href: 'https://clocktower-town-square.vercel.app' },
     ],
   },
 ];

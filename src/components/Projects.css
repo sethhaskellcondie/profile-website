@@ -30,12 +30,64 @@
   gap: var(--space-3);
 }
 
+.project__title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
 .project__name {
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
   letter-spacing: var(--display-spacing);
   font-size: var(--fs-lg);
+  transition: text-shadow var(--transition);
+}
+
+/* The same glyph the timeline nodes wear, sat on the name instead of a spine.
+   The mount takes the title row's baseline alignment — an inline-flex box
+   baselines on its content's bottom edge — so it rides the first line's baseline
+   however far the name wraps, then drops a couple of pixels to sit optically
+   level with the caps rather than towering over them. */
+.project__gear-mount {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  top: 2px;
+}
+
+.project__gear {
+  color: var(--accent);
+  transition:
+    color var(--transition),
+    filter var(--transition);
+}
+
+/* No spine to mask here, so the backing disc is dressed as the panel it sits on
+   — invisible until the lit rule below turns it into the glyph's --select field. */
+.project__gear circle {
+  fill: var(--surface-2);
+  transition: fill var(--transition);
+}
+
+/* A project with a lit chip catches the same light its chip does, matching the
+   timeline: the name keeps its readable ink and only glows, while the gear
+   inverts to --on-select over a --select disc. */
+.project.is-lit .project__name {
+  text-shadow:
+    0 0 10px var(--select-glow),
+    0 0 24px var(--select-halo);
+}
+
+.project.is-lit .project__gear {
+  color: var(--on-select);
+  filter: drop-shadow(0 0 5px var(--select-glow)) drop-shadow(0 0 12px var(--select-halo));
+}
+
+.project.is-lit .project__gear circle {
+  fill: var(--select);
 }
 
 .project__kind {
@@ -61,6 +113,187 @@
   flex-wrap: wrap;
   gap: var(--space-4);
   padding-top: var(--space-1);
+}
+
+/* Marked rather than signposted: the marker leads the label as a bullet would,
+   so the row reads as a short list of the project's places instead of a row of
+   arrows promising to throw the reader off the site. */
+.project__links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.project__links a::before {
+  content: '\25B8';
+  color: var(--accent-2);
+  font-size: 0.9em;
+  line-height: 1;
+  transition: color var(--transition);
+}
+
+.project__links a:hover::before {
+  color: var(--accent);
+}
+
+/* ---- The hero project -------------------------------------------------- */
+
+/* One project carries the section, so it gets treatment the others don't: a
+   sheen on hover, and an idle beat every three seconds that ticks the gear over
+   and runs a pulse round the card edge. All of it is built from --accent, so
+   every theme dresses the card in its own metal.
+
+   The sheen is light on a machined face, which means it has to be lighter than
+   the panel in every theme — mixing toward white rather than tinting with
+   --accent alone, which on the light theme would sweep a blue shadow across a
+   near-white surface instead of a highlight. */
+.project--featured {
+  --sheen: color-mix(in srgb, var(--accent) 30%, white);
+  --sheen-core: color-mix(in srgb, var(--sheen) 42%, transparent);
+  --sheen-edge: color-mix(in srgb, var(--sheen) 12%, transparent);
+  --pulse: color-mix(in srgb, var(--accent) 45%, transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+/* A narrow band overhanging the card top and bottom, skewed so it rakes across
+   rather than wiping straight down, and parked off the left edge until a hover
+   sweeps it. Clipped by the panel's own overflow, so it stops at the radius. */
+.project--featured::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -55%;
+  width: 55%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--sheen-edge) 30%,
+    var(--sheen-core) 50%,
+    var(--sheen-edge) 70%,
+    transparent
+  );
+  transform: translateX(0) skewX(-18deg);
+  opacity: 0;
+}
+
+/* One pass per hover rather than a loop: the light answers the pointer arriving
+   and then leaves the card alone, which is what a reflection does. Re-entering
+   the card restarts it. */
+.project--featured:hover::after {
+  animation: project-sheen 1.2s ease-in-out;
+}
+
+/* 300% of a band 55% as wide as the card carries it from off the left edge to
+   off the right one, fading in and out at the two edges so it never pops. */
+@keyframes project-sheen {
+  0% {
+    transform: translateX(0) skewX(-18deg);
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(300%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+/* The idle tick: one tooth of rotation and a small swell every three seconds,
+   over in half a second and still for the rest. 40deg is exactly 360/9 on the
+   glyph's nine teeth, so the gear lands on its own silhouette and the loop
+   restarting at 0 is invisible — the eye reads a mechanism ticking over, not an
+   element being animated. Transform only: the lit state owns colour and filter
+   on this glyph, and an animation would win over it. */
+.project--featured .project__gear {
+  animation: project-gear-tick 3s infinite;
+}
+
+@keyframes project-gear-tick {
+  0% {
+    transform: rotate(0deg) scale(1);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  17% {
+    transform: rotate(40deg) scale(1.14);
+    animation-timing-function: ease-out;
+  }
+  27% {
+    transform: rotate(40deg) scale(1);
+  }
+  100% {
+    transform: rotate(40deg) scale(1);
+  }
+}
+
+/* The edge takes the same beat as the gear — one pulse, not two overlapping
+   ones. A ring rather than the card's own border-color: the border already
+   transitions to --accent on hover, and an animation on it would win over that
+   for good. Inset 0 puts the ring just inside the border, where the panel's
+   overflow clips it to the same radius. */
+.project--featured::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid var(--pulse);
+  border-radius: inherit;
+  box-shadow: 0 0 12px -2px var(--pulse) inset;
+  pointer-events: none;
+  opacity: 0;
+  animation: project-edge-pulse 3s ease-out infinite;
+}
+
+@keyframes project-edge-pulse {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  32% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* The pulse the tick rides on — a soft ring opening out of the gear and fading,
+   on the mount so it sits behind the glyph and clear of its filter. */
+.project--featured .project__gear-mount::before {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--pulse), transparent 68%);
+  opacity: 0;
+  pointer-events: none;
+  animation: project-gear-pulse 3s ease-out infinite;
+}
+
+@keyframes project-gear-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 
 /* Narrow: one project per row, at the same point the timeline collapses. */
