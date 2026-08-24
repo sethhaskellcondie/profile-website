@@ -1,18 +1,33 @@
-/* One column, everything on the left: the copy, the address line, then the
-   buttons. Nothing here depends on the width of anything else, so revealing the
-   address cannot reflow the buttons. */
+/* The story card's layout (About.css): the label in a column of the same width,
+   and everything else — the copy, the address line, then the buttons — in one
+   column beside it, in the same measure. The column fills out to the measure
+   whatever is in it, and the address line holds its height before the reveal
+   (Contact.tsx), so revealing the address cannot reflow the buttons. */
 .contact {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-6);
+  gap: var(--space-4) var(--space-7);
 }
 
+.contact__label {
+  flex: 0 0 auto;
+  min-width: 138px;
+}
+
+/* Basis auto where the story's is 320px: once the row stacks, a basis is a
+   height, and this column is shorter than that. */
 .contact__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 68ch;
+}
+
+.contact__copy {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  max-width: 68ch;
 }
 
 .contact__lead {
@@ -36,4 +51,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+}
+
+/* Narrow: the label stacks above the column, matching where the timeline collapses. */
+@media (max-width: 760px) {
+  .contact {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
 }

@@ -19,41 +19,43 @@ export function Contact() {
   return (
     <section id="contact" className="section section--last">
       <div className="card contact">
+        <h2 className="section-label contact__label">Contact</h2>
         <div className="contact__body">
-          <h2 className="section-label">Contact</h2>
-          <p className="contact__lead">{site.contact.heading}</p>
-          <p className="contact__sub">{site.contact.sub}</p>
-          {/* Holds its line before the reveal, so nothing below it moves when the
-              address arrives. */}
-          <div id="contact-email" className="meta contact__details">
-            {email ? (
-              <a ref={address} href={`mailto:${email}`}>
-                {email}
-              </a>
-            ) : (
-              '\u00a0'
-            )}
+          <div className="contact__copy">
+            <p className="contact__lead">{site.contact.heading}</p>
+            <p className="contact__sub">{site.contact.sub}</p>
+            {/* Holds its line before the reveal, so nothing below it moves when the
+                address arrives. */}
+            <div id="contact-email" className="meta contact__details">
+              {email ? (
+                <a ref={address} href={`mailto:${email}`}>
+                  {email}
+                </a>
+              ) : (
+                '\u00a0'
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className="contact__actions">
-          {/* Keeps its label and its place after the reveal — the address appearing
-              is the only thing on the card that changes. */}
-          <button
-            type="button"
-            className="btn btn--primary"
-            aria-expanded={email !== null}
-            aria-controls="contact-email"
-            onClick={() => setEmail(`${site.email.user}@${site.email.domain}`)}
-          >
-            Show email
-          </button>
-          <a className="btn btn--secondary" href={site.github} target="_blank" rel="noopener">
-            GitHub
-          </a>
-          <a className="btn btn--secondary" href={site.linkedin} target="_blank" rel="noopener">
-            LinkedIn
-          </a>
+          <div className="contact__actions">
+            {/* Keeps its label and its place after the reveal — the address appearing
+                is the only thing on the card that changes. */}
+            <button
+              type="button"
+              className="btn btn--primary"
+              aria-expanded={email !== null}
+              aria-controls="contact-email"
+              onClick={() => setEmail(`${site.email.user}@${site.email.domain}`)}
+            >
+              Show email
+            </button>
+            <a className="btn btn--secondary" href={site.github} target="_blank" rel="noopener">
+              GitHub
+            </a>
+            <a className="btn btn--secondary" href={site.linkedin} target="_blank" rel="noopener">
+              LinkedIn
+            </a>
+          </div>
         </div>
       </div>
     </section>

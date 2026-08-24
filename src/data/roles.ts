@@ -90,8 +90,8 @@ export const roles: Role[] = [
   {
     period: 'Sep 2023 — Mar 2025',
     place: 'Remote, UT',
-    title: 'Founding Engineer (Part-time)',
-    company: 'Build Hub',
+    title: 'Founding Engineer',
+    company: 'Build Hub (Part-time)',
     blurb: [
       'Blazed the trail by designing the initial objects, models, and database tables.',
       'Reported milestone progress and communicated closely with clients and stakeholders.',

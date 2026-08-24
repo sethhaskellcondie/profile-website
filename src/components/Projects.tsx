@@ -10,9 +10,10 @@ export function Projects({ theme }: { theme: ThemeId }) {
   return (
     <section id="projects" className="section">
       <div className="card card--wide projects">
-        <h2 className="section-label">Projects</h2>
-
-        <p className="projects__intro">{site.projectsIntro}</p>
+        <div className="projects__head">
+          <h2 className="section-label projects__label">Projects</h2>
+          <p className="projects__intro">{site.projectsIntro}</p>
+        </div>
 
         <div className="projects__grid">
           {projects.map((project) => (

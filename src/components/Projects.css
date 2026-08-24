@@ -5,10 +5,27 @@
   padding-bottom: var(--space-8);
 }
 
-/* A short lead-in under the label, set like the story's secondary prose and run
-   the full width of the card so it reads as a banner over the grid it introduces
-   rather than a narrow column beside it. */
+/* The label and its lead-in take the story card's layout (About.css): the label
+   in a column of the same width, the prose beside it in the same measure, so the
+   two cards read as one system down the page. Only the head is indented — the
+   grid below still runs the width of the card. */
+.projects__head {
+  display: flex;
+  gap: var(--space-4) var(--space-7);
+}
+
+.projects__label {
+  flex: 0 0 auto;
+  min-width: 138px;
+}
+
+/* Set like the story's secondary prose. The basis is auto where the story's is
+   320px: once the row stacks, a basis is a height, and this paragraph is shorter
+   than that — it would sit in 320px of space with the grid pushed down under it. */
 .projects__intro {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 68ch;
   margin: 0;
   font-size: var(--fs-md);
   line-height: 1.7;
@@ -363,8 +380,14 @@
   }
 }
 
-/* Narrow: one project per row, at the same point the timeline collapses. */
+/* Narrow: the label stacks above the lead-in and the grid drops to one project
+   per row, at the same point the timeline collapses. */
 @media (max-width: 760px) {
+  .projects__head {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
   .projects__grid {
     grid-template-columns: minmax(0, 1fr);
   }
