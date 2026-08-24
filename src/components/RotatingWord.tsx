@@ -38,12 +38,22 @@ export function RotatingWord({ words, theme, paused }: Props) {
 
     const spinGear = (glyph: SVGSVGElement) => {
       const from = turn;
-      turn += GLYPH_TURN;
-      glyph.animate([{ transform: `rotate(${from}deg)` }, { transform: `rotate(${turn}deg)` }], {
-        duration: GLYPH_DURATION,
-        easing: 'cubic-bezier(0.5, 0, 0.2, 1)',
-        fill: 'forwards',
-      });
+      const to = (turn += GLYPH_TURN);
+      const spin = glyph.animate(
+        [{ transform: `rotate(${from}deg)` }, { transform: `rotate(${to}deg)` }],
+        {
+          duration: GLYPH_DURATION,
+          easing: 'cubic-bezier(0.5, 0, 0.2, 1)',
+          fill: 'forwards',
+        },
+      );
+      // A forward-filling animation is kept alive to hold its end state, and one
+      // more every swap would pile up for as long as the tab is open. Bake the
+      // resting angle into the element instead and let the animation go.
+      spin.onfinish = () => {
+        glyph.style.transform = `rotate(${to}deg)`;
+        spin.cancel();
+      };
     };
 
     const timer = setInterval(() => {

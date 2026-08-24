@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { ThemeId } from '../data/themes';
 import { GearGlyph } from './GearGlyph';
 import { INVADER_ASPECT, InvaderGlyph } from './InvaderGlyph';
+import './ThemeGlyph.css';
 
 /**
  * The decorative mark a card wears, in whichever form the theme calls for: a gear
@@ -9,6 +10,12 @@ import { INVADER_ASPECT, InvaderGlyph } from './InvaderGlyph';
  * on the page goes through here so the two stay swappable — same `size`, same
  * `filled` plate, and the plate carries the same .glyph-plate hook either way, so
  * card CSS never has to know which glyph it is dressing.
+ *
+ * Both forms are always rendered, and ThemeGlyph.css shows the one the theme on
+ * <html> calls for. The island hydrates on its own schedule, and until it does the
+ * HTML is all a returning visitor sees — picking one form off React state would
+ * paint a gear on the arcade theme until then. `theme` only decides which of the
+ * two the ref lands on, so a caller animating the mark always holds the visible one.
  */
 
 /**
@@ -38,26 +45,26 @@ export const ThemeGlyph = forwardRef<SVGSVGElement, Props>(function ThemeGlyph(
   { size, theme, boreRadius, filled, className, style },
   ref,
 ) {
-  if (theme === 'arcade') {
-    return (
-      <InvaderGlyph
-        ref={ref}
-        size={`calc(${size} * ${SPRITE_SCALE})`}
-        filled={filled}
-        className={className}
-        style={style}
-      />
-    );
-  }
+  const arcade = theme === 'arcade';
+  const classes = (form: string) => (className ? `${form} ${className}` : form);
 
   return (
-    <GearGlyph
-      ref={ref}
-      size={size}
-      boreRadius={boreRadius}
-      filled={filled}
-      className={className}
-      style={style}
-    />
+    <>
+      <GearGlyph
+        ref={arcade ? undefined : ref}
+        size={size}
+        boreRadius={boreRadius}
+        filled={filled}
+        className={classes('theme-glyph--gear')}
+        style={style}
+      />
+      <InvaderGlyph
+        ref={arcade ? ref : undefined}
+        size={`calc(${size} * ${SPRITE_SCALE})`}
+        filled={filled}
+        className={classes('theme-glyph--sprite')}
+        style={style}
+      />
+    </>
   );
 });

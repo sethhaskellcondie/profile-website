@@ -50,13 +50,13 @@ export const SPRING_BOOT: Skill = {
 // Inline: Node.js 24
 export const ANGULAR: Skill = { text: 'Angular', order: 25, top: false, category: 'Frameworks' };
 // Testing libraries sit at the tail of the band, with the frameworks they test against.
-// Inline: Redux 26, Playwright 27, Junit 28, Kotest 29
-export const PHP_UNIT: Skill = { text: 'PHP Unit', order: 30, top: false, category: 'Frameworks' };
+// Inline: Redux 26, Playwright 27, JUnit 28, Kotest 29
+export const PHP_UNIT: Skill = { text: 'PHPUnit', order: 30, top: false, category: 'Frameworks' };
 
 // Data — 40–49
 export const MYSQL: Skill = { text: 'MySQL', order: 40, top: true, category: 'Data' };
 export const POSTGRESQL: Skill = { text: 'PostgreSQL', order: 41, top: true, category: 'Data' };
-// Inline: MongoDB 42, NoSQL 43, Hibernate 44, Gorm 45
+// Inline: MongoDB 42, NoSQL 43, Hibernate 44, GORM 45
 
 // Architecture — 50–59
 export const SYSTEM_DESIGN: Skill = {
@@ -93,7 +93,7 @@ export const PROJECT_LEAD: Skill = {
   top: true,
   category: 'Leadership',
 };
-// Inline: Team Lead 62, Conducted Technical Interviews 63
+// Inline: Team Lead 62, Conducting Technical Interviews 63
 
 // More — 70+
 // AI Feature Development leads the band: it is the newest top skill, and a new top
@@ -106,7 +106,7 @@ export const AI_FEATURE_DEVELOPMENT: Skill = {
 export const AWS: Skill = { text: 'AWS', order: 71, top: true };
 export const CLAUDE_CODE: Skill = { text: 'Claude Code', order: 72, top: true };
 export const TEST_FIRST_DEVELOPMENT: Skill = {
-  text: 'Test First Development',
+  text: 'Test-First Development',
   order: 73,
   top: true,
 };

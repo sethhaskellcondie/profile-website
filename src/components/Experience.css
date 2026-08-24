@@ -39,11 +39,33 @@
 
 /* Fixed-height window, moved only by the step buttons and the spine's nodes.
    Deliberately `hidden` rather than `auto`: with no scroller of its own, a wheel
-   or a drag over the card always scrolls the page past it. */
+   or a drag over the card always scrolls the page past it. Never shorter than
+   the tallest role, though — Experience.tsx measures the rows and writes --row-h
+   — so on a phone, where one role can run well past the fixed height, nothing
+   in it is ever out of reach. */
 .timeline__viewport {
-  height: 620px;
+  /* The fade at each end. The track pads by the same amount (below), so the role
+     the window is parked on starts just under the top fade; Experience.tsx reads
+     --edge to scroll by it rather than carrying a copy of the number. */
+  --edge: 20px;
+  height: max(620px, var(--row-h, 0px));
   overflow: hidden;
   position: relative;
+  /* Neighbouring roles fade at the edges instead of being cut mid-line. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black var(--edge),
+    black calc(100% - var(--edge)),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black var(--edge),
+    black calc(100% - var(--edge)),
+    transparent
+  );
 }
 
 .timeline__step svg {
@@ -57,6 +79,7 @@
 .timeline {
   display: flex;
   flex-direction: column;
+  padding-block: var(--edge);
 }
 
 .timeline__row {
@@ -251,7 +274,7 @@
 /* Narrow: the spine moves to the left edge and the date stacks above the body. */
 @media (max-width: 760px) {
   .timeline__viewport {
-    height: 540px;
+    height: max(540px, var(--row-h, 0px));
   }
 
   /* The readout is the first thing to go — the ringed node and the Back / Next
@@ -265,8 +288,8 @@
     gap: var(--space-2);
   }
 
-  /* Tighter than a standing .btn: two of these plus the heading have to clear
-     the card on a 320px phone. --tap is held by min-height, not by padding. */
+  /* Tighter than a standing .btn: two of these have to share a row on a 320px
+     phone. --tap is held by min-height, not by padding. */
   .timeline__step {
     padding-inline: var(--space-3);
   }
@@ -298,5 +321,23 @@
 
   .timeline__body {
     padding-bottom: 22px;
+  }
+}
+
+/* On a phone the heading and the two step buttons no longer fit one line: the
+   heading would break mid-phrase beside them, and narrower still the buttons ride
+   over it. The steps take a row of their own under the heading and split it. */
+@media (max-width: 480px) {
+  .timeline__head {
+    flex-wrap: wrap;
+  }
+
+  .timeline__steps {
+    flex: 1 1 100%;
+  }
+
+  .timeline__step {
+    flex: 1 1 0;
+    justify-content: center;
   }
 }

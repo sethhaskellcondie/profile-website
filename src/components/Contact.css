@@ -1,9 +1,11 @@
+/* One column, everything on the left: the copy, the address line, then the
+   buttons. Nothing here depends on the width of anything else, so revealing the
+   address cannot reflow the buttons. */
 .contact {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-6) var(--space-7);
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
 }
 
 .contact__body {

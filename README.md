@@ -16,20 +16,22 @@ npm run format     # prettier
 
 ## Where things live
 
-| I want to…                            | Edit                                                                                       |
-| ------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Add or change a job                   | `src/data/roles.ts`                                                                        |
-| Add a project card                    | `src/data/projects.ts`                                                                     |
-| Change name, copy, links, résumé path | `src/data/site.ts`                                                                         |
-| Change a color, size, space, or font  | `src/styles/tokens.css`                                                                    |
-| Change how a button or card looks     | `src/styles/recipes.css`                                                                   |
-| Swap the résumé or a photo            | drop the file in `public/`                                                                 |
-| Change which skills the hero shows    | flip `top` on the skill in `src/data/skills.ts` (or inline on the role)                    |
-| Reuse a skill in a second job         | move it into `src/data/skills.ts` and import it                                            |
-| Add a theme                           | a block in `tokens.css` + an entry in `src/data/themes.ts` and `src/backdrops/registry.ts` |
+| I want to…                            | Edit                                                                                                                                                              |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Add or change a job                   | `src/data/roles.ts`                                                                                                                                               |
+| Add a project card                    | `src/data/projects.ts`                                                                                                                                            |
+| Change name, copy, links, résumé path | `src/data/site.ts`                                                                                                                                                |
+| Change a color, size, space, or font  | `src/styles/tokens.css`                                                                                                                                           |
+| Change how a button or card looks     | `src/styles/recipes.css`                                                                                                                                          |
+| Change the link-preview card or icons | replace `public/og-image.jpg` (1200×630), `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`                                                                 |
+| Swap the résumé or a photo            | drop the file in `public/`                                                                                                                                        |
+| Change which skills the hero shows    | flip `top` on the skill in `src/data/skills.ts` (or inline on the role)                                                                                           |
+| Reuse a skill in a second job         | move it into `src/data/skills.ts` and import it                                                                                                                   |
+| Add a theme                           | a block in `tokens.css`, an entry in `src/data/themes.ts` and `src/backdrops/registry.ts`, and a selector each in `Hero.css` (portrait) and `Header.css` (picker) |
 
-Roles are ordered newest first; `RECENT_COUNT` in `roles.ts` decides how many land in
-the timeline's first track, and the track labels derive their year ranges from the data.
+Roles are ordered newest first. The timeline steps through them one at a time, and the
+position readout derives its year range from each role's `period`, so adding a job is one
+object at the top of the array and nothing else.
 
 ## Skill chips
 
@@ -94,8 +96,12 @@ deduping.
 
 ## How it fits together
 
-- `src/pages/index.astro` — document head, metadata, and a small inline script that
-  applies the stored theme before first paint so there's no flash of the default palette.
+- `src/pages/index.astro` — document head, metadata (the Open Graph card, a JSON-LD `Person`,
+  `theme-color`), and a small inline script that applies the stored theme before first
+  paint so there's no flash of the default palette.
+  The island's markup is theme-agnostic to match — every portrait, both glyph forms, and
+  every picker state are in the HTML and `[data-theme]` picks between them — so a
+  returning visitor's page is also right before hydration, not only after.
 - `src/components/Portfolio.tsx` — the island root: theme state, the "gears only" flag, and
   the section list. "Gears only" empties the page down to the backdrop; it fades `.page` out
   and marks it `inert` rather than unmounting it, because the gears turn off scroll position
@@ -103,6 +109,9 @@ deduping.
 - `src/components/SkillHighlight.tsx` — the page-wide set of highlighted skills, so
   clicking "Kotlin" in the hero also lights it up on the Canopy role. See
   [Skill chips](#skill-chips) for how a chip is declared and matched.
+- `src/components/Contact.tsx` — joins the email address from the two halves in
+  `site.ts` only when a visitor clicks "Show email", so it is in neither the served HTML
+  nor the DOM for scrapers to lift.
 - Styling is plain CSS with custom properties, in two layers. `src/styles/tokens.css` holds
   the palette plus the type, space, radius, and motion scales — nothing else hardcodes a
   color, size, or duration, and every theme is one `[data-theme]` block. `src/styles/recipes.css`

@@ -16,6 +16,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor jumps stop short of the sticky header instead of sliding under it.
+     --header-h is the header's measured height (see Header.tsx). */
+  scroll-padding-top: calc(var(--header-h) + var(--space-2));
 }
 
 body {
@@ -40,7 +43,8 @@ a {
 .about__lead a:hover,
 .about__secondary a:hover,
 .timeline__blurb a:hover,
-.project__blurb a:hover {
+.project__blurb a:hover,
+.contact__details a:hover {
   color: var(--accent-2);
 }
 

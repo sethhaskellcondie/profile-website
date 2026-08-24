@@ -97,7 +97,11 @@
   gap: var(--space-2);
 }
 
+/* Every portrait is in the HTML, hidden here and shown below by the theme on
+   <html>, so the page is right for a returning visitor before the island
+   hydrates. One selector per theme — a new theme needs a line of its own. */
 .hero__photo {
+  display: none;
   flex: 1 1 220px;
   min-width: 180px;
   max-width: 340px;
@@ -116,6 +120,12 @@
   object-position: 50% 20%;
   border-radius: var(--radius);
   border: 1px solid var(--accent);
+}
+
+[data-theme='light'] .hero__photo[data-themes~='light'],
+[data-theme='dark'] .hero__photo[data-themes~='dark'],
+[data-theme='arcade'] .hero__photo[data-themes~='arcade'] {
+  display: block;
 }
 
 /* The card has wrapped: the photo has dropped below the body and is centred by

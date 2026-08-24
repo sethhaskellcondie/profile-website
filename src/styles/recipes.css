@@ -70,6 +70,10 @@
 
 .btn {
   display: inline-flex;
+  /* Buttons are border-box by default; links are not. Without this, the --tap
+     min-height on phones lands on a link's content box and the padding stacks on
+     top of it — a 74px "GitHub" link beside a 46px button. */
+  box-sizing: border-box;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--fs-sm);

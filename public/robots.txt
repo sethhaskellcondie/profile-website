@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+# The résumé carries personal contact details; the page is the entry point.
+# Delete this line to let search engines index the PDF as well.
+Disallow: /resume.pdf

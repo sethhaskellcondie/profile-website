@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { positionLabel, roles, type Role } from '../data/roles';
 import type { ThemeId } from '../data/themes';
 import { marchLikeGear } from './InvaderGlyph';
@@ -11,8 +11,11 @@ import './Experience.css';
 // sprites march over the same window instead — see marchLikeGear.
 const GLYPH_TURN = 120;
 const GLYPH_DURATION = 700;
-// Breathing room above the anchor the track scrolls to.
-const SCROLL_OFFSET = 8;
+// The fade at either end of the window, from Experience.css. The track pads by
+// the same amount, so a parked role sits just under the top fade and the last
+// role clears the bottom one; read from the CSS rather than carried as a copy.
+const edgeOf = (box: HTMLElement) =>
+  parseFloat(getComputedStyle(box).getPropertyValue('--edge')) || 0;
 const LAST = roles.length - 1;
 
 interface Props {
@@ -21,11 +24,12 @@ interface Props {
 }
 
 /**
- * A fixed-height window over the timeline that only ever moves under its own
- * controls — the step buttons in the head and the gear nodes on the spine.
- * Nothing here reacts to wheel or drag, so a narrow viewport can always scroll
- * past the card, and every stop is measured off the real row at click time
- * rather than assumed, so no role becomes unreachable however tall it wraps.
+ * A window over the timeline that only ever moves under its own controls — the
+ * step buttons in the head and the gear nodes on the spine. Nothing here reacts
+ * to wheel or drag, so a narrow viewport can always scroll past the card. The
+ * window is never shorter than the tallest role (see the ResizeObserver below),
+ * and every stop is measured off the real row at click time rather than
+ * assumed, so no part of a role is ever out of reach however tall it wraps.
  */
 export function Experience({ theme, reducedMotion }: Props) {
   const [index, setIndex] = useState(0);
@@ -37,6 +41,25 @@ export function Experience({ theme, reducedMotion }: Props) {
   const turn = useRef(0);
   const stopMarch = useRef<(() => void) | null>(null);
   const arcade = theme === 'arcade';
+
+  // Experience.css gives the window a fixed height, which on a phone is shorter
+  // than a role with a dozen chips — and with no scroller of its own, whatever
+  // ran past the bottom would be out of reach. So the tallest row is measured
+  // and handed over as --row-h (plus the fade at both ends), and the window
+  // takes the larger of the two. All the rows are watched, because a resize
+  // re-wraps them and the fonts arriving after hydration can move any of them.
+  useEffect(() => {
+    const box = viewport.current;
+    const rows = anchors.current.filter((row): row is HTMLDivElement => row !== null);
+    if (!box || rows.length === 0) return;
+
+    const observer = new ResizeObserver(() => {
+      const tallest = Math.max(...rows.map((row) => row.offsetHeight));
+      box.style.setProperty('--row-h', `${tallest + 2 * edgeOf(box)}px`);
+    });
+    rows.forEach((row) => observer.observe(row));
+    return () => observer.disconnect();
+  }, []);
 
   const goTo = (target: number) => {
     const next = Math.max(0, Math.min(LAST, target));
@@ -52,7 +75,7 @@ export function Experience({ theme, reducedMotion }: Props) {
     // the window on real content instead of on empty space below it.
     const limit = Math.max(box.scrollHeight - box.clientHeight, 0);
     box.scrollTo({
-      top: Math.min(Math.max(anchor.offsetTop - SCROLL_OFFSET, 0), limit),
+      top: Math.min(Math.max(anchor.offsetTop - edgeOf(box), 0), limit),
       behavior: reducedMotion ? 'auto' : 'smooth',
     });
   };
@@ -80,6 +103,18 @@ export function Experience({ theme, reducedMotion }: Props) {
 
   const register = (i: number, el: HTMLDivElement | null) => {
     anchors.current[i] = el;
+  };
+
+  // A keyboard user can tab straight into a role the window is not parked on: the
+  // browser scrolls the box to reveal the focused chip and tells no one, so the
+  // readout, the ring and the step buttons would go on describing another role.
+  // Parking the window on the row that took focus keeps them honest. The
+  // :focus-visible test keeps a mouse click on a chip from moving the window.
+  const onFocus = (event: React.FocusEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (!target.matches(':focus-visible')) return;
+    const row = anchors.current.findIndex((el) => el?.contains(target));
+    if (row >= 0) goTo(row);
   };
 
   return (
@@ -116,7 +151,7 @@ export function Experience({ theme, reducedMotion }: Props) {
           </div>
         </div>
 
-        <div className="timeline__viewport" id="timeline" ref={viewport}>
+        <div className="timeline__viewport" id="timeline" ref={viewport} onFocus={onFocus}>
           <div className="timeline">
             {roles.map((role, i) => (
               <TimelineRow
@@ -137,11 +172,22 @@ export function Experience({ theme, reducedMotion }: Props) {
 }
 
 function rotate(glyph: SVGSVGElement | null, from: number, to: number) {
-  glyph?.animate([{ transform: `rotate(${from}deg)` }, { transform: `rotate(${to}deg)` }], {
-    duration: GLYPH_DURATION,
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-    fill: 'forwards',
-  });
+  if (!glyph) return;
+  const spin = glyph.animate(
+    [{ transform: `rotate(${from}deg)` }, { transform: `rotate(${to}deg)` }],
+    {
+      duration: GLYPH_DURATION,
+      easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      fill: 'forwards',
+    },
+  );
+  // A forward-filling animation is kept alive to hold its end state, and every
+  // step would leave one more behind for as long as the tab is open. Bake the
+  // resting angle into the element instead and let the animation go.
+  spin.onfinish = () => {
+    glyph.style.transform = `rotate(${to}deg)`;
+    spin.cancel();
+  };
 }
 
 interface RowProps {

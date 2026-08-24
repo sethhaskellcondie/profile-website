@@ -1,10 +1,19 @@
 // Everything about the person the site is for. Edit here, not in components.
+
+// Where the work happens. The hero eyebrow prints it; the structured data in
+// index.astro files it as a postal address for name searches.
+const location = { locality: 'Payson', region: 'UT', country: 'US' } as const;
+
 export const site = {
   name: 'Seth Condie',
   title: 'Senior Software Engineer',
+  location,
   // Hero eyebrow, one entry per point. The delimiter is included by the component.
-  eyebrow: ['Senior Software Engineer', '10+ years', 'Payson, UT'],
-  email: 'sethhaskellcondie@gmail.com',
+  eyebrow: ['Senior Software Engineer', '10+ years', `${location.locality}, ${location.region}`],
+  // Kept in two halves so the address never appears whole in the served HTML or
+  // the JS bundle — scrapers harvest mailto: links and anything shaped like an
+  // address. Contact joins the halves only when a visitor asks to see it.
+  email: { user: 'sethhaskellcondie', domain: 'gmail.com' },
   github: 'https://github.com/sethhaskellcondie',
   linkedin: 'https://www.linkedin.com/in/sethcondie/',
   //TODO come back with a YouTube link as well after the YouTube videos are done.
@@ -13,14 +22,14 @@ export const site = {
   // on the site. Search engines truncate around 160 characters, so keep it under that
   // and lead with the things a recruiter would have typed into the search box.
   description:
-    'Senior software engineer in Utah, 10+ years of Java, Kotlin, and TypeScript services — ' +
+    'Senior software engineer in Utah, 10+ years of Java, Kotlin, PHP, and TypeScript services — ' +
     'API and database design, and AI features that grew revenue.',
   // Words the hero headline cycles through: "I build ___ software systems".
   heroWords: ['maintainable', 'reliable', 'scalable', 'value-driven'],
   about: {
     lead:
       "I didn't know any engineers or programmers growing up. I discovered programming in college " +
-      "and loved it. I switched to a computer science major, and I've been blazing my own trail ever since. " +
+      "and loved it. I switched my major to Software Engineering, and I've been blazing my own trail ever since. " +
       "Because of this, I've often volunteered for the projects with unknowns, researching them to the " +
       'point where I could teach the team how to implement and maintain the solution. ' +
       'This eventually led to my project The Game Pensieve. I had to own every part of it: identifying ' +

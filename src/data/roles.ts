@@ -71,7 +71,7 @@ export const roles: Role[] = [
     title: 'Senior Software Engineer',
     company: 'Canopy',
     blurb: [
-      'Increased revenue by co-implementing AI-driven features like auto-filling forms and questionnaire generation. (Increased ARR by 150k in the first 30 days of release)',
+      'Increased revenue by co-implementing AI-driven features like auto-filling forms and questionnaire generation, increasing ARR by $150K in the first 30 days of release.',
       'Reduced costs by building microservices that could scale traffic up and down depending on our busy season.',
       'Reduced feature lead time by incorporating AI tooling into my daily workflow.',
     ],
@@ -88,13 +88,13 @@ export const roles: Role[] = [
     ],
   },
   {
-    period: 'Sept 2023 — Mar 2025',
+    period: 'Sep 2023 — Mar 2025',
     place: 'Remote, UT',
-    title: 'Founding Engineer',
+    title: 'Founding Engineer (Part-time)',
     company: 'Build Hub',
     blurb: [
       'Blazed the trail by designing the initial objects, models, and database tables.',
-      'Reported milestone progress, and communicated closely with clients and stakeholders.',
+      'Reported milestone progress and communicated closely with clients and stakeholders.',
       'Decreased feature lead time by implementing test-first development on the system from the start.',
     ],
     skills: [
@@ -123,7 +123,7 @@ export const roles: Role[] = [
       TYPESCRIPT,
       ANGULAR,
       JAVA,
-      { text: 'Junit', order: 28, top: false, category: 'Frameworks' },
+      { text: 'JUnit', order: 28, top: false, category: 'Frameworks' },
       SPRING_BOOT,
       MICROSERVICES,
       MENTORING,
@@ -138,7 +138,7 @@ export const roles: Role[] = [
     title: 'Software Engineer',
     company: 'Alarm.com',
     blurb: [
-      'Improved revenue by maintaining and enhancing a robust REST API that was used in house but also sold to third-party partners.',
+      'Improved revenue by maintaining and enhancing a robust REST API that was used in-house but also sold to third-party partners.',
       'Opened new revenue streams by designing and implementing an extendable integration between SecurityTrax and any number of consumer financing systems.',
       'Boosted new engineers’ productivity by 50% by restructuring our onboarding process.',
     ],
@@ -172,7 +172,7 @@ export const roles: Role[] = [
       INTEGRATIONS,
       TEST_FIRST_DEVELOPMENT,
       { text: 'Go', order: 8, top: false, category: 'Languages' },
-      { text: 'Gorm', order: 45, top: false, category: 'Data' },
+      { text: 'GORM', order: 45, top: false, category: 'Data' },
       { text: 'NoSQL', order: 43, top: false, category: 'Data' },
       { text: 'MongoDB', order: 42, top: false, category: 'Data' },
     ],

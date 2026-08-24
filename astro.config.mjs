@@ -4,7 +4,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://sethcondie.dev',
+  site: 'https://sethcondie.com',
   integrations: [react()],
   build: { inlineStylesheets: 'auto' },
 });

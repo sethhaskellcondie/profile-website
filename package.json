@@ -11,9 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://sethhaskellcondie@github.com/sethhaskellcondie/profile-website.git"
+    "url": "git+https://github.com/sethhaskellcondie/profile-website.git"
   },
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "bugs": {
     "url": "https://github.com/sethhaskellcondie/profile-website/issues"
   },

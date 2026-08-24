@@ -30,6 +30,14 @@ export default function Portfolio() {
     if (isThemeId(applied)) setTheme(applied);
   }, []);
 
+  // The browser chrome above the page takes its tint from theme-color, which
+  // index.astro seeds with the default theme's --bg; this moves it onto whichever
+  // theme the visitor is looking at.
+  useEffect(() => {
+    const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
+  }, [theme]);
+
   const pick = (next: ThemeId) => {
     setTheme(next);
     document.documentElement.dataset.theme = next;

@@ -1,0 +1,7 @@
+/* Both forms of the mark are in the HTML; the theme on <html> shows one. Keyed on
+   the arcade theme by name because that is the theme with a sprite — the same
+   test ThemeGlyph.tsx makes to decide where the ref goes. */
+[data-theme='arcade'] .theme-glyph--gear,
+:root:not([data-theme='arcade']) .theme-glyph--sprite {
+  display: none;
+}

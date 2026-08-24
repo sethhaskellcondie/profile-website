@@ -1,8 +1,10 @@
 ---
 import Portfolio from '../components/Portfolio';
+import { roles } from '../data/roles';
 import { site } from '../data/site';
 import { DEFAULT_THEME, themes, THEME_STORAGE_KEY } from '../data/themes';
 import '../styles/global.css';
+import tokens from '../styles/tokens.css?raw';
 
 // The three faces the hero paints with: body copy, the display headline, and the
 // mono eyebrow and chips. Imported for their hashed build URLs so they can be
@@ -15,6 +17,42 @@ import monoFont from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-l
 
 const title = `${site.name} — ${site.title}`;
 const preloadFonts = [bodyFont, displayFont, monoFont];
+
+// The link-preview card. Cut separately from the hero portrait: LinkedIn wants at
+// least 1200×627 for its large card, and every platform crops toward 1.91:1.
+const card = {
+  url: new URL('/og-image.jpg', Astro.site),
+  width: 1200,
+  height: 630,
+  alt: `Portrait of ${site.name}`,
+};
+
+// Tint for the browser chrome above the page (Android's toolbar, iOS's tab bar).
+// Seeded with the default theme's --bg read straight out of tokens.css — the base
+// [data-theme] block is the default theme — and moved onto the visitor's theme by
+// Portfolio.tsx once the island is up.
+const themeColor =
+  tokens.match(/\[data-theme\]\s*\{[^}]*?--bg:\s*(#[0-9a-f]{6})/i)?.[1] ?? '#000000';
+
+// Structured data for a name search: who the page is about, where else they are
+// the same person, and where they work now — the role still marked Present.
+const current = roles.find((role) => role.period.endsWith('Present'));
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.title,
+  url: Astro.site,
+  image: card.url,
+  sameAs: [site.github, site.linkedin],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.location.locality,
+    addressRegion: site.location.region,
+    addressCountry: site.location.country,
+  },
+  ...(current && { worksFor: { '@type': 'Organization', name: current.company } }),
+};
 ---
 
 <!doctype html>
@@ -22,7 +60,14 @@ const preloadFonts = [bodyFont, displayFont, monoFont];
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {
+      /* SVG for the browsers that take it, PNG for the ones that don't (Safari has
+        been unreliable), and an opaque square for an iOS home-screen bookmark. */
+    }
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content={themeColor} />
 
     {
       preloadFonts.map((href) => (
@@ -34,10 +79,17 @@ const preloadFonts = [bodyFont, displayFont, monoFont];
     <link rel="canonical" href={Astro.site} />
 
     <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:url" content={Astro.site} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={site.description} />
-    <meta property="og:image" content={new URL('/profile-professional.jpg', Astro.site)} />
+    <meta property="og:image" content={card.url} />
+    <meta property="og:image:width" content={String(card.width)} />
+    <meta property="og:image:height" content={String(card.height)} />
+    <meta property="og:image:alt" content={card.alt} />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
 
     {
       /* Applies the stored theme before first paint, so there is no flash of the
@@ -64,7 +116,11 @@ const preloadFonts = [bodyFont, displayFont, monoFont];
       /* Everything inside the island is server-rendered, so the page reads and the
         crawler indexes without any of it. Hydration is what powers the theme
         picker, the skill chips, and the backdrop — none of it is needed for first
-        paint, so it waits for an idle moment rather than competing with the LCP. */
+        paint, so it waits for an idle moment rather than competing with the LCP.
+        The markup is also theme-agnostic: both portraits, both glyph forms, every
+        picker state and both toggle captions are in it, and the data-theme the
+        script above sets picks between them, so a returning visitor's page is
+        right before hydration too rather than flashing the default. */
     }
     <Portfolio client:idle />
   </body>

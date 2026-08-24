@@ -101,6 +101,9 @@
   --leading-body: 1.65;
   /* Minimum touch target on phones. */
   --tap: 44px;
+  /* Height of the sticky header. Header.tsx measures the real one and writes it
+     to <html> as it changes; this is the estimate anchors scroll by until then. */
+  --header-h: 80px;
 
   /* Hover fill for accent-filled controls. Derived, so a new theme only ever
      states --accent. */
@@ -121,7 +124,9 @@
   --line: #dde2e9;
   --text: #16202e;
   --muted: #55606f;
-  --accent: #2f6fed;
+  /* A shade under the design's blue: the 12px links on a --surface-2 panel need
+     4.5:1, and this clears it (4.6) where #2f6fed fell just short (4.0). */
+  --accent: #2b66da;
   --accent-2: #c2410c;
   --on-accent: #ffffff;
   /* Amber on a cool page: the one warm thing in the light theme, and the colour
@@ -148,7 +153,8 @@
   --text: #f4f1ff;
   --muted: #a69fc4;
   --accent: #37e6c0;
-  --accent-2: #e0457b;
+  /* Lifted a step from #e0457b so the 12px project kind clears 4.5:1 on a panel. */
+  --accent-2: #e75d88;
   --on-accent: #0c1a18;
   /* Neon yellow sits between the mint accent and the pink accent-2 without
      touching either, and it is the one hue on a CRT that reads as pure light. */
