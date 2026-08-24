@@ -59,13 +59,19 @@ export const roles: Role[] = [
     title: 'Founding Engineer',
     company: 'Build Hub',
     blurb: [
-      'Weighed the language and technology trade-offs from a blank page.',
-      'Built the initial models, system, and database design.',
-      'Engineered the first implementation of the API.',
+      'Blazed the trail by designing the initial objects, models, and database tables.',
+      'Reported milestone progress, and closely communicated with clients and stakeholders.',
+      'Decreased feature lead time by implementing test first development on the system from the start.',
     ],
     skills: [
-      { text: 'API Design', order: 32, top: false },
-      { text: 'Database Design', order: 33, top: false },
+      { text: 'TypeScript', order: 1, top: true, category: 'Languages' },
+      { text: 'Angular', order: 12, top: true, category: 'Frameworks' },
+      { text: 'PHP', order: 32, top: false, category: 'Languages' },
+      { text: 'Laravel', order: 32, top: false, category: 'Frameworks' },
+      { text: 'Test First Development', order: 35, top: false },
+      { text: 'System Design', order: 32, top: false },
+      { text: 'AWS', order: 32, top: false },
+      { text: 'MySQL', order: 33, top: false },
     ],
   },
   {
@@ -85,6 +91,7 @@ export const roles: Role[] = [
       { text: 'Mentoring', order: 34, top: false },
       { text: 'Onboarding', order: 34, top: false },
       { text: 'Project Lead', order: 34, top: false },
+      { text: 'System Design', order: 32, top: false },
       { text: 'PostgreSQL', order: 20, top: true },
     ],
   },
@@ -95,7 +102,8 @@ export const roles: Role[] = [
     company: 'Alarm.com',
     blurb: [
       'Took REST API work from idea to deployment in PHP and MySQL.',
-      'Opened new revenue streams, by designing and implementing an extendable integration between SecurityTrax and any number of consumer financing systems',
+      'Opened new revenue streams, by designing and implementing an extendable integration between SecurityTrax and any ' +
+      'number of consumer financing systems.',
       'Boosted new engineers productivity by 50% by restructuring our onboarding process.',
     ],
     skills: [
@@ -163,7 +171,6 @@ export const roles: Role[] = [
     ],
     skills: [
       { text: 'JavaScript', order: 1, top: false, category: 'Languages' },
-      { text: 'Mithril', order: 10, top: false, category: 'Frameworks' },
       { text: 'Node.js', order: 10, top: false, category: 'Frameworks' },
       { text: 'MySQL', order: 10, top: false },
     ],
