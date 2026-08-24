@@ -5,7 +5,7 @@ export function About() {
   return (
     <section id="about" className="section">
       <div className="card about">
-        <h2 className="section-label about__label">About</h2>
+        <h2 className="section-label about__label">My Story</h2>
         <div className="about__body">
           <p className="about__lead">{site.about.lead}</p>
           <p className="about__secondary">{site.about.secondary}</p>

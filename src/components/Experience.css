@@ -7,7 +7,7 @@
 /* One row at every width: the heading and its position readout on the left, the
    step controls hard right, on the rule above the window. Narrowing only drops
    the readout (see the bottom of this file) — nothing moves. */
-.experience__head {
+.timeline__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,12 +26,12 @@
 
 /* Carries its own separator, so hiding the readout when narrow takes the dot
    with it and leaves the heading clean. */
-.experience__position::before {
+.timeline__position::before {
   content: '·';
   margin: 0 var(--space-3);
 }
 
-.experience__steps {
+.timeline__steps {
   display: flex;
   flex: none;
   gap: var(--space-3);
@@ -40,17 +40,17 @@
 /* Fixed-height window, moved only by the step buttons and the spine's nodes.
    Deliberately `hidden` rather than `auto`: with no scroller of its own, a wheel
    or a drag over the card always scrolls the page past it. */
-.experience__viewport {
+.timeline__viewport {
   height: 620px;
   overflow: hidden;
   position: relative;
 }
 
-.experience__step svg {
+.timeline__step svg {
   color: var(--accent);
 }
 
-.experience__step:disabled svg {
+.timeline__step:disabled svg {
   color: var(--muted);
 }
 
@@ -225,24 +225,24 @@
 
 /* Narrow: the spine moves to the left edge and the date stacks above the body. */
 @media (max-width: 760px) {
-  .experience__viewport {
+  .timeline__viewport {
     height: 540px;
   }
 
   /* The readout is the first thing to go — the ringed node and the Back / Next
      end states still say where in the list you are, and the row needs every
      pixel for the controls. */
-  .experience__position {
+  .timeline__position {
     display: none;
   }
 
-  .experience__steps {
+  .timeline__steps {
     gap: var(--space-2);
   }
 
   /* Tighter than a standing .btn: two of these plus the heading have to clear
      the card on a 320px phone. --tap is held by min-height, not by padding. */
-  .experience__step {
+  .timeline__step {
     padding-inline: var(--space-3);
   }
 

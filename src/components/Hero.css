@@ -71,6 +71,12 @@
   margin-top: var(--space-1);
 }
 
+/* Caption under the toggle. .hero__skills already holds the block hard against
+   the left edge in the narrow layout, so this needs no alignment of its own. */
+.hero__skill-hint {
+  margin: 0;
+}
+
 .hero__skill-row {
   display: flex;
   flex-wrap: wrap;

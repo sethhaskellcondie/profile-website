@@ -9,9 +9,7 @@ export function Contact() {
           <h2 className="section-label">Contact</h2>
           <p className="contact__lead">{site.contact.heading}</p>
           <p className="contact__sub">{site.contact.sub}</p>
-          <div className="meta contact__details">
-            {site.email} · {site.phone}
-          </div>
+          <div className="meta contact__details">{site.email}</div>
         </div>
 
         <div className="contact__actions">

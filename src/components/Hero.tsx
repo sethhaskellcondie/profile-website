@@ -37,6 +37,12 @@ export function Hero({ theme, reducedMotion }: Props) {
           </h1>
 
           <div className="hero__skills">
+            {/* The chips are toggles that highlight the same skill everywhere it
+                appears further down the page; without a nudge there is nothing to
+                suggest they are clickable at all. */}
+            <p className="meta hero__skill-hint">
+              Click on the skills that are important to you before scrolling down.
+            </p>
             <div id="hero-skills" className="hero__skill-groups">
               {categories.map((category) => (
                 <div key={category.label} className="hero__skill-row">

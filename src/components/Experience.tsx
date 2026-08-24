@@ -85,19 +85,19 @@ export function Experience({ theme, reducedMotion }: Props) {
   return (
     <section id="work" className="section">
       <div className="card card--wide experience">
-        <div className="experience__head">
+        <div className="timeline__head">
           <div className="experience__title">
-            <h2 className="section-label">Experience</h2>
-            <div className="label experience__position">{positionLabel(index)}</div>
+            <h2 className="section-label">Experience Timeline</h2>
+            <div className="label timeline__position">{positionLabel(index)}</div>
           </div>
 
-          <div className="experience__steps">
+          <div className="timeline__steps">
             <button
               type="button"
-              className="btn btn--secondary btn--mono experience__step"
+              className="btn btn--secondary btn--mono timeline__step"
               onClick={() => goTo(index - 1)}
               disabled={index === 0}
-              aria-controls="experience-timeline"
+              aria-controls="timeline"
             >
               <ThemeGlyph ref={backGlyph} theme={theme} size="16px" boreRadius={28} />
               Back
@@ -105,10 +105,10 @@ export function Experience({ theme, reducedMotion }: Props) {
 
             <button
               type="button"
-              className="btn btn--secondary btn--mono experience__step"
+              className="btn btn--secondary btn--mono timeline__step"
               onClick={() => goTo(index + 1)}
               disabled={index === LAST}
-              aria-controls="experience-timeline"
+              aria-controls="timeline"
             >
               Next
               <ThemeGlyph ref={nextGlyph} theme={theme} size="16px" boreRadius={28} />
@@ -116,7 +116,7 @@ export function Experience({ theme, reducedMotion }: Props) {
           </div>
         </div>
 
-        <div className="experience__viewport" id="experience-timeline" ref={viewport}>
+        <div className="timeline__viewport" id="timeline" ref={viewport}>
           <div className="timeline">
             {roles.map((role, i) => (
               <TimelineRow
@@ -172,7 +172,7 @@ function TimelineRow({ role, index, theme, here, onSelect, register }: RowProps)
           type="button"
           className={`timeline__node-btn${here ? ' is-here' : ''}`}
           onClick={() => onSelect(index)}
-          aria-controls="experience-timeline"
+          aria-controls="timeline"
           aria-current={here ? 'true' : undefined}
           aria-label={`${role.title}, ${role.company}, ${role.period}`}
         >
