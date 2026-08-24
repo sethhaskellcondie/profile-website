@@ -1,4 +1,5 @@
 import type { Skill } from '../lib/skills';
+import { ANGULAR, DIGITAL_OCEAN, JAVA, POSTGRESQL, REACT, SPRING_BOOT, TYPESCRIPT } from './skills';
 
 export interface ProjectLink {
   label: string;
@@ -27,14 +28,13 @@ export const projects: Project[] = [
       'PostgreSQL, Keycloak as an OAuth 2.1 resource server, Flyway migrations, Docker + Caddy ' +
       'in production, an MCP sidecar so AI tools can query the collection, and a Next.js front end.',
     tags: [
-      { text: 'Java', order: 1, top: false, category: 'Languages' },
-      { text: 'TypeScript', order: 1, top: true, category: 'Languages' },
-      { text: 'Spring Boot', order: 10, top: true, category: 'Frameworks' },
-      { text: 'React', order: 10, top: true, category: 'Frameworks' },
-      { text: 'DigitalOcean', order: 41, top: false },
-      { text: 'MCP', order: 42, top: false },
-      { text: 'Keycloak', order: 40, top: false },
-      { text: 'PostgreSQL', order: 20, top: true },
+      JAVA,
+      TYPESCRIPT,
+      SPRING_BOOT,
+      REACT,
+      DIGITAL_OCEAN,
+      { text: 'MCP', order: 73, top: true },
+      POSTGRESQL,
     ],
     links: [
       { label: 'Source', href: 'https://github.com/sethhaskellcondie/the-game-pensieve-api' },
@@ -47,11 +47,7 @@ export const projects: Project[] = [
     blurb:
       'A digital town square for playing Blood on the Clocktower on a PC — the board game aid I ' +
       'wanted at my own table. Angular 19, deployed on Vercel.',
-    tags: [
-      { text: 'TypeScript', order: 4, top: true, category: 'Languages' },
-      { text: 'Angular', order: 12, top: false, category: 'Frameworks' },
-      { text: 'Vercel', order: 43, top: false },
-    ],
+    tags: [TYPESCRIPT, ANGULAR, { text: 'Vercel', order: 75, top: false }],
     links: [
       { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' },
       { label: 'Live app', href: 'https://clocktower-town-square.vercel.app' },
