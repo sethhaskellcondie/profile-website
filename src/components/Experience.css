@@ -209,11 +209,36 @@
 
 .timeline__blurb {
   margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 70ch;
+}
+
+.timeline__point {
+  position: relative;
+  padding-left: var(--space-4);
   font-size: var(--fs-base);
   line-height: var(--leading-body);
   color: var(--muted);
-  max-width: 70ch;
   text-wrap: pretty;
+}
+
+/* A square marker rather than a round bullet — it sits with the gear teeth and
+   the invader pixels instead of against them. Parked half a line down so it
+   centres on the first line and holds that spot however far the point wraps. */
+.timeline__point::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(var(--leading-body) * 0.5em);
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  opacity: 0.7;
 }
 
 .timeline__chips {

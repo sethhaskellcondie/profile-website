@@ -5,7 +5,8 @@ export interface Role {
   place: string;
   title: string;
   company: string;
-  blurb: string;
+  /** One string per bullet. The timeline renders them as a list, in order. */
+  blurb: string[];
   skills: Skill[];
 }
 
@@ -21,11 +22,12 @@ export const roles: Role[] = [
     place: 'Provo, UT',
     title: 'Senior Software Engineer',
     company: 'Quilt',
-    blurb:
-      'Owned development and scaling of our API microservice systems in Kotlin and Python. ' +
+    blurb: [
+      'Owned development and scaling of our API microservice systems in Kotlin and Python.',
       'Co-implemented AI features — generated questionnaires, auto-filled client forms — that ' +
-      'added $150k ARR in the first 30 days after release. Also brought AI tooling (Claude, ' +
-      'Copilot) into my daily workflow.',
+        'added $150k ARR in the first 30 days after release.',
+      'Brought AI tooling (Claude, Copilot) into my daily workflow.',
+    ],
     skills: [
       { text: 'Kotlin', order: 2, top: true, category: 'Languages' },
       { text: 'Python', order: 3, top: true, category: 'Languages' },
@@ -38,11 +40,12 @@ export const roles: Role[] = [
     place: 'Remote, UT',
     title: 'Senior Software Engineer',
     company: 'Canopy',
-    blurb:
-      'Owned development and scaling of our API microservice systems in Kotlin and Python. ' +
+    blurb: [
+      'Owned development and scaling of our API microservice systems in Kotlin and Python.',
       'Co-implemented AI features — generated questionnaires, auto-filled client forms — that ' +
-      'added $150k ARR in the first 30 days after release. Also brought AI tooling (Claude, ' +
-      'Copilot) into my daily workflow.',
+        'added $150k ARR in the first 30 days after release.',
+      'Brought AI tooling (Claude, Copilot) into my daily workflow.',
+    ],
     skills: [
       { text: 'Kotlin', order: 2, top: true, category: 'Languages' },
       { text: 'Python', order: 3, top: true, category: 'Languages' },
@@ -55,9 +58,11 @@ export const roles: Role[] = [
     place: 'Remote, UT',
     title: 'Founding Engineer',
     company: 'Build Hub',
-    blurb:
-      'Weighed the language and technology trade-offs from a blank page, then built the initial ' +
-      'models, system, and database design and engineered the first implementation of the API.',
+    blurb: [
+      'Weighed the language and technology trade-offs from a blank page.',
+      'Built the initial models, system, and database design.',
+      'Engineered the first implementation of the API.',
+    ],
     skills: [
       { text: 'API Design', order: 32, top: false },
       { text: 'Database Design', order: 33, top: false },
@@ -68,16 +73,19 @@ export const roles: Role[] = [
     place: 'Pleasant Grove, UT',
     title: 'Senior Software Engineer',
     company: 'Loveland Innovations',
-    blurb:
-      'Implemented and launched IMGING Inspect in Java, Angular, and PostgreSQL — it reduced ' +
-      'customer churn and opened new insurance sales revenue. Rewrote onboarding and developer ' +
-      'docs, mentored junior engineers, and led the move from waterfall to agile, doubling ' +
-      'release cadence.',
+    blurb: [
+      'Reduced customer churn, and increased revenue by launching IMGING Inspect as a new product.',
+      'Doubled the release cadence and improved communication between technical and non-technical stakeholders by leading a change from waterfall to an agile development process.',
+    ],
     skills: [
-      { text: 'Java', order: 1, top: true, category: 'Languages' },
+      { text: 'TypeScript', order: 1, top: true, category: 'Languages' },
       { text: 'Angular', order: 12, top: true, category: 'Frameworks' },
-      { text: 'PostgreSQL', order: 20, top: true },
+      { text: 'Java', order: 1, top: true, category: 'Languages' },
+      { text: 'Spring Boot', order: 1, top: true, category: 'Frameworks' },
       { text: 'Mentoring', order: 34, top: false },
+      { text: 'Onboarding', order: 34, top: false },
+      { text: 'Project Lead', order: 34, top: false },
+      { text: 'PostgreSQL', order: 20, top: true },
     ],
   },
   {
@@ -85,16 +93,22 @@ export const roles: Role[] = [
     place: 'Provo, UT',
     title: 'Software Engineer',
     company: 'Alarm.com',
-    blurb:
-      'Took REST API work from idea to deployment in PHP and MySQL. Built an extendable ' +
-      'integration between SecurityTrax and any number of consumer financing systems, opening ' +
-      'new revenue streams. Ran technical interviews and rebuilt the engineer onboarding ' +
-      'program — 50% more productivity for new hires in their first six months.',
+    blurb: [
+      'Took REST API work from idea to deployment in PHP and MySQL.',
+      'Opened new revenue streams, by designing and implementing an extendable integration between SecurityTrax and any number of consumer financing systems',
+      'Boosted new engineers productivity by 50% by restructuring our onboarding process.',
+    ],
     skills: [
       { text: 'PHP', order: 6, top: true, category: 'Languages' },
-      { text: 'MySQL', order: 21, top: false },
+      { text: 'PHP Unit', order: 6, top: false, category: 'Languages' },
       { text: 'API Design', order: 32, top: false },
+      { text: 'Project Lead', order: 32, top: false },
+      { text: 'Team Lead', order: 32, top: false },
+      { text: 'Test First Development', order: 35, top: false },
+      { text: 'Conducted Technical Interviews', order: 35, top: false },
+      { text: 'Mentoring', order: 35, top: false },
       { text: 'Onboarding', order: 35, top: false },
+      { text: 'MySQL', order: 21, top: false },
     ],
   },
   {
@@ -102,19 +116,20 @@ export const roles: Role[] = [
     place: 'Provo, UT',
     title: 'Software Engineer',
     company: 'InsideSales.com',
-    blurb:
-      'Chosen to help spearhead a new team creating a sales gamification platform. ' +
-      'Incorporated the Jest testing library into our process and implemented test driven development.',
+    blurb: [
+      'Chosen to help spearhead a new team creating a sales gamification platform.',
+      'Incorporated the Jest testing library into our process and implemented test first development.',
+    ],
     skills: [
       { text: 'React', order: 11, top: true, category: 'Frameworks' },
       { text: 'Redux', order: 13, top: false, category: 'Frameworks' },
       { text: 'JavaScript', order: 13, top: false, category: 'Frameworks' },
       { text: 'Integrations', order: 36, top: false },
-      { text: 'TDD', order: 36, top: false },
-      { text: 'Go', order: 5, top: true, category: 'Languages' },
+      { text: 'Test First Development', order: 36, top: false },
+      { text: 'Go', order: 5, top: false, category: 'Languages' },
       { text: 'Gorm', order: 10, top: false},
-      { text: 'NoSQL', order: 10, top: true},
-      { text: 'MongoDB', order: 10, top: true},
+      { text: 'NoSQL', order: 10, top: false},
+      { text: 'MongoDB', order: 10, top: false},
     ],
   },
   {
@@ -122,17 +137,18 @@ export const roles: Role[] = [
     place: 'Orem, UT',
     title: 'Software Engineer',
     company: 'Fishbowl',
-    blurb:
-      'Cut my teeth Maintaining and adding functionality to the Fishbowl Commerce system in Java Spring and Angular. ' +
-      'I worked with a great team and they supported me as I built integrations with Shopify, eBay, and more.',
+    blurb: [
+      'Cut my teeth maintaining and adding features to Fishbowl Commerce using Java Spring and Angular.',
+      'Learned and worked with a great team as I built integrations with Shopify, eBay, and more.',
+    ],
     skills: [
       { text: 'Angular', order: 12, top: true, category: 'Frameworks' },
       { text: 'JavaScript', order: 1, top: true, category: 'Languages' },
-      { text: 'Spring Boot', order: 10, top: true, category: 'Frameworks' },
-      { text: 'Integrations', order: 10, top: false},
       { text: 'Java', order: 1, top: true, category: 'Languages' },
-      { text: 'Hibernate', order: 10, top: false},
-      { text: 'MySQL', order: 10, top: true},
+      { text: 'Spring Boot', order: 10, top: true, category: 'Frameworks' },
+      { text: 'Integrations', order: 10, top: false },
+      { text: 'Hibernate', order: 10, top: false },
+      { text: 'MySQL', order: 10, top: true },
     ],
   },
   {
@@ -140,15 +156,16 @@ export const roles: Role[] = [
     place: 'Orem, UT',
     title: 'Software Engineering Student',
     company: 'Utah Valley University',
-    blurb:
-      'Fell in love with programming and studied hard. ' +
-        'My capstone project was creating a real waste management system for a lodge in Southern Utah. ' +
-        'I graduated with a Bachelor of Science in Software Engineering. ',
+    blurb: [
+      'Discovered programming and started blazing my own trail.',
+      'Built my capstone project, a real waste management system for a lodge in Southern Utah.',
+      'Graduated with a Bachelor of Science in Software Engineering.',
+    ],
     skills: [
-      { text: 'JavaScript', order: 1, top: true, category: 'Languages' },
-      { text: 'Mithril', order: 10, top: true, category: 'Frameworks' },
-      { text: 'Node.js', order: 10, top: true, category: 'Frameworks' },
-      { text: 'MySQL', order: 10, top: true},
+      { text: 'JavaScript', order: 1, top: false, category: 'Languages' },
+      { text: 'Mithril', order: 10, top: false, category: 'Frameworks' },
+      { text: 'Node.js', order: 10, top: false, category: 'Frameworks' },
+      { text: 'MySQL', order: 10, top: false },
     ],
   },
 ];

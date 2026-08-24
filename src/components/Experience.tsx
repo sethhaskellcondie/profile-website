@@ -183,7 +183,13 @@ function TimelineRow({ role, index, theme, here, onSelect, register }: RowProps)
       <div className="timeline__body">
         <div className="timeline__title">{role.title}</div>
         <div className="timeline__company">{role.company}</div>
-        <p className="timeline__blurb">{role.blurb}</p>
+        <ul className="timeline__blurb">
+          {role.blurb.map((point) => (
+            <li key={point} className="timeline__point">
+              {point}
+            </li>
+          ))}
+        </ul>
         <div className="timeline__chips">
           {role.skills.map((skill) => (
             <SkillChip key={skill.text} skill={skill} small />
