@@ -1,4 +1,5 @@
 import { projects, type Project } from '../data/projects';
+import { site } from '../data/site';
 import type { ThemeId } from '../data/themes';
 import { SkillChip } from './SkillChip';
 import { useSkillHighlight } from './SkillHighlight';
@@ -10,6 +11,8 @@ export function Projects({ theme }: { theme: ThemeId }) {
     <section id="projects" className="section">
       <div className="card card--wide projects">
         <h2 className="section-label">Projects</h2>
+
+        <p className="projects__intro">{site.projectsIntro}</p>
 
         <div className="projects__grid">
           {projects.map((project) => (

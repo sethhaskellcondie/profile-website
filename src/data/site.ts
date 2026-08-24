@@ -29,6 +29,10 @@ export const site = {
         "I hope that this site communicates my experience creating software and how it can be valuable for your projects.",
     footnote: 'Seth Condie - Trailblazer',
   },
+  // Short lead-in above the Projects grid.
+  projectsIntro:
+    "The proof is in the projects. Software engineering has always been a discipline in problem solving to me. " +
+    "I've included two of my projects that illustrate my problem solving skills and my technical implementation.",
   contact: {
     heading: "Let's talk shop.",
     sub: "I'm happy to walk through any of this — or just trade retro game recommendations.",

@@ -12,22 +12,23 @@ export interface Project {
   blurb: string;
   tags: Skill[];
   links: ProjectLink[];
-  /** The one project the card leads with — it gets the sheen and the idle gear. */
   featured?: boolean;
 }
 
-/** Side projects. Add one object here and a card appears in the Projects grid. */
 export const projects: Project[] = [
   {
     name: 'The Game Pensieve',
-    kind: 'Long-running side project',
+    kind: 'Full stack SaaS solution',
     featured: true,
     blurb:
-      'A pensieve for a video game collection — a Spring Boot API for cataloging games, ' +
-      'consoles, and the custom details a collector actually cares about. Java 25 and ' +
-      'PostgreSQL, Keycloak as an OAuth 2.1 resource server, Flyway migrations, Docker + Caddy ' +
-      'in production, an MCP sidecar so AI tools can query the collection, and a Next.js front end.',
+      "Tracking a game collection has some unique problems, games can be compilations of games,  " +
+        "collectors want custom data points so they can find the right game fast. " +
+        "This project started as proof of concept at work. " +
+        "Most of our development effort was put into manually implementing custom data points and filters for our clients. " +
+        "This gave us an automation design. Afterward I kept this as my experimental sandbox to try new designs, AI agents, " +
+        "and releasing my own MCP.",
     tags: [
+      { text: 'Next.js', order: 20, top: true, category: 'Frameworks' },
       JAVA,
       TYPESCRIPT,
       SPRING_BOOT,
@@ -44,13 +45,13 @@ export const projects: Project[] = [
   },
   {
     name: 'Clocktower Town Square',
-    kind: 'Small tool, real table',
+    kind: 'Small problem, real solution',
     blurb:
-      'A digital town square for playing Blood on the Clocktower on a PC — the board game aid I ' +
-      'wanted at my own table. Angular 19, deployed on Vercel.',
+      "Blood on the Clocktower is a social deduction game usually played with 10 to 20 players. Because of this high players count " +
+      "there are often players who haven't met before. This creates some unique problems that are solved with this tool.",
     tags: [TYPESCRIPT, ANGULAR, { text: 'Vercel', order: 75, top: false }],
     links: [
-      { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' },
+      { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' }, //TODO come back and update this after the new version of the video is complete, also update this on LinkedIn
       { label: 'Live app', href: 'https://clocktower-town-square.vercel.app' },
     ],
   },

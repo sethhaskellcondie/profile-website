@@ -5,6 +5,17 @@
   padding-bottom: var(--space-8);
 }
 
+/* A short lead-in under the label, set like the story's secondary prose and run
+   the full width of the card so it reads as a banner over the grid it introduces
+   rather than a narrow column beside it. */
+.projects__intro {
+  margin: 0;
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
 .projects__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
