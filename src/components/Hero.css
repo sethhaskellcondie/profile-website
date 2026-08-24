@@ -97,13 +97,6 @@
   gap: var(--space-2);
 }
 
-.hero__cta {
-  display: flex;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-  padding-top: var(--space-1);
-}
-
 .hero__photo {
   flex: 1 1 220px;
   min-width: 180px;
@@ -134,8 +127,7 @@
   }
 
   /* Flex rows don't answer to text-align. */
-  .hero__eyebrow,
-  .hero__cta {
+  .hero__eyebrow {
     justify-content: center;
   }
 

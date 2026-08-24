@@ -1,5 +1,5 @@
 import type { Skill } from '../lib/skills';
-import { ANGULAR, DIGITAL_OCEAN, JAVA, POSTGRESQL, REACT, SPRING_BOOT, TYPESCRIPT } from './skills';
+import {ANGULAR, DIGITAL_OCEAN, JAVA, POSTGRESQL, PROJECT_LEAD, REACT, SPRING_BOOT, TYPESCRIPT} from './skills';
 
 export interface ProjectLink {
   label: string;
@@ -32,13 +32,14 @@ export const projects: Project[] = [
       TYPESCRIPT,
       SPRING_BOOT,
       REACT,
+      PROJECT_LEAD,
       DIGITAL_OCEAN,
       { text: 'MCP', order: 73, top: true },
       POSTGRESQL,
     ],
     links: [
       { label: 'Source', href: 'https://github.com/sethhaskellcondie/the-game-pensieve-api' },
-      { label: 'Walkthrough video', href: 'https://youtu.be/7wByiXr5nDI' },
+      { label: 'Walkthrough video', href: 'https://youtu.be/7wByiXr5nDI' }, //TODO come back and update this after the new version of the video is complete, also update this on LinkedIn
     ],
   },
   {

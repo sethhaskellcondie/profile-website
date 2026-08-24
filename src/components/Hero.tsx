@@ -68,15 +68,6 @@ export function Hero({ theme, reducedMotion }: Props) {
               {showAll ? 'Show top skills' : 'Show all skills'}
             </button>
           </div>
-
-          <div className="hero__cta">
-            <a className="btn btn--primary" href="#projects">
-              See the proof
-            </a>
-            <a className="btn btn--secondary" href="#contact">
-              Contact me
-            </a>
-          </div>
         </div>
 
         <img className="hero__photo" src={photoFor(theme)} alt={site.name} />
