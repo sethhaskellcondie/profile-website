@@ -38,16 +38,17 @@ export function Contact() {
           </div>
 
           <div className="contact__actions">
-            {/* Keeps its label and its place after the reveal — the address appearing
-                is the only thing on the card that changes. */}
+            {/* Toggles the address rather than spending itself on the first click.
+                Both labels are the same length, so the button keeps its width and
+                its place — the address appearing is the only layout that changes. */}
             <button
               type="button"
               className="btn btn--primary"
               aria-expanded={email !== null}
               aria-controls="contact-email"
-              onClick={() => setEmail(`${site.email.user}@${site.email.domain}`)}
+              onClick={() => setEmail(email ? null : `${site.email.user}@${site.email.domain}`)}
             >
-              Show email
+              {email ? 'Hide email' : 'Show email'}
             </button>
             <a className="btn btn--secondary" href={site.github} target="_blank" rel="noopener">
               GitHub

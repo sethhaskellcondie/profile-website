@@ -56,9 +56,10 @@ export const projects: Project[] = [
     name: 'Clocktower Town Square',
     kind: 'Small problem, real solution',
     blurb:
-      'Blood on the Clocktower is a social deduction game usually played with 10 to 20 players. ' +
-      "Because of this high player count, there are often players who haven't met before. " +
-      'This creates some unique problems that are solved with this tool.',
+      "Blood on the Clocktower is a social deduction game usually played with 10 to 20 players. " +
+        "Because of this high player count, there are common questions that I get asked every game. " +
+        "What is that player's name? How many votes do we need? Where is the bathroom? This tool answers " +
+        "all these questions and more.",
     tags: [TYPESCRIPT, ANGULAR, { text: 'Vercel', order: 76, top: false }],
     links: [
       { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' }, //TODO come back and update this after the new version of the video is complete, also update this on LinkedIn
