@@ -16,9 +16,9 @@ const BOUNDS = { x0: -240, y0: -220, x1: 1840, y1: 1220 };
 const MAX_GEARS = 72;
 const MAX_ATTEMPTS = 14000;
 
-/** Gears may not come closer than this multiple of their combined radii, except to a parent. */
+// Gears may not come closer than this multiple of their combined radii, except to a parent.
 const CLEARANCE = 1.045;
-/** Reject a child that would spin more than this many times the root's speed. */
+// Reject a child that would spin more than this many times the root's speed.
 const MAX_SPEED = 3;
 
 export const VIEWBOX = { width: 1600, height: 1000 };
@@ -31,13 +31,13 @@ export interface HubHole {
 
 export interface Gear {
   teeth: number;
-  /** Pitch radius — where this gear's teeth meet its neighbour's. */
+  // Pitch radius — where this gear's teeth meet its neighbour's.
   rp: number;
   cx: number;
   cy: number;
-  /** Starting rotation in degrees, solved so teeth mesh with the parent. */
+  // Starting rotation in degrees, solved so teeth mesh with the parent.
   offset: number;
-  /** Turns per unit of scroll phase; negative means the opposite direction. */
+  // Turns per unit of scroll phase; negative means the opposite direction.
   speed: number;
   holes: HubHole[];
   d: string;
@@ -45,7 +45,7 @@ export interface Gear {
 
 const pitchRadius = (teeth: number) => (teeth * MODULE) / 2;
 
-/** Trapezoidal teeth around the tip radius, arcs along the root radius between them. */
+// Trapezoidal teeth around the tip radius, arcs along the root radius between them.
 export function gearPath(teeth: number, rp: number): string {
   const tip = rp * 1.085;
   const root = rp * 0.865;
@@ -71,7 +71,7 @@ export function gearPath(teeth: number, rp: number): string {
   return d + 'Z';
 }
 
-/** Big gears get lightening holes in the web, the way real ones do. */
+// Big gears get lightening holes in the web, the way real ones do.
 function hubHoles(rp: number): HubHole[] {
   if (rp <= 95) return [];
   const count = rp > 165 ? 6 : 5;

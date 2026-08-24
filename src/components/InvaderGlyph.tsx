@@ -15,15 +15,15 @@ import './InvaderGlyph.css';
 const COLUMNS = crab.width;
 const ROWS = crab.height;
 
-/** Width of a sprite as a multiple of its height, from the pixel grid. */
+// Width of a sprite as a multiple of its height, from the pixel grid.
 export const INVADER_ASPECT = COLUMNS / ROWS;
 
-/** Teeth on the gear outline a sprite stands in for — see GearGlyph. */
+// Teeth on the gear outline a sprite stands in for — see GearGlyph.
 const GLYPH_TEETH = 9;
 
 const FRAME_RUNS = crab.frames.map(spriteRuns);
 
-/** The resting pose, and the one a sprite is left on when it stops moving. */
+// The resting pose, and the one a sprite is left on when it stops moving.
 export const IDLE_FRAME = '0';
 
 /**
@@ -60,9 +60,9 @@ export function marchLikeGear(glyph: SVGSVGElement, degrees: number, duration: n
 }
 
 interface Props {
-  /** Height of the sprite; its width follows from the 11:8 pixel grid. */
+  // Height of the sprite; its width follows from the 11:8 pixel grid.
   size: string;
-  /** Back the sprite with an opaque plate, so one sitting on the timeline spine masks the rule. */
+  // Back the sprite with an opaque plate, so one sitting on the timeline spine masks the rule.
   filled?: boolean;
   className?: string;
   style?: React.CSSProperties;

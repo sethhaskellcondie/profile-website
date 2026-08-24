@@ -3,7 +3,7 @@ import { useSkillHighlight } from './SkillHighlight';
 
 interface Props {
   skill: Skill;
-  /** Smaller variant used in timeline roles and project tags. */
+  // Smaller variant used in timeline roles and project tags.
   small?: boolean;
 }
 

@@ -10,19 +10,19 @@
 
 export interface InvaderDesign {
   name: string;
-  /** Grid size in sprite pixels — the designs are deliberately not all the same. */
+  // Grid size in sprite pixels — the designs are deliberately not all the same.
   width: number;
   height: number;
   frames: readonly (readonly string[])[];
 }
 
-/** The small one. Two thin legs that swap under it. */
+// The small one. Two thin legs that swap under it.
 const SQUID = [
   ['00100100', '01111110', '11011011', '11111111', '01111110', '00100100', '01000010', '00100100'],
   ['00100100', '01111110', '11011011', '11111111', '01111110', '01000010', '10000001', '01000010'],
 ];
 
-/** The middle one — the pair the cards wear. Arms down at rest, arms up mid-step. */
+// The middle one — the pair the cards wear. Arms down at rest, arms up mid-step.
 const CRAB = [
   [
     '00100000100',
@@ -46,7 +46,7 @@ const CRAB = [
   ],
 ];
 
-/** The wide one from the bottom rows, with the heaviest tentacles. */
+// The wide one from the bottom rows, with the heaviest tentacles.
 const OCTOPUS = [
   [
     '000011110000',
@@ -76,7 +76,7 @@ function design(name: string, frames: readonly (readonly string[])[]): InvaderDe
 
 export const crab = design('crab', CRAB);
 
-/** Every design, smallest grid first. */
+// Every design, smallest grid first.
 export const invaders: InvaderDesign[] = [design('squid', SQUID), crab, design('octopus', OCTOPUS)];
 
 export interface Run {
@@ -104,7 +104,7 @@ export function spriteRuns(rows: readonly string[]): Run[] {
   return out;
 }
 
-/** The same runs as one path, for callers that want a single node per frame. */
+// The same runs as one path, for callers that want a single node per frame.
 export function spritePath(rows: readonly string[]): string {
   return spriteRuns(rows)
     .map((run) => `M${run.x} ${run.y}h${run.w}v1h-${run.w}Z`)

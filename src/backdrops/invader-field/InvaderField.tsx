@@ -3,7 +3,7 @@ import { backdropConfig } from '../config';
 import type { BackdropProps } from '../types';
 import { buildFleet, designs, frameAt, VIEWBOX } from './fleet';
 
-/** Element id for one design's one pose, as referenced from <defs>. */
+// Element id for one design's one pose, as referenced from <defs>.
 const frameId = (design: number, frame: number) => `if-${design}-${frame}`;
 
 /**

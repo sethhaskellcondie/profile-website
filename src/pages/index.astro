@@ -1,10 +1,20 @@
 ---
 import Portfolio from '../components/Portfolio';
 import { site } from '../data/site';
-import { DEFAULT_THEME, THEME_STORAGE_KEY } from '../data/themes';
+import { DEFAULT_THEME, themes, THEME_STORAGE_KEY } from '../data/themes';
 import '../styles/global.css';
 
+// The three faces the hero paints with: body copy, the display headline, and the
+// mono eyebrow and chips. Imported for their hashed build URLs so they can be
+// preloaded — a @font-face is only discovered after the stylesheet parses, which
+// puts the fonts a full round trip behind the CSS. Pixelify Sans is deliberately
+// absent: only the arcade theme renders in it.
+import bodyFont from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
+import displayFont from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
+import monoFont from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
+
 const title = `${site.name} — ${site.title}`;
+const preloadFonts = [bodyFont, displayFont, monoFont];
 ---
 
 <!doctype html>
@@ -13,6 +23,12 @@ const title = `${site.name} — ${site.title}`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {
+      preloadFonts.map((href) => (
+        <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+      ))
+    }
     <title>{title}</title>
     <meta name="description" content={site.description} />
     <link rel="canonical" href={Astro.site} />
@@ -27,17 +43,29 @@ const title = `${site.name} — ${site.title}`;
       /* Applies the stored theme before first paint, so there is no flash of the
         default palette for visitors who picked another one. */
     }
-    <script is:inline define:vars={{ key: THEME_STORAGE_KEY, fallback: DEFAULT_THEME }}>
+    <script
+      is:inline
+      define:vars={{
+        key: THEME_STORAGE_KEY,
+        fallback: DEFAULT_THEME,
+        ids: themes.map((theme) => theme.id),
+      }}
+    >
       try {
         const saved = localStorage.getItem(key);
-        document.documentElement.dataset.theme =
-          saved === 'light' || saved === 'dark' || saved === 'arcade' ? saved : fallback;
+        document.documentElement.dataset.theme = ids.includes(saved) ? saved : fallback;
       } catch {
         document.documentElement.dataset.theme = fallback;
       }
     </script>
   </head>
   <body>
-    <Portfolio client:load />
+    {
+      /* Everything inside the island is server-rendered, so the page reads and the
+        crawler indexes without any of it. Hydration is what powers the theme
+        picker, the skill chips, and the backdrop — none of it is needed for first
+        paint, so it waits for an idle moment rather than competing with the LCP. */
+    }
+    <Portfolio client:idle />
   </body>
 </html>

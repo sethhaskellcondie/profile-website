@@ -38,7 +38,7 @@ Every chip on the page — hero, timeline, project tags — is a `Skill` object
 
 ```ts
 { text: 'Kotlin', order: 5, top: true, category: 'Languages' }
-{ text: 'Datadog', order: 73, top: false }   // category is optional
+{ text: 'Datadog', order: 77, top: false }   // category is optional
 ```
 
 | Field      | Does what                                                                           |
@@ -54,7 +54,7 @@ and imported where it's used, so the two copies can't drift apart on `top` or `c
 ```ts
 import { MICROSERVICES, POSTGRESQL } from './skills';
 
-skills: [MICROSERVICES, POSTGRESQL, { text: 'Datadog', order: 73, top: false }],
+skills: [MICROSERVICES, POSTGRESQL, { text: 'Datadog', order: 77, top: false }],
 ```
 
 A skill used in exactly one place stays inline on that role or project — there's nothing

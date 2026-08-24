@@ -20,14 +20,14 @@ import { INVADER_ASPECT, InvaderGlyph } from './InvaderGlyph';
  */
 const SPRITE_SCALE = 0.96;
 
-/** How much wider a site should expect the mark to get on the arcade theme. */
+// How much wider a site should expect the mark to get on the arcade theme.
 export const SPRITE_WIDTH_RATIO = SPRITE_SCALE * INVADER_ASPECT;
 
 interface Props {
-  /** The gear's box size, in any CSS length; the sprite is scaled off it. */
+  // The gear's box size, in any CSS length; the sprite is scaled off it.
   size: string;
   theme: ThemeId;
-  /** Gear only — the sprite has no bore to punch out. */
+  // Gear only — the sprite has no bore to punch out.
   boreRadius?: number;
   filled?: boolean;
   className?: string;

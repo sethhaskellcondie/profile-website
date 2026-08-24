@@ -1,15 +1,15 @@
-/** A single skill chip. Declared on the role or project it belongs to. */
+// A single skill chip. Declared on the role or project it belongs to.
 export interface Skill {
   text: string;
-  /** Sort position in the hero. Equal orders sit next to each other. */
+  // Sort position in the hero. Equal orders sit next to each other.
   order: number;
-  /** Lift this skill into the hero card's chip list. */
+  // Lift this skill into the hero card's chip list.
   top: boolean;
-  /** Hero grouping. Omit it and the skill lands in "More". */
+  // Hero grouping. Omit it and the skill lands in "More".
   category?: string | null;
 }
 
-/** Where top skills without a category end up. */
+// Where top skills without a category end up.
 export const MORE_CATEGORY = 'More';
 
 export interface SkillCategory {

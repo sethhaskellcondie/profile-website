@@ -18,7 +18,7 @@
 import { invaders, spritePath } from '../../lib/invaders';
 
 const SEED = 20260822;
-/** Overscanned past the viewBox, so nothing pops in at the edges when it slices. */
+// Overscanned past the viewBox, so nothing pops in at the edges when it slices.
 const BOUNDS = { x0: -200, y0: -180, x1: 1800, y1: 1180 };
 const MAX_SPRITES = 110;
 const MAX_ATTEMPTS = 20000;
@@ -30,7 +30,7 @@ const MAX_ATTEMPTS = 20000;
  */
 const CLEARANCE = 1.06;
 
-/** Viewbox units per sprite pixel. A crab at 9 is ~100 units across; at 24, ~264. */
+// Viewbox units per sprite pixel. A crab at 9 is ~100 units across; at 24, ~264.
 const SCALES = [7, 8, 9, 10, 11, 13, 15, 17, 20, 24];
 
 /**
@@ -41,29 +41,29 @@ const SCALES = [7, 8, 9, 10, 11, 13, 15, 17, 20, 24];
  */
 const PHASE_PER_STEP = [6, 9, 12, 16, 21, 27, 34, 44, 58, 76];
 
-/** Anything at least this wide is near enough to catch the light. */
+// Anything at least this wide is near enough to catch the light.
 const NEAR_SCALE = 15;
 
 export const VIEWBOX = { width: 1600, height: 1000 };
 
 export interface Sprite {
-  /** Index into `designs` — which invader this one is. */
+  // Index into `designs` — which invader this one is.
   design: number;
   cx: number;
   cy: number;
   scale: number;
-  /** Degrees this one is tumbled by. */
+  // Degrees this one is tumbled by.
   angle: number;
-  /** Bounding radius, so neighbours can be kept off it whatever the angle. */
+  // Bounding radius, so neighbours can be kept off it whatever the angle.
   radius: number;
   phasePerStep: number;
-  /** Phase this one counts from: staggers both which pose it rests in and when it flips. */
+  // Phase this one counts from: staggers both which pose it rests in and when it flips.
   phaseOffset: number;
-  /** Reads as nearer, and takes the lighter tone for it. */
+  // Reads as nearer, and takes the lighter tone for it.
   near: boolean;
 }
 
-/** Every design's every frame, pre-cut to path data and indexed [design][frame]. */
+// Every design's every frame, pre-cut to path data and indexed [design][frame].
 export const designs = invaders.map((design) => ({
   ...design,
   paths: design.frames.map(spritePath),
@@ -117,7 +117,7 @@ export function buildFleet(): Sprite[] {
   return fleet;
 }
 
-/** Which pose a sprite is holding at this much scroll phase. */
+// Which pose a sprite is holding at this much scroll phase.
 export function frameAt(sprite: Sprite, phase: number): number {
   // & 1 rather than % 2: phase runs negative as the page scrolls down, and parity
   // has to keep alternating through zero rather than fold back on itself.

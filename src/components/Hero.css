@@ -106,6 +106,11 @@
      nothing: .hero__body grows into the free space first, leaving none to split. */
   margin-inline: auto;
   width: 100%;
+  /* The img carries width/height attributes so the box is right without the
+     stylesheet. They arrive as presentational hints, though, and a definite height
+     would beat the ratio below and stretch the photo — height: auto hands the
+     sizing back to aspect-ratio. */
+  height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 20%;

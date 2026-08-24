@@ -28,7 +28,7 @@ export interface Role {
   place: string;
   title: string;
   company: string;
-  /** One string per bullet. The timeline renders them as a list, in order. */
+  // One string per bullet. The timeline renders them as a list, in order.
   blurb: string[];
   skills: Skill[];
 }
@@ -48,12 +48,12 @@ export const roles: Role[] = [
     blurb: [
       'Reduced customer churn by implementing a new UI for the entire project.',
       'Improved confidence in future releases by introducing Playwright end-to-end tests.',
-      'Increased revenue by implementing AI driven features like custom report generation.',
+      'Increased revenue by implementing AI-driven features like custom report generation.',
     ],
     skills: [
       JAVASCRIPT,
       PHP,
-      { text: 'Playwright', order: 26, top: false, category: 'Frameworks' },
+      { text: 'Playwright', order: 27, top: false, category: 'Frameworks' },
       MONOLITH,
       DIGITAL_OCEAN,
       AWS,
@@ -71,18 +71,18 @@ export const roles: Role[] = [
     title: 'Senior Software Engineer',
     company: 'Canopy',
     blurb: [
-      'Increased revenue by co-implementing AI driven features like auto filling forms and questionnaire generation. (Increased ARR by 150k in the first 30 days of release)',
+      'Increased revenue by co-implementing AI-driven features like auto-filling forms and questionnaire generation. (Increased ARR by 150k in the first 30 days of release)',
       'Reduced costs by building microservices that could scale traffic up and down depending on our busy season.',
-      'Reduced feature lead time, by incorporating AI tooling into my daily workflow.',
+      'Reduced feature lead time by incorporating AI tooling into my daily workflow.',
     ],
     skills: [
       { text: 'Kotlin', order: 5, top: true, category: 'Languages' },
       { text: 'Python', order: 7, top: false, category: 'Languages' },
-      { text: 'Kotest', order: 28, top: false, category: 'Frameworks' },
+      { text: 'Kotest', order: 29, top: false, category: 'Frameworks' },
       AI_FEATURE_DEVELOPMENT,
       MICROSERVICES,
       AWS,
-      { text: 'Datadog', order: 76, top: false },
+      { text: 'Datadog', order: 77, top: false },
       CLAUDE_CODE,
       POSTGRESQL,
     ],
@@ -94,15 +94,15 @@ export const roles: Role[] = [
     company: 'Build Hub',
     blurb: [
       'Blazed the trail by designing the initial objects, models, and database tables.',
-      'Reported milestone progress, and closely communicated with clients and stakeholders.',
-      'Decreased feature lead time by implementing test first development on the system from the start.',
+      'Reported milestone progress, and communicated closely with clients and stakeholders.',
+      'Decreased feature lead time by implementing test-first development on the system from the start.',
     ],
     skills: [
       TYPESCRIPT,
       ANGULAR,
       PHP,
       PHP_UNIT,
-      { text: 'Laravel', order: 21, top: true, category: 'Frameworks' },
+      { text: 'Laravel', order: 22, top: true, category: 'Frameworks' },
       TEST_FIRST_DEVELOPMENT,
       SYSTEM_DESIGN,
       MONOLITH,
@@ -116,14 +116,14 @@ export const roles: Role[] = [
     title: 'Senior Software Engineer',
     company: 'Loveland Innovations',
     blurb: [
-      'Reduced customer churn, and increased revenue by launching IMGING Inspect as a new product.',
-      'Doubled the release cadence and improved communication between technical and non-technical stakeholders by leading a change in process from waterfall to an agile.',
+      'Reduced customer churn and increased revenue by launching IMGING Inspect as a new product.',
+      'Doubled the release cadence and improved communication between technical and non-technical stakeholders by leading a change in process from waterfall to agile.',
     ],
     skills: [
       TYPESCRIPT,
       ANGULAR,
       JAVA,
-      { text: 'Junit', order: 27, top: false, category: 'Frameworks' },
+      { text: 'Junit', order: 28, top: false, category: 'Frameworks' },
       SPRING_BOOT,
       MICROSERVICES,
       MENTORING,
@@ -138,9 +138,9 @@ export const roles: Role[] = [
     title: 'Software Engineer',
     company: 'Alarm.com',
     blurb: [
-      'Improved revenue by maintaining and enhancing a robust REST API, that was used in house but also sold to 3rd party partners.',
-      'Opened new revenue streams, by designing and implementing an extendable integration between SecurityTrax and any number of consumer financing systems.',
-      'Boosted new engineers productivity by 50% by restructuring our on boarding process.',
+      'Improved revenue by maintaining and enhancing a robust REST API that was used in house but also sold to third-party partners.',
+      'Opened new revenue streams by designing and implementing an extendable integration between SecurityTrax and any number of consumer financing systems.',
+      'Boosted new engineers’ productivity by 50% by restructuring our onboarding process.',
     ],
     skills: [
       PHP,
@@ -162,11 +162,11 @@ export const roles: Role[] = [
     company: 'InsideSales.com',
     blurb: [
       'Chosen to help spearhead a new team creating a sales gamification platform.',
-      'Incorporated the Jest testing library into our process and implemented test first development.',
+      'Incorporated the Jest testing library into our process and implemented test-first development.',
     ],
     skills: [
       REACT,
-      { text: 'Redux', order: 25, top: false, category: 'Frameworks' },
+      { text: 'Redux', order: 26, top: false, category: 'Frameworks' },
       JAVASCRIPT,
       MICROSERVICES,
       INTEGRATIONS,
@@ -207,7 +207,7 @@ export const roles: Role[] = [
       'Built my capstone project, a real waste management system for a lodge in Southern Utah.',
       'Graduated with a Bachelor of Science in Software Engineering.',
     ],
-    skills: [JAVASCRIPT, { text: 'Node.js', order: 23, top: false, category: 'Frameworks' }, MYSQL],
+    skills: [JAVASCRIPT, { text: 'Node.js', order: 24, top: false, category: 'Frameworks' }, MYSQL],
   },
 ];
 

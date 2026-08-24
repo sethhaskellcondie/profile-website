@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { projects } from '../data/projects';
 import { roles } from '../data/roles';
 import { site } from '../data/site';
-import { photoFor, type ThemeId } from '../data/themes';
+import { photoFor, PHOTO_HEIGHT, PHOTO_WIDTH, type ThemeId } from '../data/themes';
 import { skillCategories } from '../lib/skills';
 import { RotatingWord } from './RotatingWord';
 import { SkillChip } from './SkillChip';
@@ -70,7 +70,17 @@ export function Hero({ theme, reducedMotion }: Props) {
           </div>
         </div>
 
-        <img className="hero__photo" src={photoFor(theme)} alt={site.name} />
+        {/* The page's LCP element, and the browser only finds it after the island
+            hydrates — fetchPriority pulls it forward. The intrinsic size matches the
+            4:5 box .hero__photo reserves, so a failed stylesheet still lays out. */}
+        <img
+          className="hero__photo"
+          src={photoFor(theme)}
+          alt={site.name}
+          width={PHOTO_WIDTH}
+          height={PHOTO_HEIGHT}
+          fetchPriority="high"
+        />
       </div>
     </section>
   );

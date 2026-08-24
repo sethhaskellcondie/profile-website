@@ -21,7 +21,7 @@ const ACCENT: Ramp = {
   dim: 'var(--gear-accent-dim)',
 };
 
-/** Highlight, a long flat mid-tone, then the far edge rolling into shadow. */
+// Highlight, a long flat mid-tone, then the far edge rolling into shadow.
 const STOPS: [number, keyof Ramp][] = [
   [0, 'lit'],
   [0.42, 'mid'],
@@ -39,7 +39,7 @@ function plate(id: string, colors: Ramp) {
   );
 }
 
-/** The paint for a gear body — accent gears take the same ramp, tinted. */
+// The paint for a gear body — accent gears take the same ramp, tinted.
 export function bodyFill(accent: boolean): string {
   return accent ? 'url(#gf-plated-accent)' : 'url(#gf-plated)';
 }

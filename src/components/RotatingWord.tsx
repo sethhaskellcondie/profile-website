@@ -8,8 +8,8 @@ const INTERVAL = 3000;
 const OUT_DURATION = 300;
 const IN_DURATION = 460;
 const EASE = 'cubic-bezier(0.33, 0, 0.15, 1)';
-/** Degrees the inline glyph turns on each word swap, and how long the turn takes.
-    The sprite marches over the same window — see marchLikeGear. */
+// Degrees the inline glyph turns on each word swap, and how long the turn takes.
+// The sprite marches over the same window — see marchLikeGear.
 const GLYPH_TURN = -120;
 const GLYPH_DURATION = 760;
 

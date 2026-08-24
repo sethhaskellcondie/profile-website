@@ -34,28 +34,24 @@ export const TYPESCRIPT: Skill = { text: 'TypeScript', order: 2, top: true, cate
 export const JAVA: Skill = { text: 'Java', order: 3, top: true, category: 'Languages' };
 export const PHP: Skill = { text: 'PHP', order: 4, top: true, category: 'Languages' };
 // Inline: Kotlin 5
-export const AI_FEATURE_DEVELOPMENT: Skill = {
-  text: 'AI Feature Development',
-  order: 6,
-  top: true,
-  category: 'Languages',
-};
+// 6 is free — it sits exactly on the band's top/non-top boundary, so a new top
+// language slots in there without disturbing anything.
 // Inline: Python 7, Go 8
 
 // Frameworks — 20–39
 export const REACT: Skill = { text: 'React', order: 20, top: true, category: 'Frameworks' };
-// Inline: Laravel 21
+// Inline: Next.js 21, Laravel 22
 export const SPRING_BOOT: Skill = {
   text: 'Spring Boot',
-  order: 22,
+  order: 23,
   top: false,
   category: 'Frameworks',
 };
-// Inline: Node.js 23
-export const ANGULAR: Skill = { text: 'Angular', order: 24, top: false, category: 'Frameworks' };
+// Inline: Node.js 24
+export const ANGULAR: Skill = { text: 'Angular', order: 25, top: false, category: 'Frameworks' };
 // Testing libraries sit at the tail of the band, with the frameworks they test against.
-// Inline: Redux 25, Playwright 26, Junit 27, Kotest 28
-export const PHP_UNIT: Skill = { text: 'PHP Unit', order: 29, top: false, category: 'Frameworks' };
+// Inline: Redux 26, Playwright 27, Junit 28, Kotest 29
+export const PHP_UNIT: Skill = { text: 'PHP Unit', order: 30, top: false, category: 'Frameworks' };
 
 // Data — 40–49
 export const MYSQL: Skill = { text: 'MySQL', order: 40, top: true, category: 'Data' };
@@ -100,13 +96,20 @@ export const PROJECT_LEAD: Skill = {
 // Inline: Team Lead 62, Conducted Technical Interviews 63
 
 // More — 70+
-export const AWS: Skill = { text: 'AWS', order: 70, top: true };
-export const CLAUDE_CODE: Skill = { text: 'Claude Code', order: 71, top: true };
-export const TEST_FIRST_DEVELOPMENT: Skill = {
-  text: 'Test First Development',
-  order: 72,
+// AI Feature Development leads the band: it is the newest top skill, and a new top
+// skill goes at the head of its band so the hero's "More" row opens with it.
+export const AI_FEATURE_DEVELOPMENT: Skill = {
+  text: 'AI Feature Development',
+  order: 70,
   top: true,
 };
-// Inline: MCP 73
-export const DIGITAL_OCEAN: Skill = { text: 'DigitalOcean', order: 74, top: false };
-// Inline: Vercel 75, Datadog 76, Keycloak 77
+export const AWS: Skill = { text: 'AWS', order: 71, top: true };
+export const CLAUDE_CODE: Skill = { text: 'Claude Code', order: 72, top: true };
+export const TEST_FIRST_DEVELOPMENT: Skill = {
+  text: 'Test First Development',
+  order: 73,
+  top: true,
+};
+// Inline: MCP 74
+export const DIGITAL_OCEAN: Skill = { text: 'DigitalOcean', order: 75, top: false };
+// Inline: Vercel 76, Datadog 77

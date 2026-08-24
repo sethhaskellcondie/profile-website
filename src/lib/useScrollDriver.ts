@@ -1,23 +1,29 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-/** How far a pixel of scroll turns the field, in degrees. */
-const DEFAULT_SPIN_SPEED = 0.32;
-/** Per-frame easing toward the scroll target — lower is smoother and laggier. */
+// Per-frame easing toward the scroll target — lower is smoother and laggier.
 const LERP = 0.11;
-/** Below this, the field has effectively caught up; stop writing until scroll moves. */
+// Below this, the field has effectively caught up: land on the target and sleep.
 const SETTLED = 0.002;
 
 type FrameCallback = (phase: number) => void;
 
 /**
  * The single animation clock for the page: one scroll listener, one rAF loop, one
- * eased phase value that every backdrop subscribes to. Sleeps when the phase has
- * settled and when the tab is hidden, and never starts while `paused`.
+ * eased phase value that every backdrop subscribes to. The loop really does stop —
+ * once the phase catches up to the scroll target the frame is not rescheduled, and
+ * the next scroll event starts it again. A hidden tab stops it too, and it never
+ * starts at all while `paused`.
+ *
+ * `spinSpeed` has no default on purpose: backdrops/config.ts is the one place that
+ * number is allowed to live, and the caller passes it from there.
  */
 export function useScrollDriver({
-  spinSpeed = DEFAULT_SPIN_SPEED,
+  spinSpeed,
   paused = false,
-}: { spinSpeed?: number; paused?: boolean } = {}) {
+}: {
+  spinSpeed: number;
+  paused?: boolean;
+}) {
   const subscribers = useRef(new Set<FrameCallback>());
   const phase = useRef(0);
   const target = useRef(0);
@@ -35,32 +41,47 @@ export function useScrollDriver({
   useEffect(() => {
     if (paused) return;
 
-    const onScroll = () => {
-      target.current = -(window.scrollY || document.documentElement.scrollTop || 0) * spinSpeed;
-    };
-    onScroll();
-
     let frame = 0;
+
+    const draw = () => subscribers.current.forEach((cb) => cb(phase.current));
+
     const tick = () => {
-      frame = requestAnimationFrame(tick);
       const diff = target.current - phase.current;
-      if (Math.abs(diff) < SETTLED) return;
+      if (Math.abs(diff) < SETTLED) {
+        // Caught up. Land exactly on the target so the field doesn't rest a
+        // fraction of a degree off, draw that last frame, and leave `frame` at 0
+        // so nothing is scheduled until scroll wakes us.
+        if (phase.current !== target.current) {
+          phase.current = target.current;
+          draw();
+        }
+        frame = 0;
+        return;
+      }
       phase.current += diff * LERP;
-      subscribers.current.forEach((cb) => cb(phase.current));
+      draw();
+      frame = requestAnimationFrame(tick);
     };
 
     const start = () => {
-      if (!frame) frame = requestAnimationFrame(tick);
+      if (!frame && !document.hidden) frame = requestAnimationFrame(tick);
     };
     const stop = () => {
-      cancelAnimationFrame(frame);
+      if (frame) cancelAnimationFrame(frame);
       frame = 0;
+    };
+
+    const onScroll = () => {
+      target.current = -(window.scrollY || document.documentElement.scrollTop || 0) * spinSpeed;
+      start();
     };
     const onVisibility = () => (document.hidden ? stop() : start());
 
     window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('visibilitychange', onVisibility);
-    start();
+    // Pick up the scroll position we loaded at — a reload partway down the page
+    // should start with the field already turned to match.
+    onScroll();
 
     return () => {
       window.removeEventListener('scroll', onScroll);

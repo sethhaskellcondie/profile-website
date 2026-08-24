@@ -14,7 +14,7 @@ import './Backdrop.css';
  */
 interface Props {
   theme: ThemeId;
-  /** The reveal toggle is on: the field is the page, so it comes up to full strength. */
+  // The reveal toggle is on: the field is the page, so it comes up to full strength.
   revealed?: boolean;
 }
 

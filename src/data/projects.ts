@@ -1,5 +1,14 @@
 import type { Skill } from '../lib/skills';
-import {ANGULAR, DIGITAL_OCEAN, JAVA, POSTGRESQL, PROJECT_LEAD, REACT, SPRING_BOOT, TYPESCRIPT} from './skills';
+import {
+  ANGULAR,
+  DIGITAL_OCEAN,
+  JAVA,
+  POSTGRESQL,
+  PROJECT_LEAD,
+  REACT,
+  SPRING_BOOT,
+  TYPESCRIPT,
+} from './skills';
 
 export interface ProjectLink {
   label: string;
@@ -21,21 +30,21 @@ export const projects: Project[] = [
     kind: 'Full stack SaaS solution',
     featured: true,
     blurb:
-      "Tracking a game collection has some unique problems, games can be compilations of games,  " +
-        "collectors want custom data points so they can find the right game fast. " +
-        "This project started as proof of concept at work. " +
-        "Most of our development effort was put into manually implementing custom data points and filters for our clients. " +
-        "This gave us an automation design. Afterward I kept this as my experimental sandbox to try new designs, AI agents, " +
-        "and releasing my own MCP.",
+      'Tracking a game collection has some unique problems: games can be compilations of other ' +
+      'games, and collectors want custom data points so they can find the right game fast. ' +
+      'This project started as a proof of concept at work. ' +
+      'Most of our development effort was put into manually implementing custom data points and ' +
+      'filters for our clients. This gave us an automation design. Afterward I kept this as my ' +
+      'experimental sandbox to try new designs and AI agents, and to release my own MCP.',
     tags: [
-      { text: 'Next.js', order: 20, top: true, category: 'Frameworks' },
+      { text: 'Next.js', order: 21, top: true, category: 'Frameworks' },
       JAVA,
       TYPESCRIPT,
       SPRING_BOOT,
       REACT,
       PROJECT_LEAD,
       DIGITAL_OCEAN,
-      { text: 'MCP', order: 73, top: true },
+      { text: 'MCP', order: 74, top: true },
       POSTGRESQL,
     ],
     links: [
@@ -47,9 +56,10 @@ export const projects: Project[] = [
     name: 'Clocktower Town Square',
     kind: 'Small problem, real solution',
     blurb:
-      "Blood on the Clocktower is a social deduction game usually played with 10 to 20 players. Because of this high players count " +
-      "there are often players who haven't met before. This creates some unique problems that are solved with this tool.",
-    tags: [TYPESCRIPT, ANGULAR, { text: 'Vercel', order: 75, top: false }],
+      'Blood on the Clocktower is a social deduction game usually played with 10 to 20 players. ' +
+      "Because of this high player count, there are often players who haven't met before. " +
+      'This creates some unique problems that are solved with this tool.',
+    tags: [TYPESCRIPT, ANGULAR, { text: 'Vercel', order: 76, top: false }],
     links: [
       { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' }, //TODO come back and update this after the new version of the video is complete, also update this on LinkedIn
       { label: 'Live app', href: 'https://clocktower-town-square.vercel.app' },

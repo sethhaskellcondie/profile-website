@@ -7,11 +7,11 @@ import { ThemeGlyph } from './ThemeGlyph';
 import { useSkillHighlight } from './SkillHighlight';
 import './Experience.css';
 
-/** Degrees the footer glyphs turn per step, and how long they take over it. The
-    sprites march over the same window instead — see marchLikeGear. */
+// Degrees the footer glyphs turn per step, and how long they take over it. The
+// sprites march over the same window instead — see marchLikeGear.
 const GLYPH_TURN = 120;
 const GLYPH_DURATION = 700;
-/** Breathing room above the anchor the track scrolls to. */
+// Breathing room above the anchor the track scrolls to.
 const SCROLL_OFFSET = 8;
 const LAST = roles.length - 1;
 
@@ -30,7 +30,7 @@ interface Props {
 export function Experience({ theme, reducedMotion }: Props) {
   const [index, setIndex] = useState(0);
   const viewport = useRef<HTMLDivElement>(null);
-  /** One scroll anchor per role, indexed to match `roles`. */
+  // One scroll anchor per role, indexed to match `roles`.
   const anchors = useRef<(HTMLDivElement | null)[]>([]);
   const backGlyph = useRef<SVGSVGElement>(null);
   const nextGlyph = useRef<SVGSVGElement>(null);
@@ -148,7 +148,7 @@ interface RowProps {
   role: Role;
   index: number;
   theme: ThemeId;
-  /** The role the window is parked on — the one wearing the node ring. */
+  // The role the window is parked on — the one wearing the node ring.
   here: boolean;
   onSelect: (index: number) => void;
   register: (index: number, el: HTMLDivElement | null) => void;
