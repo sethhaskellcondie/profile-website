@@ -17,8 +17,25 @@ export interface Role {
  */
 export const roles: Role[] = [
   {
+    period: 'May 2026 — Present',
+    place: 'Provo, UT',
+    title: 'Senior Software Engineer',
+    company: 'Quilt',
+    blurb:
+      'Owned development and scaling of our API microservice systems in Kotlin and Python. ' +
+      'Co-implemented AI features — generated questionnaires, auto-filled client forms — that ' +
+      'added $150k ARR in the first 30 days after release. Also brought AI tooling (Claude, ' +
+      'Copilot) into my daily workflow.',
+    skills: [
+      { text: 'Kotlin', order: 2, top: true, category: 'Languages' },
+      { text: 'Python', order: 3, top: true, category: 'Languages' },
+      { text: 'Microservices', order: 30, top: false },
+      { text: 'AI', order: 31, top: false },
+    ],
+  },
+  {
     period: 'Apr 2025 — Mar 2026',
-    place: 'Remote · UT',
+    place: 'Remote, UT',
     title: 'Senior Software Engineer',
     company: 'Canopy',
     blurb:
@@ -35,7 +52,7 @@ export const roles: Role[] = [
   },
   {
     period: 'Sept 2023 — Mar 2025',
-    place: 'Remote · UT',
+    place: 'Remote, UT',
     title: 'Founding Engineer',
     company: 'Build Hub',
     blurb:
@@ -86,13 +103,18 @@ export const roles: Role[] = [
     title: 'Software Engineer',
     company: 'InsideSales.com',
     blurb:
-      'Chosen to help spearhead a new team remaking the Powerstandings product in Go, React, and ' +
-      'Redux, with integrations into Salesforce and Playbooks.',
+      'Chosen to help spearhead a new team creating a sales gamification platform. ' +
+      'Incorporated the Jest testing library into our process and implemented test driven development.',
     skills: [
-      { text: 'Go', order: 5, top: true, category: 'Languages' },
       { text: 'React', order: 11, top: true, category: 'Frameworks' },
-      { text: 'Redux', order: 13, top: false },
-      { text: 'Salesforce', order: 36, top: false },
+      { text: 'Redux', order: 13, top: false, category: 'Frameworks' },
+      { text: 'JavaScript', order: 13, top: false, category: 'Frameworks' },
+      { text: 'Integrations', order: 36, top: false },
+      { text: 'TDD', order: 36, top: false },
+      { text: 'Go', order: 5, top: true, category: 'Languages' },
+      { text: 'Gorm', order: 10, top: false},
+      { text: 'NoSQL', order: 10, top: true},
+      { text: 'MongoDB', order: 10, top: true},
     ],
   },
   {
@@ -101,12 +123,32 @@ export const roles: Role[] = [
     title: 'Software Engineer',
     company: 'Fishbowl',
     blurb:
-      'Maintained and extended the Fishbowl Commerce system in Java Spring and Angular, ' +
-      'including integrations with Shopify, eBay, and others.',
+      'Cut my teeth Maintaining and adding functionality to the Fishbowl Commerce system in Java Spring and Angular. ' +
+      'I worked with a great team and they supported me as I built integrations with Shopify, eBay, and more.',
     skills: [
-      { text: 'Java', order: 1, top: true, category: 'Languages' },
-      { text: 'Spring Boot', order: 10, top: true, category: 'Frameworks' },
       { text: 'Angular', order: 12, top: true, category: 'Frameworks' },
+      { text: 'JavaScript', order: 1, top: true, category: 'Languages' },
+      { text: 'Spring Boot', order: 10, top: true, category: 'Frameworks' },
+      { text: 'Integrations', order: 10, top: false},
+      { text: 'Java', order: 1, top: true, category: 'Languages' },
+      { text: 'Hibernate', order: 10, top: false},
+      { text: 'MySQL', order: 10, top: true},
+    ],
+  },
+  {
+    period: 'Nov 2012 — May 2017',
+    place: 'Orem, UT',
+    title: 'Software Engineering Student',
+    company: 'Utah Valley University',
+    blurb:
+      'Fell in love with programming and studied hard. ' +
+        'My capstone project was creating a real waste management system for a lodge in Southern Utah. ' +
+        'I graduated with a Bachelor of Science in Software Engineering. ',
+    skills: [
+      { text: 'JavaScript', order: 1, top: true, category: 'Languages' },
+      { text: 'Mithril', order: 10, top: true, category: 'Frameworks' },
+      { text: 'Node.js', order: 10, top: true, category: 'Frameworks' },
+      { text: 'MySQL', order: 10, top: true},
     ],
   },
 ];
