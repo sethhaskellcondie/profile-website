@@ -50,6 +50,16 @@ export function Contact() {
             >
               {email ? 'Hide email' : 'Show email'}
             </button>
+            {/* Same file as the header's link. `download` saves it rather than
+                handing it to the browser's PDF viewer, which is what a visitor
+                who has read this far down the page is after. */}
+            <a
+              className="btn btn--secondary"
+              href={site.resume.href}
+              download={site.resume.filename}
+            >
+              Download résumé
+            </a>
             <a className="btn btn--secondary" href={site.github} target="_blank" rel="noopener">
               GitHub
             </a>

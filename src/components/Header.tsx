@@ -44,6 +44,34 @@ export function Header({ theme, onPick, gearsOnly, onToggleGearsOnly }: Props) {
           ))}
         </div>
 
+        {/* Sits outside .header__links so it survives the width where the anchor
+            links leave — the resume is the one thing in the header a recruiter on
+            a phone came for. Its caption is clipped rather than removed at that
+            width, so the arrow keeps its accessible name. */}
+        <a
+          className="btn-ghost header__resume"
+          href={site.resume.href}
+          download={site.resume.filename}
+        >
+          <svg
+            className="header__resume-glyph"
+            viewBox="0 0 16 16"
+            width="13"
+            height="13"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 2v8" />
+            <path d="M4.5 7 8 10.5 11.5 7" />
+            <path d="M2.5 13h11" />
+          </svg>
+          <span className="header__resume-text">Résumé</span>
+        </a>
+
         <div className="panel theme-picker" role="group" aria-label="Color theme">
           {/* Toggle buttons rather than a radio group: a radio group promises one
               tab stop and arrow keys between options, and these are three ordinary

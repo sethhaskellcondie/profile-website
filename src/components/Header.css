@@ -55,6 +55,20 @@
   color: var(--accent);
 }
 
+/* Resume download. Ghost mono like the theme picker's segments, so the right
+   half of the header reads as one set of controls rather than a link loose
+   among them. */
+.header__resume {
+  gap: var(--space-2);
+  /* .btn-ghost is styled for buttons, which are border-box; a link is not, and
+     the --tap min-height below would stack on top of its padding. */
+  box-sizing: border-box;
+}
+
+.header__resume-glyph {
+  flex: 0 0 auto;
+}
+
 /* Checkbox that empties the page down to the backdrop. Inherits .label for type. */
 .gears-toggle {
   display: inline-flex;
@@ -148,30 +162,41 @@
   background: var(--accent-hover);
 }
 
-/* Below 1120px the links are the first thing to go. The identity title and the
-   gears toggle need ~1080px of header to share one line with everything else,
-   so the links have to leave before either of them is forced to wrap. */
-@media (max-width: 1119px) {
+/* Below 1220px the links are the first thing to go. The identity title, the
+   resume link and the gears toggle need ~1180px of header to share one line with
+   everything else, so the links have to leave before any of them is forced to
+   wrap. Every width here is measured against the arcade theme: its display face
+   is the widest of the three, so a header that holds one row there holds in all
+   of them. */
+@media (max-width: 1219px) {
   .header__links {
     display: none;
   }
 }
 
-/* Next to go is the title: with the links gone the name, the picker and the
-   gears toggle still need ~780px to share a line, so the title has to leave
-   before it wraps to a second one. */
-@media (max-width: 819px) {
+/* Next to go is the title: with the links gone the name, the resume link, the
+   picker and the gears toggle still need ~880px to share a line, so the title has
+   to leave before it wraps to a second one. */
+@media (max-width: 919px) {
   .header__title {
     display: none;
   }
 }
 
 @media (max-width: 760px) {
-  .gears-toggle {
+  .gears-toggle,
+  .header__resume {
     min-height: var(--tap);
   }
 
-  .gears-toggle__text {
+  /* Down to the arrow — and to the padding an arrow needs rather than a caption.
+     The caption stays in the DOM so the link keeps its accessible name. */
+  .header__resume {
+    padding-inline: var(--space-1);
+  }
+
+  .gears-toggle__text,
+  .header__resume-text {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -183,7 +208,7 @@
 
 /* On phones the name and the three-button picker are fighting for one line.
    Tighten both rather than let either wrap; the --tap target survives. */
-@media (max-width: 480px) {
+@media (max-width: 540px) {
   .header__name {
     font-size: var(--fs-lg);
   }
@@ -194,12 +219,12 @@
   }
 }
 
-/* Below 390px the name, the picker and the toggle stop sharing a line at their
-   phone sizes, and the toggle drops to a row of its own that costs 50px of a
-   small screen. Tighten everything instead — smaller name, narrower segments,
-   closer gaps — so the header stays one row down to 320px. --tap survives: only
-   widths shrink. */
-@media (max-width: 389px) {
+/* Below 435px the name, the resume link, the picker and the toggle stop sharing
+   a line at their phone sizes, and the toggle drops to a row of its own that
+   costs 50px of a small screen. Tighten everything instead — smaller name,
+   narrower segments, closer gaps — so the header stays one row. --tap survives:
+   only widths shrink. */
+@media (max-width: 434px) {
   .header {
     gap: var(--space-2) var(--space-3);
     padding-inline: var(--space-3);
@@ -216,5 +241,38 @@
   .theme-picker .btn-ghost {
     padding-inline: 6px;
     letter-spacing: 0.04em;
+  }
+}
+
+/* The last stretch. Below 360px even the tightened row runs out of line, so the
+   padding, every gap and the two icon controls each give up a few more pixels —
+   the cheapest ones left — to keep the header one row down to 320px. Type sizes
+   are untouched here: past this point the row is out of slack that costs nothing
+   to spend. */
+@media (max-width: 359px) {
+  .header {
+    column-gap: var(--space-2);
+    padding-inline: var(--space-2);
+  }
+
+  .header__nav {
+    column-gap: var(--space-2);
+  }
+
+  .theme-picker {
+    gap: 0;
+  }
+
+  .theme-picker .btn-ghost {
+    padding-inline: 4px;
+  }
+
+  .gears-toggle {
+    gap: var(--space-1);
+  }
+
+  .header__resume {
+    padding-inline: 2px;
+    gap: var(--space-1);
   }
 }

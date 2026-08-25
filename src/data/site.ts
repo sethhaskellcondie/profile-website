@@ -17,7 +17,10 @@ export const site = {
   github: 'https://github.com/sethhaskellcondie',
   linkedin: 'https://www.linkedin.com/in/sethcondie/',
   //TODO come back with a YouTube link as well after the YouTube videos are done.
-  resume: '/resume.pdf', //TODO include a button to download the resume after I've updated it.
+  // The file is served straight out of public/, so href is its served path.
+  // `filename` renames the saved copy — "resume.pdf" in a downloads folder full
+  // of other people's resumes says nothing about whose it is.
+  resume: { href: '/resume.pdf', filename: 'Seth-Condie-Resume.pdf' },
   // Only used for SEO — the meta description and the Open Graph blurb. Not visible
   // on the site. Search engines truncate around 160 characters, so keep it under that
   // and lead with the things a recruiter would have typed into the search box.

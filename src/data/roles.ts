@@ -48,7 +48,7 @@ export const roles: Role[] = [
     blurb: [
       'Reduced customer churn by implementing a new UI for the entire project.',
       'Improved confidence in future releases by introducing Playwright end-to-end tests.',
-      'Increased revenue by implementing AI-driven features like custom report generation.',
+      'Increased revenue by implementing AI-supported features like custom report generation.',
     ],
     skills: [
       JAVASCRIPT,
@@ -71,7 +71,7 @@ export const roles: Role[] = [
     title: 'Senior Software Engineer',
     company: 'Canopy',
     blurb: [
-      'Increased revenue by co-implementing AI-driven features like auto-filling forms and questionnaire generation, increasing ARR by $150K in the first 30 days of release.',
+      'Increased revenue by co-implementing AI-supported features like auto-filling forms and questionnaire generation, increasing ARR by $150K in the first 30 days of release.',
       'Reduced costs by building microservices that could scale traffic up and down depending on our busy season.',
       'Reduced feature lead time by incorporating AI tooling into my daily workflow.',
     ],

@@ -34,8 +34,8 @@ export const projects: Project[] = [
       'games, and collectors want custom data points so they can find the right game fast. ' +
       'This project started as a proof of concept at work. ' +
       'Most of our development effort was put into manually implementing custom data points and ' +
-      'filters for our clients. This gave us an automation design. Afterward I kept this as my ' +
-      'experimental sandbox to try new designs and AI agents, and to release my own MCP.',
+      'filters for our clients. This design freed up our resources. Afterward I kept this as my ' +
+      'experimental sandbox to try new features and tech the latest being a release of my own MCP service.',
     tags: [
       { text: 'Next.js', order: 21, top: true, category: 'Frameworks' },
       JAVA,
