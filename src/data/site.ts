@@ -1,7 +1,4 @@
 // Everything about the person the site is for. Edit here, not in components.
-
-// Where the work happens. The hero eyebrow prints it; the structured data in
-// index.astro files it as a postal address for name searches.
 const location = { locality: 'Payson', region: 'UT', country: 'US' } as const;
 
 export const site = {
@@ -10,20 +7,13 @@ export const site = {
   location,
   // Hero eyebrow, one entry per point. The delimiter is included by the component.
   eyebrow: ['Senior Software Engineer', '10+ years', `${location.locality}, ${location.region}`],
-  // Kept in two halves so the address never appears whole in the served HTML or
+  // Kept in two halves, so the address never appears whole in the served HTML or
   // the JS bundle — scrapers harvest mailto: links and anything shaped like an
   // address. Contact joins the halves only when a visitor asks to see it.
   email: { user: 'sethhaskellcondie', domain: 'gmail.com' },
   github: 'https://github.com/sethhaskellcondie',
   linkedin: 'https://www.linkedin.com/in/sethcondie/',
-  //TODO come back with a YouTube link as well after the YouTube videos are done.
-  // The file is served straight out of public/, so href is its served path.
-  // `filename` renames the saved copy — "resume.pdf" in a downloads folder full
-  // of other people's resumes says nothing about whose it is.
   resume: { href: '/resume.pdf', filename: 'Seth-Condie-Resume.pdf' },
-  // Only used for SEO — the meta description and the Open Graph blurb. Not visible
-  // on the site. Search engines truncate around 160 characters, so keep it under that
-  // and lead with the things a recruiter would have typed into the search box.
   description:
     'Senior software engineer in Utah, 10+ years of Java, Kotlin, PHP, and TypeScript services — ' +
     'API and database design, and AI features that grew revenue.',
@@ -50,7 +40,6 @@ export const site = {
       'for your projects.',
     footnote: 'Seth Condie — Trailblazer',
   },
-  // Short lead-in above the Projects grid.
   projectsIntro:
     'The proof is in the projects. Software engineering has always been a discipline of problem ' +
     "solving to me. I've included two of my projects that illustrate my problem-solving skills and " +

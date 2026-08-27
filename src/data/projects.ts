@@ -49,7 +49,8 @@ export const projects: Project[] = [
     ],
     links: [
       { label: 'Source', href: 'https://github.com/sethhaskellcondie/the-game-pensieve-api' },
-      { label: 'Walkthrough video', href: 'https://youtu.be/7wByiXr5nDI' }, //TODO come back and update this after the new version of the video is complete, also update this on LinkedIn
+      { label: 'Walkthrough video', href: 'https://youtu.be/7wByiXr5nDI' },
+      { label: 'Live app', href: 'https://pensieve.sethcondie.com' },
     ],
   },
   {
@@ -62,8 +63,8 @@ export const projects: Project[] = [
         "all these questions and more.",
     tags: [TYPESCRIPT, ANGULAR, { text: 'Vercel', order: 76, top: false }],
     links: [
-      { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' }, //TODO come back and update this after the new version of the video is complete, also update this on LinkedIn
-      { label: 'Live app', href: 'https://clocktower-town-square.vercel.app' },
+      { label: 'Source', href: 'https://github.com/sethhaskellcondie/clocktower-town-square' },
+      { label: 'Live app', href: 'https://clocktower.sethcondie.com' },
     ],
   },
 ];
